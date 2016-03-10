@@ -1,1 +1,1 @@
-## #{human_app_name}
+## #{app_name}
