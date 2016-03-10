@@ -154,7 +154,6 @@ gem 'devise'
   end
   run 'bundle'
   generate 'devise:install'
-
 end
 
 # ActiveAdmin
