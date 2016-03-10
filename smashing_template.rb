@@ -148,7 +148,6 @@ end
 # Devise
 if yes?("Add Devise?")
   inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
-# Use devise for authentication
 gem 'devise'
   RUBY
   end
@@ -158,6 +157,7 @@ end
 
 # ActiveAdmin
 if yes?("Add ActiveAdmin?")
+  gsub_file 'Gemfile', /^gem\s+["']devise["'].*$/,''
   inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
 # Use activeadmin for admin interface
 gem 'activeadmin'
