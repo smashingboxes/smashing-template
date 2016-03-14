@@ -123,7 +123,7 @@ if yes?("Add Cucumber and Capybara?")
   end
 end
 
-run 'bundle'
+run 'bundle' if smashing_docs || devise || active_admin || cucumber_capybara
 generate 'docs:install' if smashing_docs
 generate 'devise:install' if devise
 generate 'active_admin:install' if active_admin
@@ -133,3 +133,4 @@ generate 'cucumber:install' if cucumber_capybara
 # GIT
 # -----------------------------
 git :init
+def run_bundle ; end
