@@ -13,6 +13,7 @@ end
 remove_file "Gemfile"
 file 'Gemfile', render_file("#{$path}/files/Gemfile")
 
+run 'bundle'
 # Rspec
 generate 'rspec:install'
 # Factory_Girl
@@ -105,7 +106,7 @@ if yes?("Add ActiveAdmin?")
   gsub_file 'Gemfile', /^gem\s+["']devise["'].*$/,''
   inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
 # Use activeadmin for admin interface
-gem 'activeadmin'
+gem 'activeadmin', '~> 1.0.0.pre2'
 gem 'devise'
   RUBY
   end
@@ -126,7 +127,7 @@ if yes?("Add Cucumber and Capybara?")
   generate 'cucumber:install'
 end
 
-run 'bundle install'
+run 'bundle update'
 
 # -----------------------------
 # GIT
