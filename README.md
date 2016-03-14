@@ -11,7 +11,8 @@ This template currently assumes:
 ## Installation
 To create a new Rails app with this template, run:
 ```
-rails new your_app_name -m smashing-template.rb --skip-bundle
+rails new your_app_name -m https://raw.github.com/smashingboxes/smashing-template/master/smashing_template.rb --skip-bundle
+
 ```
 
 ## What does it do?

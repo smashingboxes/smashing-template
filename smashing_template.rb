@@ -3,7 +3,7 @@
 
 $path = File.expand_path(File.dirname(__FILE__))
 
-def render_file(path, variables = nil)
+def render_file(path)
   file = IO.read(path)
 end
 
@@ -45,19 +45,23 @@ remove_dir "test"
 # Generate README.md
 remove_file 'README.rdoc'
 file 'README.md', render_file("#{$path}/files/README.md")
+gsub_file 'README.md', /app_name/, app_name.upcase
+
 
 # -----------------------------
 # DATABASE
 # -----------------------------
 remove_file "config/database.yml"
-file 'config/database.yml', render_file("#{$path}/files/database.yml", app_name: app_name)
+file 'config/database.yml', render_file("#{$path}/files/database.yml")
+gsub_file 'config/database.yml', /app_name/, app_name
 
 # Add files for travis and linting
 run "cp config/database.yml config/database.example.yml"
 run "cp config/secrets.yml config/secrets.example.yml"
 
 # Create travis.yml file
-file '.travis.yml', render_file("#{$path}/files/.travis.yml", app_name: app_name)
+file '.travis.yml', render_file("#{$path}/files/.travis.yml")
+gsub_file '.travis.yml', /app_name/, app_name
 
 # Create rubocop linting file
 file '.rucobop.yml', render_file("#{$path}/files/.rubocop.yml")
