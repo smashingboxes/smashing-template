@@ -65,7 +65,7 @@ file '.travis.yml', render_file("#{$path}/files/.travis.yml")
 gsub_file '.travis.yml', /app_name/, app_name
 
 # Create rubocop linting file
-file '.rucobop.yml', render_file("#{$path}/files/.rubocop.yml")
+file '.rubocop.yml', render_file("#{$path}/files/.rubocop.yml")
 
 #Ignore all secrets and database config files
 append_file '.gitignore' do <<-EOF
@@ -82,27 +82,26 @@ end
 # -----------------------------
 # SmashingDocs
 if yes?("Add SmashingDocs for API documentation?")
+  smashing_docs = true
   inject_into_file 'Gemfile', after: "group :development, :test do\n" do <<-RUBY
   # Use smashing_docs for API documentation
   gem 'smashing_docs'
   RUBY
   end
-  run 'bundle'
-  generate 'docs:install'
 end
 
 # Devise
 if yes?("Add Devise?")
+  devise = true
   inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
 gem 'devise'
   RUBY
   end
-  run 'bundle'
-  generate 'devise:install'
 end
 
 # ActiveAdmin
 if yes?("Add ActiveAdmin?")
+  active_admin = true
   gsub_file 'Gemfile', /^gem\s+["']devise["'].*$/,''
   inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
 # Use activeadmin for admin interface
@@ -110,12 +109,11 @@ gem 'activeadmin', '~> 1.0.0.pre2'
 gem 'devise'
   RUBY
   end
-  run 'bundle'
-  generate 'active_admin:install'
 end
 
 # Cucumber and Capybara
 if yes?("Add Cucumber and Capybara?")
+  cucumber_capybara = true
   inject_into_file 'Gemfile', after: "group :development, :test do\n" do <<-RUBY
   # Use cucumber-rails for automated feature tests
   gem 'cucumber-rails', :require => false
@@ -123,11 +121,13 @@ if yes?("Add Cucumber and Capybara?")
   gem 'capybara'
   RUBY
   end
-  run 'bundle'
-  generate 'cucumber:install'
 end
 
-run 'bundle update'
+run 'bundle'
+generate 'docs:install' if smashing_docs
+generate 'devise:install' if devise
+generate 'active_admin:install' if active_admin
+generate 'cucumber:install' if cucumber_capybara
 
 # -----------------------------
 # GIT
