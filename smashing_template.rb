@@ -44,7 +44,7 @@ remove_dir "test"
 
 # Generate README.md
 remove_file 'README.rdoc'
-file 'README.md', render_file("#{$path}/files/README.md", app_name: app_name)
+file 'README.md', render_file("#{$path}/files/README.md")
 
 # -----------------------------
 # DATABASE
