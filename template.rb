@@ -5,13 +5,17 @@ def render_file(path)
 end
 
 def api_only_install
+  api_only_modifications
+  api_only_gemfile
+end
+
+def api_only_modifications
   remove_dir "app/helpers"
   remove_dir "app/views"
   remove_dir "app/assets/javascripts"
   remove_dir "app/assets/stylesheets"
   gsub_file "app/controllers/application_controller.rb", /Base/, "API"
   gsub_file "app/controllers/application_controller.rb", /protect/, "# protect"
-  api_only_gemfile
 end
 
 def api_only_gemfile
@@ -39,7 +43,7 @@ def add_gem_configs
   database_cleaner_config
   shoulda_matchers_config
   code_climate_config
-  tape_install
+  tape_config
 end
 
 def bundle
@@ -72,7 +76,7 @@ def code_climate_config
   end
 end
 
-def tape_install
+def tape_config
   run 'tape installer install'
 end
 
