@@ -10,8 +10,7 @@ end
 # -----------------------------
 # API ONLY APP?
 # -----------------------------
-
-if yes?("Is this an API only app with no front-end? (y/n)")
+if yes?("Is this an API only app with no front-end or admin interface? (y/n)")
   api_only = true
   remove_dir "app/helpers"
   remove_dir "app/views"
@@ -61,7 +60,6 @@ end
 
 # Remove test folder
 remove_dir "test"
-
 # Generate README.md
 remove_file 'README.rdoc'
 file 'README.md', render_file("#{$path}/files/README.md")
@@ -98,7 +96,6 @@ end
 # -----------------------------
 # GEM ADDITIONS (OPTIONAL)
 # -----------------------------
-
 # SmashingDocs
 if yes?("Add SmashingDocs for API documentation? (y/n)")
   smashing_docs = true
@@ -110,41 +107,50 @@ if yes?("Add SmashingDocs for API documentation? (y/n)")
 end
 
 # Devise
-if yes?("Add Devise? (y/n)")
+if yes?("Add Devise or Devise_Auth (if api only app)? (y/n)")
   devise = true
-  inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
-gem 'devise'
-  RUBY
+  if api_only
+    inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
+  gem 'devise_token_auth'
+    RUBY
+    end
+  else
+    inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
+  gem 'devise'
+    RUBY
+    end
   end
 end
 
-# ActiveAdmin
-if yes?("Add ActiveAdmin? (y/n)")
-  active_admin = true
-  gsub_file 'Gemfile', /^gem\s+["']devise["'].*$/,''
-  inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
+unless api_only
+  # ActiveAdmin
+  if yes?("Add ActiveAdmin? (y/n)")
+    active_admin = true
+    gsub_file 'Gemfile', /gem 'devise'/, ""
+    inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
 # Use activeadmin for admin interface
 gem 'activeadmin', '~> 1.0.0.pre2'
 gem 'devise'
-  RUBY
+    RUBY
+    end
   end
-end
 
-# Cucumber and Capybara
-if yes?("Add Cucumber and Capybara? (y/n)")
-  cucumber_capybara = true
-  inject_into_file 'Gemfile', after: "group :development, :test do\n" do <<-RUBY
+  # Cucumber and Capybara
+  if yes?("Add Cucumber and Capybara? (y/n)")
+    cucumber_capybara = true
+    inject_into_file 'Gemfile', after: "group :development, :test do\n" do <<-RUBY
   # Use cucumber-rails for automated feature tests
   gem 'cucumber-rails', :require => false
   # Use capybara-rails to simulate how a user interacts with the app
   gem 'capybara'
-  RUBY
+    RUBY
+    end
   end
 end
 
 run 'bundle' if smashing_docs || devise || active_admin || cucumber_capybara
 generate 'docs:install' if smashing_docs
-generate 'devise:install' if devise
+generate 'devise:install' if devise && api_only == false
 generate 'active_admin:install' if active_admin
 generate 'cucumber:install' if cucumber_capybara
 
@@ -163,4 +169,4 @@ def run_bundle ; end
 # -----------------------------
 # COMPLETE
 # -----------------------------
-puts "Smashing-Template successfully created!"
+puts "\nSmashing-Template successfully created!"
