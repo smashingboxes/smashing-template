@@ -47,8 +47,8 @@ end
 
 def add_gem_configs
   bundle
-  read_configs
   rspec_config
+  read_configs
   factory_girl_config
   database_cleaner_config
   shoulda_matchers_config
