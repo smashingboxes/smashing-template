@@ -6,25 +6,43 @@ end
 
 def api_only_install
   api_only_modifications
-  api_only_gemfile
+  api_gemfile
+  devise_auth?
+  smashing_docs?
 end
 
-def api_only_modifications
-  remove_dir "app/helpers"
-  remove_dir "app/views"
-  remove_dir "app/assets/javascripts"
-  remove_dir "app/assets/stylesheets"
-  gsub_file "app/controllers/application_controller.rb", /Base/, "API"
-  gsub_file "app/controllers/application_controller.rb", /protect/, "# protect"
-end
-
-def api_only_gemfile
-  file "Gemfile", render_file("#{$path}/files/Gemfile_api_only")
+def api_with_admin_install
+  api_gemfile
+  remove_turbolinks
+  devise_auth?
+  active_admin?
+  cucumber_capybara?
+  smashing_docs?
 end
 
 def integrated_app_install
   integrated_app_gemfile
   remove_turbolinks
+  devise?
+  active_admin?
+  cucumber_capybara?
+end
+
+def api_only_modifications
+  api_remove_files
+  gsub_file "app/controllers/application_controller.rb", /Base/, "API"
+  gsub_file "app/controllers/application_controller.rb", /protect/, "# protect"
+end
+
+def api_remove_files
+  remove_dir "app/helpers"
+  remove_dir "app/views"
+  remove_dir "app/assets/javascripts"
+  remove_dir "app/assets/stylesheets"
+end
+
+def api_gemfile
+  file "Gemfile", render_file("#{$path}/files/Gemfile_api_only")
 end
 
 def integrated_app_gemfile
@@ -123,7 +141,6 @@ def smashing_docs?
 end
 
 def devise_auth?
-  # Devise
   if yes?("Add Devise_Auth? (y/n)")
     @devise_auth = true
     inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
@@ -144,7 +161,6 @@ gem 'devise'
 end
 
 def active_admin?
-  # ActiveAdmin
   if yes?("Add ActiveAdmin? (y/n)")
     @active_admin = true
     gsub_file 'Gemfile', /gem 'devise'/, ""
@@ -158,7 +174,6 @@ gem 'devise'
 end
 
 def cucumber_capybara?
-  # Cucumber and Capybara
   if yes?("Add Cucumber and Capybara? (y/n)")
     @cucumber_capybara = true
     inject_into_file 'Gemfile', after: "group :development, :test do\n" do <<-RUBY
@@ -188,14 +203,11 @@ remove_file "Gemfile"
 # -----------------------------
 if yes?("Is this an API only app with no front-end or admin interface? (y/n)")
   api_only_install
-  devise_auth?
+elsif yes?("Is this an API app with an admin interface?")
+  api_with_admin_install
 else
   integrated_app_install
-  devise?
-  active_admin?
-  cucumber_capybara?
 end
-smashing_docs?
 
 # -----------------------------
 # DATABASE
