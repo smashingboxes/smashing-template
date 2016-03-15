@@ -39,6 +39,7 @@ def add_gem_configs
   database_cleaner_config
   shoulda_matchers_config
   code_climate_config
+  tape_install
 end
 
 def bundle
@@ -69,6 +70,10 @@ def code_climate_config
     RUBY
     end
   end
+end
+
+def tape_install
+  run 'tape installer install'
 end
 
 def generate_readme
@@ -204,14 +209,7 @@ install_optional_gems
 # -----------------------------
 remove_dir "test"
 generate_readme
-# -----------------------------
-# DEPLOYMENT
-# -----------------------------
-run 'tape installer install'
 run 'rake db:create'
-# -----------------------------
-# GIT
-# -----------------------------
 git :init
 # -----------------------------
 # COMPLETE
