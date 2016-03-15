@@ -17,8 +17,8 @@ if yes?("Is this an API only app with no front-end? (y/n)")
   remove_dir "app/views"
   remove_dir "app/assets/javascripts"
   remove_dir "app/assets/stylesheets"
-  gsub_file 'app/controllers/application_controller.rb', /Base/, "API"
-  gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception/, ""
+  gsub_file "app/controllers/application_controller.rb", /Base/, "API"
+  gsub_file "app/controllers/application_controller.rb", /protect/, "# protect"
 end
 
 # -----------------------------
@@ -26,9 +26,9 @@ end
 # -----------------------------
 remove_file "Gemfile"
 if api_only
-  file 'Gemfile', render_file("#{$path}/files/Gemfile_api_only")
+  file "Gemfile", render_file("#{$path}/files/Gemfile_api_only")
 else
-  file 'Gemfile', render_file("#{$path}/files/Gemfile")
+  file "Gemfile", render_file("#{$path}/files/Gemfile")
 end
 
 run 'bundle'
@@ -66,6 +66,34 @@ remove_dir "test"
 remove_file 'README.rdoc'
 file 'README.md', render_file("#{$path}/files/README.md")
 gsub_file 'README.md', /app_name/, app_name.upcase
+
+# -----------------------------
+# DATABASE
+# -----------------------------
+remove_file "config/database.yml"
+file 'config/database.yml', render_file("#{$path}/files/database.yml")
+gsub_file 'config/database.yml', /app_name/, app_name
+
+# Add files for travis and linting
+run "cp config/database.yml config/database.example.yml"
+run "cp config/secrets.yml config/secrets.example.yml"
+
+# Create travis.yml file
+file '.travis.yml', render_file("#{$path}/files/.travis.yml")
+gsub_file '.travis.yml', /app_name/, app_name
+
+# Create rubocop linting file
+file '.rubocop.yml', render_file("#{$path}/files/.rubocop.yml")
+
+#Ignore all secrets and database config files
+append_file '.gitignore' do <<-EOF
+
+# Ignore all secrets and database config files
+config/initializers/secret_token.rb
+config/secrets.yml
+config/database.yml
+EOF
+end
 
 # -----------------------------
 # GEM ADDITIONS (OPTIONAL)
@@ -114,40 +142,15 @@ if yes?("Add Cucumber and Capybara? (y/n)")
   end
 end
 
-run 'bundle' if smashing_docs || devise || active_admin || cucumber_capybara || api_only
+run 'bundle' if smashing_docs || devise || active_admin || cucumber_capybara
 generate 'docs:install' if smashing_docs
 generate 'devise:install' if devise
 generate 'active_admin:install' if active_admin
 generate 'cucumber:install' if cucumber_capybara
 
 # -----------------------------
-# DATABASE
+# DATABASES
 # -----------------------------
-remove_file "config/database.yml"
-file 'config/database.yml', render_file("#{$path}/files/database.yml")
-gsub_file 'config/database.yml', /app_name/, app_name
-
-# Add files for travis and linting
-run "cp config/database.yml config/database.example.yml"
-run "cp config/secrets.yml config/secrets.example.yml"
-
-# Create travis.yml file
-file '.travis.yml', render_file("#{$path}/files/.travis.yml")
-gsub_file '.travis.yml', /app_name/, app_name
-
-# Create rubocop linting file
-file '.rubocop.yml', render_file("#{$path}/files/.rubocop.yml")
-
-#Ignore all secrets and database config files
-append_file '.gitignore' do <<-EOF
-
-# Ignore all secrets and database config files
-config/initializers/secret_token.rb
-config/secrets.yml
-config/database.yml
-EOF
-end
-
 run 'rake db:create'
 run 'rake db:migrate'
 
@@ -157,4 +160,7 @@ run 'rake db:migrate'
 git :init
 def run_bundle ; end
 
+# -----------------------------
+# COMPLETE
+# -----------------------------
 puts "Smashing-Template successfully created!"
