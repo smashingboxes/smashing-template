@@ -104,15 +104,18 @@ if yes?("Add SmashingDocs for API documentation? (y/n)")
   end
 end
 
-# Devise
-if yes?("Add Devise or Devise_Auth (if api only app)? (y/n)")
+if api_only
+  # Devise
+  if yes?("Add Devise_Auth? (y/n)")
   devise = true
-  if api_only
     inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
   gem 'devise_token_auth'
     RUBY
     end
-  else
+  end
+else
+  if yes?("Add Devise? (y/n)")
+    devise = true
     inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
   gem 'devise'
     RUBY
@@ -159,7 +162,6 @@ generate 'cucumber:install' if cucumber_capybara
 run 'tape installer install'
 # Databases
 run 'rake db:create'
-run 'rake db:migrate'
 
 # -----------------------------
 # GIT

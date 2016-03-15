@@ -17,7 +17,7 @@ gem 'taperole'
 # Use active_interaction to manage business logic in a service layer
 # gem 'active_interaction'
 # bundle exec rake doc:rails generates the API under doc/api.
-# Use rack-cores to make CORS requests from the browser client
+# Use rack-cors to make CORS requests from the browser client
 # gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
