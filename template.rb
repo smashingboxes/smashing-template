@@ -47,8 +47,6 @@ CodeClimate::TestReporter.start
   RUBY
   end
 end
-# Tape
-run 'tape installer install'
 # Turbolinks
 unless api_only
   gsub_file 'app/assets/javascripts/application.js', /\/\/= require turbolinks/, ''
@@ -155,8 +153,11 @@ generate 'active_admin:install' if active_admin
 generate 'cucumber:install' if cucumber_capybara
 
 # -----------------------------
-# DATABASES
+# DEPLOYMENT
 # -----------------------------
+# Tape
+run 'tape installer install'
+# Databases
 run 'rake db:create'
 run 'rake db:migrate'
 
