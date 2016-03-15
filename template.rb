@@ -8,10 +8,28 @@ def render_file(path)
 end
 
 # -----------------------------
+# API ONLY APP?
+# -----------------------------
+
+if yes?("Is this an API only app with no front-end? (y/n)")
+  api_only = true
+  remove_dir "app/helpers"
+  remove_dir "app/views"
+  remove_dir "app/assets/javascripts"
+  remove_dir "app/assets/stylesheets"
+  gsub_file 'app/controllers/application_controller.rb', /Base/, "API"
+  gsub_file 'app/controllers/application_controller.rb', /protect_from_forgery with: :exception/, ""
+end
+
+# -----------------------------
 # GEMS
 # -----------------------------
 remove_file "Gemfile"
-file 'Gemfile', render_file("#{$path}/files/Gemfile")
+if api_only
+  file 'Gemfile', render_file("#{$path}/files/Gemfile_api_only")
+else
+  file 'Gemfile', render_file("#{$path}/files/Gemfile")
+end
 
 run 'bundle'
 # Rspec
@@ -33,9 +51,10 @@ end
 # Tape
 run 'tape installer install'
 # Turbolinks
-gsub_file 'app/assets/javascripts/application.js', /\/\/= require turbolinks/, ''
-gsub_file 'app/views/layouts/application.html.erb', /, 'data-turbolinks-track' => true/, ""
-
+unless api_only
+  gsub_file 'app/assets/javascripts/application.js', /\/\/= require turbolinks/, ''
+  gsub_file 'app/views/layouts/application.html.erb', /, 'data-turbolinks-track' => true/, ""
+end
 # -----------------------------
 # SETUP
 # -----------------------------
@@ -51,17 +70,6 @@ gsub_file 'README.md', /app_name/, app_name.upcase
 # -----------------------------
 # GEM ADDITIONS (OPTIONAL)
 # -----------------------------
-
-# API only app
-if yes?("Is this an API only app with no front-end or admin interface? (y/n)")
-  api_only = true
-  remove_dir "app/helpers"
-  remove_dir "app/views"
-  remove_dir "app/assets/javascripts"
-  remove_dir "app/assets/stylesheets"
-  gsub_file 'app/controllers/application_controller.rb', /Base/, "API"
-  gsub_file 'app/controllers/application_controller.rb', /:exception/, ":null_session"
-end
 
 # SmashingDocs
 if yes?("Add SmashingDocs for API documentation? (y/n)")
@@ -83,32 +91,30 @@ gem 'devise'
 end
 
 # ActiveAdmin
-unless api_only
-  if yes?("Add ActiveAdmin? (y/n)")
-    active_admin = true
-    gsub_file 'Gemfile', /^gem\s+["']devise["'].*$/,''
-    inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
-  # Use activeadmin for admin interface
-  gem 'activeadmin', '~> 1.0.0.pre2'
-  gem 'devise'
-    RUBY
-    end
-  end
-
-# Cucumber and Capybara
-  if yes?("Add Cucumber and Capybara? (y/n)")
-    cucumber_capybara = true
-    inject_into_file 'Gemfile', after: "group :development, :test do\n" do <<-RUBY
-    # Use cucumber-rails for automated feature tests
-    gem 'cucumber-rails', :require => false
-    # Use capybara-rails to simulate how a user interacts with the app
-    gem 'capybara'
-    RUBY
-    end
+if yes?("Add ActiveAdmin? (y/n)")
+  active_admin = true
+  gsub_file 'Gemfile', /^gem\s+["']devise["'].*$/,''
+  inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
+# Use activeadmin for admin interface
+gem 'activeadmin', '~> 1.0.0.pre2'
+gem 'devise'
+  RUBY
   end
 end
 
-run 'bundle' if smashing_docs || devise || active_admin || cucumber_capybara
+# Cucumber and Capybara
+if yes?("Add Cucumber and Capybara? (y/n)")
+  cucumber_capybara = true
+  inject_into_file 'Gemfile', after: "group :development, :test do\n" do <<-RUBY
+  # Use cucumber-rails for automated feature tests
+  gem 'cucumber-rails', :require => false
+  # Use capybara-rails to simulate how a user interacts with the app
+  gem 'capybara'
+  RUBY
+  end
+end
+
+run 'bundle' if smashing_docs || devise || active_admin || cucumber_capybara || api_only
 generate 'docs:install' if smashing_docs
 generate 'devise:install' if devise
 generate 'active_admin:install' if active_admin
