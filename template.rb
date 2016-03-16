@@ -6,17 +6,22 @@ end
 
 def api_only_install
   api_only_modifications
-  api_gemfile
+  devise_auth?
 end
 
 def api_with_admin_install
-  api_gemfile
   remove_turbolinks
+  devise_auth?
+  active_admin?
+  cucumber_capybara?
 end
 
 def integrated_app_install
   integrated_app_gemfile
   remove_turbolinks
+  devise?
+  active_admin?
+  cucumber_capybara?
 end
 
 def api_only_modifications
@@ -65,12 +70,7 @@ def rspec_config
 end
 
 def read_configs
-  inside 'spec' do
-    inject_into_file 'rails_helper.rb', after: "require 'rspec/rails'\n" do <<-RUBY
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
-    RUBY
-    end
-  end
+  gsub_file 'spec/rails_helper.rb', /# Dir/, "Dir"
 end
 
 def factory_girl_config
@@ -202,19 +202,15 @@ remove_file "Gemfile"
 # -----------------------------
 # API ONLY APP?
 # -----------------------------
-if yes?("Is this an API only app with no front-end or admin interface? (y/n)")
-  api_only_install
-  devise_auth?
-elsif yes?("Is this an API app with an admin interface?")
-  api_with_admin_install
-  devise_auth?
-  active_admin?
-  cucumber_capybara?
+if yes?("Is this an API app? (y/n)")
+  api_gemfile
+  if yes?("Does this API app have an admin interface?")
+    api_with_admin_install
+  else
+    api_only_install
+  end
 else
   integrated_app_install
-  devise?
-  active_admin?
-  cucumber_capybara?
 end
 smashing_docs?
 # -----------------------------
