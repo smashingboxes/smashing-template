@@ -1,9 +1,9 @@
-require_relative './gem_configurator.rb'
-require_relative './gemfile_configurator.rb'
-require_relative './file_modifier.rb'
-require_relative './database_setup.rb'
-require_relative './installer.rb'
-require_relative './initialize_git.rb'
+require_relative 'lib/gem_configurator.rb'
+require_relative 'lib/gemfile_configurator.rb'
+require_relative 'lib/file_modifier.rb'
+require_relative 'lib/database_setup.rb'
+require_relative 'lib/installer.rb'
+require_relative 'lib/initialize_git.rb'
 
 # -----------------------------
 # CREATE TEMPLATE
@@ -22,7 +22,6 @@ if yes?("Is this an API app? (y/n)")
 else
   integrated_app_install
 end
-smashing_docs?
 # -----------------------------
 # DATABASE
 # -----------------------------
