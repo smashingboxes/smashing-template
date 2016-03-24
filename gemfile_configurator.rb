@@ -1,3 +1,5 @@
+require_relative './file_creator.rb'
+
 def remove_gemfile
   remove_file "Gemfile"
 end

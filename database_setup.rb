@@ -1,3 +1,5 @@
+require_relative './file_creator.rb'
+
 def database_set_up
   remove_file "config/database.yml"
   file 'config/database.yml', render_file("#{$path}/files/database.yml")

@@ -1,3 +1,5 @@
+require_relative './file_creator.rb'
+
 def add_gem_configs
   bundle
   rspec_config

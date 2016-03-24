@@ -1,3 +1,5 @@
+require_relative './file_creator.rb'
+
 def api_only_modifications
   api_remove_files
   gsub_file "app/controllers/application_controller.rb", /Base/, "API"
@@ -19,4 +21,20 @@ def git_ignore_append
   config/database.yml
   EOF
   end
+end
+
+def api_remove_files
+  remove_dir "app/helpers"
+  remove_dir "app/views"
+  remove_dir "app/assets/javascripts"
+  remove_dir "app/assets/stylesheets"
+end
+
+def remove_turbolinks
+  gsub_file 'app/assets/javascripts/application.js', /\/\/= require turbolinks/, ''
+  gsub_file 'app/views/layouts/application.html.erb', /, 'data-turbolinks-track' => true/, ""
+end
+
+def remove_test_dir
+  remove_dir "test"
 end
