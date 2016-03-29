@@ -13,13 +13,14 @@ def generate_readme
 end
 
 def git_ignore_append
-  append_file '.gitignore' do <<-EOF
+  append_file '.gitignore' do
+    <<-EOF
 
-  # Ignore all secrets and database config files
-  config/initializers/secret_token.rb
-  config/secrets.yml
-  config/database.yml
-  EOF
+# Ignore all secrets and database config files
+config/initializers/secret_token.rb
+config/secrets.yml
+config/database.yml
+    EOF
   end
 end
 
