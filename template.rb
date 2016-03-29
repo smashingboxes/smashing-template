@@ -1,9 +1,9 @@
 require_relative 'lib/gem_configurator.rb'
 require_relative 'lib/gemfile_configurator.rb'
 require_relative 'lib/file_modifier.rb'
-require_relative 'lib/database_setup.rb'
+require_relative 'lib/database_generator.rb'
 require_relative 'lib/installer.rb'
-require_relative 'lib/initialize_git.rb'
+require_relative 'lib/git_initializer.rb'
 
 # -----------------------------
 # CREATE TEMPLATE
@@ -36,6 +36,7 @@ install_optional_gems
 # -----------------------------
 # SETUP
 # -----------------------------
+rubocop_clean_up
 remove_test_dir
 generate_readme
 create_database

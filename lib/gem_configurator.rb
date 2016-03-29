@@ -90,6 +90,11 @@ def cucumber_capybara?
   gem 'capybara'
     RUBY
     end
+  #   inject_into_file '.travis.yml', after: "- bundle exec rspec\n" do
+  #     <<-RUBY
+  # - bundle exec rake cucumber
+  #     RUBY
+  #   end
   end
 end
 
