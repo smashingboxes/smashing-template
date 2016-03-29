@@ -38,3 +38,20 @@ end
 def remove_test_dir
   remove_dir "test"
 end
+
+def rubocop_clean_up
+  remove_file 'config/initializers/backtrace_silencers.rb'
+  gsub_file 'config/environments/production.rb', /^\s*#.*\n/, ''
+  gsub_file 'db/seeds.rb', /^\s*#.*\n/, ''
+  if @cucumber_capybara
+    remove_file 'lib/tasks/cucumber.rake'
+    file 'lib/tasks/cucumber.rake', render_file("#{$path}/files/cucumber.rake")
+    remove_file 'features/support/env.rb'
+    file 'features/support/env.rb', render_file("#{$path}/files/env.rb")
+    remove_file 'script/cucumber'
+    file 'script/cucumber', render_file("#{$path}/files/cucumber")
+  end
+  if @devise
+    gsub_file 'config/initializers/devise.rb', /^\s*#.*\n/, ''
+  end
+end
