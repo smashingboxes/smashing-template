@@ -32,7 +32,7 @@ def api_remove_files
 end
 
 def remove_turbolinks
-  gsub_file 'app/assets/javascripts/application.js', /\/\/= require turbolinks/, ''
+  gsub_file 'app/assets/javascripts/application.js', /= require turbolinks/, ''
   gsub_file 'app/views/layouts/application.html.erb', /, 'data-turbolinks-track' => true/, ""
 end
 

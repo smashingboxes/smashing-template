@@ -12,6 +12,13 @@ def travis_set_up
   file '.travis.yml', render_file("#{$path}/files/.travis.yml")
   gsub_file '.travis.yml', /app_name/, app_name
   file '.rubocop.yml', render_file("#{$path}/files/.rubocop.yml")
+  if @cucumber_capybara
+    inject_into_file '.travis.yml', after: "- bundle exec rspec\n" do
+      <<-RUBY
+  - bundle exec rake cucumber
+      RUBY
+    end
+  end
 end
 
 def create_database
