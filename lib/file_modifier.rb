@@ -8,7 +8,7 @@ end
 
 def generate_readme
   remove_file 'README.rdoc'
-  file 'README.md', render_file("#{$path}/files/README.md")
+  file 'README.md', render_file(File.join(File.dirname(__FILE__), "files/", "README.md"))
   gsub_file 'README.md', /app_name/, app_name.upcase
 end
 
@@ -46,11 +46,11 @@ def rubocop_clean_up
   gsub_file 'db/seeds.rb', /^\s*#.*\n/, ''
   if @cucumber_capybara
     remove_file 'lib/tasks/cucumber.rake'
-    file 'lib/tasks/cucumber.rake', render_file("#{$path}/files/cucumber.rake")
+    file 'lib/tasks/cucumber.rake', render_file(File.join(File.dirname(__FILE__), "files/", "cucumber.rake"))
     remove_file 'features/support/env.rb'
-    file 'features/support/env.rb', render_file("#{$path}/files/env.rb")
+    file 'features/support/env.rb', render_file(File.join(File.dirname(__FILE__), "files/", "env.rb"))
     remove_file 'script/cucumber'
-    file 'script/cucumber', render_file("#{$path}/files/cucumber")
+    file 'script/cucumber', render_file(File.join(File.dirname(__FILE__), "files/", "cucumber"))
   end
   if @devise
     gsub_file 'config/initializers/devise.rb', /^\s*#.*\n/, ''

@@ -5,9 +5,9 @@ def remove_gemfile
 end
 
 def api_gemfile
-  file "Gemfile", render_file("#{$path}/files/Gemfile_api_only")
+  file "Gemfile", render_file(File.join(File.dirname(__FILE__), "files/", "Gemfile_api_only"))
 end
 
 def integrated_app_gemfile
-  file "Gemfile", render_file("#{$path}/files/Gemfile")
+  file "Gemfile", render_file(File.join(File.dirname(__FILE__), "files/", "Gemfile"))
 end

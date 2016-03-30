@@ -24,15 +24,15 @@ def read_configs
 end
 
 def factory_girl_config
-  file 'spec/support/factory_girl.rb', render_file("#{$path}/files/factory_girl.rb")
+  file 'spec/support/factory_girl.rb', render_file(File.join(File.dirname(__FILE__), "files/", "factory_girl.rb"))
 end
 
 def database_cleaner_config
-  file 'spec/support/database_cleaner.rb', render_file("#{$path}/files/database_cleaner.rb")
+  file 'spec/support/database_cleaner.rb', render_file(File.join(File.dirname(__FILE__), "files/", "database_cleaner.rb"))
 end
 
 def shoulda_matchers_config
-  file 'spec/support/shoulda_matchers.rb', render_file("#{$path}/files/shoulda_matchers.rb")
+  file 'spec/support/shoulda_matchers.rb', render_file(File.join(File.dirname(__FILE__), "files/", "shoulda_matchers.rb"))
 end
 
 def code_climate_config
