@@ -24,23 +24,24 @@ def read_configs
 end
 
 def factory_girl_config
-  file 'spec/support/factory_girl.rb', render_file("#{$path}/files/factory_girl.rb")
+  file 'spec/support/factory_girl.rb', render_file(path("factory_girl.rb"))
 end
 
 def database_cleaner_config
-  file 'spec/support/database_cleaner.rb', render_file("#{$path}/files/database_cleaner.rb")
+  file 'spec/support/database_cleaner.rb', render_file(path("database_cleaner.rb"))
 end
 
 def shoulda_matchers_config
-  file 'spec/support/shoulda_matchers.rb', render_file("#{$path}/files/shoulda_matchers.rb")
+  file 'spec/support/shoulda_matchers.rb', render_file(path("shoulda_matchers.rb"))
 end
 
 def code_climate_config
   inside 'spec' do
-    inject_into_file 'spec_helper.rb', after: "# users commonly want.\n" do <<-RUBY
+    inject_into_file 'spec_helper.rb', after: "# users commonly want.\n" do
+      <<-RUBY
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
-    RUBY
+      RUBY
     end
   end
 end
@@ -52,10 +53,11 @@ end
 def smashing_docs?
   if yes?("Add smashing_docs for API documentation? (y/n)")
     @smashing_docs = true
-    inject_into_file 'Gemfile', after: "group :development, :test do\n" do <<-RUBY
+    inject_into_file 'Gemfile', after: "group :development, :test do\n" do
+      <<-RUBY
   # Use smashing_docs for API documentation
   gem 'smashing_docs'
-    RUBY
+      RUBY
     end
   end
 end
@@ -63,9 +65,10 @@ end
 def devise_auth?
   if yes?("Add devise_token_auth? (y/n)")
     @devise_auth = true
-    inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
+    inject_into_file 'Gemfile', after: "gem 'taperole'\n" do
+      <<-RUBY
 gem 'devise_token_auth'
-    RUBY
+      RUBY
     end
   end
 end
@@ -73,9 +76,10 @@ end
 def devise?
   if yes?("Add devise? (y/n)")
     @devise = true
-    inject_into_file 'Gemfile', after: "gem 'taperole'\n" do <<-RUBY
+    inject_into_file 'Gemfile', after: "gem 'taperole'\n" do
+      <<-RUBY
 gem 'devise'
-    RUBY
+      RUBY
     end
   end
 end
@@ -83,12 +87,13 @@ end
 def cucumber_capybara?
   if yes?("Add cucumber-rails and capybara? (y/n)")
     @cucumber_capybara = true
-    inject_into_file 'Gemfile', after: "group :development, :test do\n" do <<-RUBY
+    inject_into_file 'Gemfile', after: "group :development, :test do\n" do
+      <<-RUBY
   # Use cucumber-rails for automated feature tests
   gem 'cucumber-rails', require: false
   # Use capybara-rails to simulate how a user interacts with the app
   gem 'capybara'
-    RUBY
+      RUBY
     end
   end
 end

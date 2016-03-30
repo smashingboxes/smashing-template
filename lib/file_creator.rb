@@ -1,5 +1,7 @@
-$path = File.expand_path(File.dirname(__FILE__))
+def path(file)
+  File.join(File.dirname(__FILE__), "files/", file)
+end
 
 def render_file(path)
-  file = IO.read(path)
+  IO.read(path)
 end
