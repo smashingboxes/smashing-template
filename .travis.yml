@@ -4,12 +4,13 @@ rvm:
 before_script:
   - gem install rails --no-ri --no-rdoc
   - cd ..
-  - echo "N Y Y N" | rails new example -m smashing-template/template.rb
+  - echo "n y y n" | rails new example -m smashing-template/template.rb
   - cd example/
   - cp config/database.example.yml config/database.yml
   - cp config/secrets.example.yml config/secrets.yml
   - bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare --trace
+  - mkdir features
   - cp ../smashing-template/test/example_spec.rb spec/example_spec.rb
   - cp ../smashing-template/test/example.feature features/example.feature
   - cp ../smashing-template/test/example_steps.rb features/example_steps.rb
