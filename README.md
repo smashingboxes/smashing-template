@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/smashingboxes/smashing-template.svg?token=4zGd2Wnks9QoZVxC99Xw&branch=master)](https://travis-ci.com/smashingboxes/smashing-template)
+
 # Smashing-Template
 
 Smashing-Template is the Rails application template used at
@@ -12,8 +14,9 @@ This template currently assumes:
 To create a new Rails app with this template, run:
 ```
 rails new [app_name] -m https://raw.githubusercontent.com/smashingboxes/smashing-template/master/template.rb
---skip-bundle
+-B
 ```
+Note that the -B is optional and equivalent to --skip-bundle. Since there is a bundle install command inside the template, the final bundle when creating a new Rails app is unnecessary.
 
 ## What does it do?
 The template will do the following:
@@ -36,7 +39,7 @@ Smashing_Template includes the following gems:
 
   Application:
   - Rails default gems
-  - Postgresql rather than sqlite3
+  - Postgresql (pg) rather than sqlite3
   - Unicorn
   - Taperole
 
