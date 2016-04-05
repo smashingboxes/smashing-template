@@ -25,13 +25,13 @@ Note that the ``-B`` is optional and equivalent to ``--skip-bundle``. Since ther
 When using this template, you will be asked one or more questions to determine what type of Rails app to generate. There are 3 types of apps you can select:
 
 1. API Only
-- Answer 'y' to the question "Is this an API app? (y/n)".
-- Answer 'n' to the question "Does this API app have an admin interface? (y/n)"
+  - Answer 'y' to the question "Is this an API app? (y/n)".
+  - Answer 'n' to the question "Does this API app have an admin interface? (y/n)"
 2. API with Admin Interface
-- Answer 'y' to the question "Is this an API app? (y/n)".
-- Answer 'y' to the question "Does this API app have an admin interface? (y/n)"
+  - Answer 'y' to the question "Is this an API app? (y/n)".
+  - Answer 'y' to the question "Does this API app have an admin interface? (y/n)"
 3. Interactive
-- Answer 'n' to the question "Is this an API app? (y/n)".
+  - Answer 'n' to the question "Is this an API app? (y/n)".
 
 ## What does it do?
 The template will generate a Rails app using ``rails new``, and then will customize the app according to the template. Depending on the type of template you are generating, the template will modify the following:
