@@ -91,7 +91,7 @@ def cucumber_capybara?
       <<-RUBY
   # Use cucumber-rails for automated feature tests
   gem 'cucumber-rails', require: false
-  # Use capybara-rails to simulate how a user interacts with the app
+  # Use capybara to simulate how a user interacts with the app
   gem 'capybara'
       RUBY
     end
@@ -99,9 +99,8 @@ def cucumber_capybara?
 end
 
 def install_optional_gems
-  bundle if @smashing_docs || @devise || @devise_auth || @active_admin || @cucumber_capybara
+  bundle if @smashing_docs || @devise || @devise_auth || @cucumber_capybara
   generate 'docs:install' if @smashing_docs
   generate 'devise:install' if @devise
-  generate 'active_admin:install' if @active_admin
   generate 'cucumber:install' if @cucumber_capybara
 end
