@@ -32,7 +32,6 @@ The template will do the following:
   10. Run git:init
 
 ## Features
-
 * Gemfile:
 
 Smashing_Template includes the following gems:
