@@ -21,17 +21,17 @@ rails new [app_name] -m https://raw.githubusercontent.com/smashingboxes/smashing
 ```
 Note that the ``-B`` is optional and equivalent to ``--skip-bundle``. Since there is a bundle install command inside the template, the final bundle when creating a new Rails app is unnecessary.
 
-## What are my options?
+## Options
 When using this template, you will be asked one or more questions to determine what type of Rails app to generate. There are 3 types of apps you can select:
 
 1. API Only
-Answer 'y' to the question "Is this an API app? (y/n)".
-Answer 'n' to the question "Does this API app have an admin interface? (y/n)"
+- Answer 'y' to the question "Is this an API app? (y/n)".
+- Answer 'n' to the question "Does this API app have an admin interface? (y/n)"
 2. API with Admin Interface
-Answer 'y' to the question "Is this an API app? (y/n)".
-Answer 'y' to the question "Does this API app have an admin interface? (y/n)"
+- Answer 'y' to the question "Is this an API app? (y/n)".
+- Answer 'y' to the question "Does this API app have an admin interface? (y/n)"
 3. Interactive
-Answer 'n' to the question "Is this an API app? (y/n)".
+- Answer 'n' to the question "Is this an API app? (y/n)".
 
 ## What does it do?
 The template will generate a Rails app using ``rails new``, and then will customize the app according to the template. Depending on the type of template you are generating, the template will modify the following:
@@ -40,13 +40,13 @@ The template will generate a Rails app using ``rails new``, and then will custom
   - Modify the Gemfile
   - Remove files from the app directory, including helpers, views, and assets > javascripts and stylesheets
   - Modify the application_controller.rb file for an API
-  - Option to install the gem 'devise_auth'
+  - Option to install the gem 'devise_token_auth'
   - Option to install the gem 'smashing_docs'
 
 2. API with Admin Interface
   - Modify the Gemfile  
   - Remove Turbolinks
-  - Option to install the gem 'devise_auth'
+  - Option to install the gem 'devise_token_auth'
   - Option to install the gems 'cucumber-rails' and 'capybara'
   - Option to install the gem 'smashing_docs'
 
@@ -86,6 +86,8 @@ Once these app-type dependent modifications are complete, the template will modi
 
 Smashing Template contains application gems including:
 
+* [Devise](https://github.com/plataformatec/devise) for authentication
+* [Devise Token Auth](https://github.com/lynndylanhurley/devise_token_auth) for token-based authentication
 * [Postgres](https://github.com/ged/ruby-pg) for access to the Postgres database
 * [Unicorn](https://github.com/defunkt/unicorn) as the app server
 * [Taperole](https://github.com/smashingboxes/taperole) for deployment
@@ -109,3 +111,4 @@ And testing gems including:
 * [RSpec Rails](https://github.com/rspec/rspec-rails) for unit testing
 * [Rubocop](https://github.com/bbatsov/rubocop) for linting
 * [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers) for common RSpec matchers
+* [Smashing Docs](https://github.com/thoughtbot/shoulda-matchers) for API documentation
