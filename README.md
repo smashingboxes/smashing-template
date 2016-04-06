@@ -15,9 +15,10 @@ and that the application will be deployed using:
   - Tape
 
 ## Installation
-To create a new Rails app with this template, run:
+To create a new Rails app with this template, do the following:
 ```
-rails new [app_name] -m https://raw.githubusercontent.com/smashingboxes/smashing-template/master/template.rb -B
+git clone https://github.com/smashingboxes/smashing-template.git
+rails new [app_name] -m smashing-template/template.rb -B
 ```
 Note that the ``-B`` is optional and equivalent to ``--skip-bundle``. Since there is a bundle install command inside the template, the final bundle when creating a new Rails app is unnecessary.
 
