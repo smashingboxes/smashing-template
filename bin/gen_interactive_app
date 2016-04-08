@@ -1,11 +1,11 @@
 #!/bin/bash
 
 rm -rf interactive_app
-printf 'n\ny\ny\nn' | rails new interactive_app -m ./smashing-template/template.rb -B
+printf 'n\ny\ny\nn' | rails new interactive_app -m ./boxcar/template.rb -B
 ( cd interactive_app ; cp config/database.example.yml config/database.yml )
 ( cd interactive_app ; cp config/secrets.example.yml config/secrets.yml )
-( cd interactive_app ; bundle exec rake db:migrate --trace )
-( cd interactive_app ; bundle exec rake db:test:prepare --trace )
-( cd interactive_app ; cp ../smashing-template/test/example_spec.rb spec/example_spec.rb )
-( cd interactive_app ; cp ../smashing-template/test/example.feature features/example.feature )
-( cd interactive_app ; cp ../smashing-template/test/example_steps.rb features/example_steps.rb )
+( cd interactive_app ; bundle exec rails db:migrate --trace )
+( cd interactive_app ; bundle exec rails db:test:prepare --trace )
+( cd interactive_app ; cp ../boxcar/test/example_spec.rb spec/example_spec.rb )
+( cd interactive_app ; cp ../boxcar/test/example.feature features/example.feature )
+( cd interactive_app ; cp ../boxcar/test/example_steps.rb features/example_steps.rb )

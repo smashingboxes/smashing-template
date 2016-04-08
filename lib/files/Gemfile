@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+gem 'rails', '5.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -29,6 +29,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   # Use database cleaner for cleaning the database
   gem 'database_cleaner'
+  # Rails console will open Pry
+  gem 'pry-rails'
   # Call 'binding.pry' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
   # Use awesome-print to pretty print Ruby objects

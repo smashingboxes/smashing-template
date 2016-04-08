@@ -8,7 +8,6 @@ end
 
 def generate_readme
   remove_file 'README.rdoc'
-  file 'README.md', render_file(path("README.md"))
   gsub_file 'README.md', /app_name/, app_name.upcase
 end
 
@@ -20,6 +19,10 @@ def git_ignore_append
 config/initializers/secret_token.rb
 config/secrets.yml
 config/database.yml
+
+# Ignore .DS_Store files
+.DS_Store
+*/.DS_Store
     EOF
   end
 end
