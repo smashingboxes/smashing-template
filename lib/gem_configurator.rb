@@ -8,7 +8,7 @@ def add_gem_configs
   database_cleaner_config
   shoulda_matchers_config
   code_climate_config
-  smashing_docs_config
+  rubocop_config
   tape_config
 end
 
@@ -47,15 +47,17 @@ CodeClimate::TestReporter.start
   end
 end
 
-def smashing_docs_config
-  inject_into_file 'spec_helper.rb', after: "RSpec.configure do |config|\n" do
-      <<-RUBY
-  config.before(:suite) do
-    unless system('bundle exec rubocop')
-      exit 1
+def rubocop_config
+  inside 'spec' do
+    inject_into_file 'spec_helper.rb', after: "RSpec.configure do |config|\n" do
+        <<-RUBY
+    config.before(:suite) do
+      unless system('bundle exec rubocop')
+        exit 1
+      end
     end
-  end
-      RUBY
+        RUBY
+    end
   end
 end
 
