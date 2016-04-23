@@ -50,13 +50,13 @@ end
 def rubocop_config
   inside 'spec' do
     inject_into_file 'spec_helper.rb', after: "RSpec.configure do |config|\n" do
-        <<-RUBY
+      <<-RUBY
     config.before(:suite) do
       unless system('bundle exec rubocop')
         exit 1
       end
     end
-        RUBY
+      RUBY
     end
   end
 end
