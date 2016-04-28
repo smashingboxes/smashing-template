@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/smashingboxes/smashing-template.svg?token=4zGd2Wnks9QoZVxC99Xw&branch=master)](https://travis-ci.com/smashingboxes/smashing-template)
+[![Build Status](https://travis-ci.org/smashingboxes/smashing-template.svg?branch=master)](https://travis-ci.org/smashingboxes/smashing-template)
 
 # Smashing-Template
 
