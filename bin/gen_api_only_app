@@ -1,0 +1,9 @@
+#!/bin/bash
+
+rm -rf api_only_app
+printf 'y\nn\ny\ny\nn' | rails new api_only_app -m smashing-template/template.rb -B
+( cd api_only_app ; cp config/database.example.yml config/database.yml )
+( cd api_only_app ; cp config/secrets.example.yml config/secrets.yml )
+( cd api_only_app ; bundle exec rake db:migrate --trace )
+( cd api_only_app ; bundle exec rake db:test:prepare --trace )
+( cd api_only_app ; cp ../smashing-template/test/example_spec.rb spec/example_spec.rb )

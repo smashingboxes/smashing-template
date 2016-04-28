@@ -8,6 +8,7 @@ def add_gem_configs
   database_cleaner_config
   shoulda_matchers_config
   code_climate_config
+  rubocop_config
   tape_config
 end
 
@@ -41,6 +42,22 @@ def code_climate_config
       <<-RUBY
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
+      RUBY
+    end
+  end
+end
+
+def rubocop_config
+  inside 'spec' do
+    inject_into_file 'spec_helper.rb', after: "RSpec.configure do |config|\n" do
+      <<-RUBY
+  config.after(:suite) do
+    examples = RSpec.world.filtered_examples.values.flatten
+    if examples.none?(&:exception)
+      system("echo '\n' && bundle exec rubocop")
+      exit $? if $? != 0
+    end
+  end
       RUBY
     end
   end

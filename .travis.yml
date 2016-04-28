@@ -4,40 +4,21 @@ rvm:
 before_script:
   - gem install rails --no-ri --no-rdoc
   - cd ..
-  - printf 'n\ny\ny\nn' | rails new interactive_app -m smashing-template/template.rb -B
-  - cd interactive_app/
-  - cp config/database.example.yml config/database.yml
-  - cp config/secrets.example.yml config/secrets.yml
-  - bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare --trace
-  - cp ../smashing-template/test/example_spec.rb spec/example_spec.rb
-  - cp ../smashing-template/test/example.feature features/example.feature
-  - cp ../smashing-template/test/example_steps.rb features/example_steps.rb
-  - cd ..
-  - printf 'y\nn\ny\ny\nn' | rails new api_only_app -m smashing-template/template.rb -B
-  - cd api_only_app
-  - cp config/database.example.yml config/database.yml
-  - cp config/secrets.example.yml config/secrets.yml
-  - bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare --trace
-  - cp ../smashing-template/test/example_spec.rb spec/example_spec.rb
-  - cd ..
-  - printf 'y\ny\ny\ny\ny\nn' | rails new api_admin_app -m smashing-template/template.rb -B
-  - cd api_admin_app
-  - cp config/database.example.yml config/database.yml
-  - cp config/secrets.example.yml config/secrets.yml
-  - bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare --trace
-  - cp ../smashing-template/test/example_spec.rb spec/example_spec.rb
-  - cp ../smashing-template/test/example.feature features/example.feature
-  - cp ../smashing-template/test/example_steps.rb features/example_steps.rb
+  - smashing-template/bin/gen_interactive_app
+  - smashing-template/bin/gen_api_only_app
+  - smashing-template/bin/gen_api_admin_app
 script:
-  - bundle exec rubocop ../interactive_app
-  - bundle exec rspec ../interactive_app
-  - bundle exec rake cucumber ../interactive_app
-  - bundle exec rubocop ../api_only_app
-  - bundle exec rspec ../api_only_app
+  - rubocop ./smashing-template
+  - cd interactive_app
   - bundle exec rubocop
   - bundle exec rspec
   - bundle exec rake cucumber
-  - bundle exec rubocop ../smashing-template/
+  - cd ..
+  - cd api_only_app
+  - bundle exec rubocop
+  - bundle exec rspec
+  - cd ..
+  - cd api_admin_app
+  - bundle exec rubocop
+  - bundle exec rspec
+  - bundle exec rake cucumber
