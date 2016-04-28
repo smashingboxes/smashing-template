@@ -51,11 +51,13 @@ def rubocop_config
   inside 'spec' do
     inject_into_file 'spec_helper.rb', after: "RSpec.configure do |config|\n" do
       <<-RUBY
-    config.before(:suite) do
-      unless system('bundle exec rubocop')
-        exit 1
-      end
+  config.after(:suite) do
+    examples = RSpec.world.filtered_examples.values.flatten
+    if examples.none?(&:exception)
+      system("echo '\n' && bundle exec rubocop")
+      exit $? if $? != 0
     end
+  end
       RUBY
     end
   end
