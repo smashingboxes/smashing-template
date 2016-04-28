@@ -5,7 +5,10 @@ before_script:
   - gem install rails --no-ri --no-rdoc
   - cd ..
   - smashing-template/bin/gen_interactive_app
+  - cd ..
   - smashing-template/bin/gen_api_only_app
+  - cd ..
+  - smashing-template/bin/gen_api_admin_app
 script:
   - rubocop ./smashing-template
   - cd interactive_app
