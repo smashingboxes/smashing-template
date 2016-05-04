@@ -21,6 +21,8 @@ Style/DotPosition:
   SupportedStyles:
   - leading
   - trailing
+Style/AsciiComments:
+  Enabled: false
 Style/Lambda:
   Enabled: false
 Style/FileName:
