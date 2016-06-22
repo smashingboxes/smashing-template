@@ -20,6 +20,10 @@ def git_ignore_append
 config/initializers/secret_token.rb
 config/secrets.yml
 config/database.yml
+
+# Ignore .DS_Store files
+.DS_Store
+*/.DS_Store
     EOF
   end
 end
