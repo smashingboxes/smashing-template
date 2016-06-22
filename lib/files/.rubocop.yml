@@ -251,5 +251,21 @@ Lint/LiteralInCondition:
 Lint/LiteralInInterpolation:
   Description: Checks for literals used in interpolation.
   Enabled: false
+Rails:
+  Enabled: true
 Rails/Output:
-  Enabled: false
+  Enabled: true
+Rails/Date:
+  Enabled: true
+Rails/FindBy:
+  Enabled: true
+Rails/FindEach:
+  Enabled: true
+Rails/PluralizationGrammar:
+  Enabled: true
+Rails/ScopeArgs:
+  Enabled: true
+Rails/TimeZone:
+  Enabled: true
+Rails/UniqBeforePluck:
+  Enabled: true
