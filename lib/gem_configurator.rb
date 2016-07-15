@@ -16,7 +16,32 @@ def bundle
   run 'bundle'
 end
 
+def clean_up_auto_files
+  gsub_file 'config/environments/development.rb',
+            /config.action_mailer.perform_caching/,
+            '# config.action_mailer.perform_caching'
+  gsub_file 'config/environments/development.rb',
+            /config.file_watcher/,
+            '# config.file_watcher'
+  gsub_file 'config/environments/test.rb',
+            /config.action_mailer.perform_caching/,
+            '# config.action_mailer.perform_caching'
+  gsub_file 'config/environments/test.rb',
+            /config.public_file_server.enabled/,
+            '# config.public_file_server.enabled'
+  gsub_file 'config/environments/test.rb', /config.public_file_server.headers/, ''
+  gsub_file 'config/environments/test.rb', /'Cache-Control'/, ""
+  gsub_file 'config/environments/test.rb', /}/, ""
+  gsub_file 'config/initializers/new_framework_defaults.rb',
+            /ActiveSupport.to_time_preserves_timezone/,
+            '# ActiveSupport.to_time_preserves_timezone'
+  gsub_file 'config/initializers/new_framework_defaults.rb',
+            /ActiveSupport.halt_callback_chains_on_return_false/,
+            '# ActiveSupport.halt_callback_chains_on_return_false'
+end
+
 def rspec_config
+  clean_up_auto_files
   generate 'rspec:install'
 end
 

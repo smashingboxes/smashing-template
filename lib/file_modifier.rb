@@ -8,7 +8,6 @@ end
 
 def generate_readme
   remove_file 'README.rdoc'
-  file 'README.md', render_file(path("README.md"))
   gsub_file 'README.md', /app_name/, app_name.upcase
 end
 
@@ -47,6 +46,8 @@ end
 def rubocop_clean_up
   remove_file 'config/initializers/backtrace_silencers.rb'
   gsub_file 'config/environments/production.rb', /^\s*#.*\n/, ''
+  gsub_file 'config/environments/production.rb', /\[\s/, '['
+  gsub_file 'config/environments/production.rb', /\s\]/, ']'
   gsub_file 'db/seeds.rb', /^\s*#.*\n/, ''
   if @cucumber_capybara
     remove_file 'lib/tasks/cucumber.rake'
