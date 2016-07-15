@@ -1,11 +1,11 @@
 #!/bin/bash
 
 rm -rf api_admin_app
-printf 'y\ny\ny\ny\ny\nn' | rails new api_admin_app -m smashing-template/template.rb -B
+printf 'y\ny\ny\ny\ny\nn' | rails new api_admin_app -m boxcar/template.rb -B
 ( cd api_admin_app ; cp config/database.example.yml config/database.yml )
 ( cd api_admin_app ; cp config/secrets.example.yml config/secrets.yml )
 ( cd api_admin_app ; bundle exec rake db:migrate --trace )
 ( cd api_admin_app ; bundle exec rake db:test:prepare --trace )
-( cd api_admin_app ; cp ../smashing-template/test/example_spec.rb spec/example_spec.rb )
-( cd api_admin_app ; cp ../smashing-template/test/example.feature features/example.feature )
-( cd api_admin_app ; cp ../smashing-template/test/example_steps.rb features/example_steps.rb )
+( cd api_admin_app ; cp ../boxcar/test/example_spec.rb spec/example_spec.rb )
+( cd api_admin_app ; cp ../boxcar/test/example.feature features/example.feature )
+( cd api_admin_app ; cp ../boxcar/test/example_steps.rb features/example_steps.rb )
