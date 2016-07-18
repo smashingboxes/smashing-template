@@ -44,4 +44,4 @@ initialize_git
 # -----------------------------
 # COMPLETE
 # -----------------------------
-puts "\nSmashing-Template successfully created!"
+puts "\nBoxcar template successfully created!"
