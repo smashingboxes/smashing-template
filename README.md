@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/smashingboxes/smashing-template.svg?branch=master)](https://travis-ci.org/smashingboxes/smashing-template)
+[![Build Status](https://travis-ci.org/smashingboxes/boxcar.svg?branch=master)](https://travis-ci.org/smashingboxes/boxcar)
 
-# Smashing-Template
+# Boxcar
 
-Smashing-Template is the Rails application template used at
+Boxcar is the Rails application template used at
 [Smashing Boxes](https://smashingboxes.com/) according to our best practices.
 
 ## Requirements
@@ -15,12 +15,14 @@ and that the application will be deployed using:
   - Tape
 
 ## Installation
-To create a new Rails app with this template, do the following:
+To create a new Rails app with this template using Rails 4.2.5, do the following:
 ```
-git clone https://github.com/smashingboxes/smashing-template.git
-rails new [app_name] -m smashing-template/template.rb -B
+git clone https://github.com/smashingboxes/boxcar.git
+rails _4.2.5_ new [app_name] -m boxcar/template.rb -B
 ```
 Note that the ``-B`` is optional and equivalent to ``--skip-bundle``. Since there is a bundle install command inside the template, the final bundle when creating a new Rails app is unnecessary.
+
+Note that this command will be updated when the template is compatible with Rails 5.
 
 ## Options
 When using this template, you will be asked one or more questions to determine what type of Rails app to generate. There are 3 types of apps you can select:
@@ -85,7 +87,7 @@ Once these app-type dependent modifications are complete, the template will modi
 
 ## Gemfile
 
-Smashing Template contains application gems including:
+Boxcar contains application gems including:
 
 * [Devise](https://github.com/plataformatec/devise) for authentication
 * [Devise Token Auth](https://github.com/lynndylanhurley/devise_token_auth) for token-based authentication
@@ -113,4 +115,3 @@ And testing gems including:
 * [Rubocop](https://github.com/bbatsov/rubocop) for linting
 * [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers) for common RSpec matchers
 * [Smashing Docs](https://github.com/thoughtbot/shoulda-matchers) for API documentation
-
