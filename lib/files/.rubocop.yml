@@ -1,4 +1,5 @@
 AllCops:
+  TargetRubyVersion: 2.3
   Exclude:
     - "vendor/**/*"
     - "db/schema.rb"
@@ -238,6 +239,8 @@ Style/WhenThen:
   Description: Use when x then ... for one-line cases.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#one-line-cases
   Enabled: false
+Style/Style/FrozenStringLiteralComment:
+  Enabled: false
 Lint/EachWithObjectArgument:
   Description: Check for immutable argument given to each_with_object.
   Enabled: true
@@ -266,6 +269,4 @@ Rails/PluralizationGrammar:
 Rails/ScopeArgs:
   Enabled: true
 Rails/TimeZone:
-  Enabled: true
-Rails/UniqBeforePluck:
   Enabled: true
