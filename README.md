@@ -20,6 +20,9 @@ To create a new Rails app with this template using Rails 4.2.7, do the following
 git clone https://github.com/smashingboxes/boxcar.git
 rails _4.2.7_ new [app_name] -m boxcar/template.rb -B
 ```
+
+If you run into an issue with Rails 4.2.7, run ```gem install rails -v 4.2.7``` to ensure you have access to this version of Rails.
+
 Note that the ``-B`` is optional and equivalent to ``--skip-bundle``. Since there is a bundle install command inside the template, the final bundle when creating a new Rails app is unnecessary.
 
 Note that this command will be updated when the template is compatible with Rails 5.
