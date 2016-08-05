@@ -44,4 +44,4 @@ initialize_git
 # -----------------------------
 # COMPLETE
 # -----------------------------
-puts "\nBoxcar Rails Template successfully created!"
+puts "\nBoxcar template successfully created!"
