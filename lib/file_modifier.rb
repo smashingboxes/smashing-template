@@ -41,8 +41,8 @@ def remove_turbolinks
 end
 
 def remove_require_jquery
-  gsub_file 'app/assets/javascripts/application.js', /= require turbolinks/, ''
-  gsub_file 'app/assets/javascripts/application.js', /= require turbolinks/, ''
+  gsub_file 'app/assets/javascripts/application.js', /= require jquery\S+/, ''
+  gsub_file 'app/assets/javascripts/application.js', /= require jquery/, ''
 end
 
 def remove_test_dir
