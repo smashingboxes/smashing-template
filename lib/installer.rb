@@ -6,6 +6,7 @@ end
 
 def api_with_admin_install
   remove_turbolinks
+  remove_require_jquery
   devise_auth?
   cucumber_capybara?
   smashing_docs?

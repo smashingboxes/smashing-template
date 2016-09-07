@@ -40,6 +40,11 @@ def remove_turbolinks
   gsub_file 'app/views/layouts/application.html.erb', /, 'data-turbolinks-track' => true/, ""
 end
 
+def remove_require_jquery
+  gsub_file 'app/assets/javascripts/application.js', /= require turbolinks/, ''
+  gsub_file 'app/assets/javascripts/application.js', /= require turbolinks/, ''
+end
+
 def remove_test_dir
   remove_dir "test"
 end
