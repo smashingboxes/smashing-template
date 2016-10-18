@@ -10,10 +10,6 @@ This template currently assumes:
   - Rails 5.0.0
   - PostgreSQL
 
-and that the application will be deployed using:
-  - Unicorn
-  - Tape
-
 ## Installation
 To create a new Rails app with this template using Rails 5.0.0, do the following:
 ```
