@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rm -rf interactive_app
-printf 'n\ny\ny\nn' | rails _4.2.7_ new interactive_app -m ./boxcar/template.rb -B
+printf 'n\ny\ny\nn' | rails new interactive_app -m ./boxcar/template.rb -B
 ( cd interactive_app ; cp config/database.example.yml config/database.yml )
 ( cd interactive_app ; cp config/secrets.example.yml config/secrets.yml )
 ( cd interactive_app ; bundle exec rake db:migrate --trace )

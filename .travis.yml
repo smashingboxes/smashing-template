@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.3.0
 before_script:
-  - gem install rails -v 4.2.7 --no-ri --no-rdoc
+  - gem install rails -v 5.0.0 --no-ri --no-rdoc
   - cd ..
   - boxcar/bin/gen_interactive_app
   - boxcar/bin/gen_api_only_app

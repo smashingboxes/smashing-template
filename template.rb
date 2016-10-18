@@ -38,7 +38,6 @@ install_optional_gems
 # -----------------------------
 rubocop_clean_up
 remove_test_dir
-generate_readme
 create_database
 initialize_git
 # -----------------------------
