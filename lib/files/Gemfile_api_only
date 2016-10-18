@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.7'
+gem 'rails', '5.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Unicorn as the app server
 gem 'unicorn'
 # Use Taperole for deployment
-gem 'taperole'
+# gem 'taperole'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.0'
@@ -40,6 +40,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'listen', '~> 3.0.5'
   # Use letter_opener to view emails in browser rather than send
   # gem 'letter_opener'
   # Use better_errors to get a full stack trace

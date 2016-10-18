@@ -1,6 +1,7 @@
 require_relative './file_creator.rb'
 
 def add_gem_configs
+  update_rubygems
   bundle
   rspec_config
   read_configs
@@ -9,7 +10,12 @@ def add_gem_configs
   shoulda_matchers_config
   code_climate_config
   rubocop_config
-  tape_config
+  # No tape configuration until Tape gem is updated to be compatible with Rails 5
+  # tape_config
+end
+
+def update_rubygems
+  run 'gem update --system'
 end
 
 def bundle
