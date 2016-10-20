@@ -1,7 +1,7 @@
 require_relative './file_creator.rb'
 
 def add_gem_configs
-  update_rubygems unless Rails::VERSION::STRING.start_with?('4')
+  update_rubygems unless rails_4_app?
   bundle
   rspec_config
   read_configs
@@ -11,7 +11,7 @@ def add_gem_configs
   code_climate_config
   rubocop_config
   # tape configuration only with Rails 4 as tape not yet compatible with Rails 5
-  tape_config if Rails::VERSION::STRING.start_with?('4')
+  tape_config if rails_4_app?
 end
 
 def update_rubygems
