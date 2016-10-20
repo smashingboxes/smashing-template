@@ -4,21 +4,38 @@ rvm:
 before_script:
   - gem install rails -v 5.0.0 --no-ri --no-rdoc
   - cd ..
-  - boxcar/bin/gen_interactive_app
-  - boxcar/bin/gen_api_only_app
-  - boxcar/bin/gen_api_admin_app
+  - boxcar/bin/gen_interactive_app_rails5
+  - boxcar/bin/gen_api_only_app_rails5
+  - boxcar/bin/gen_api_admin_app_rails5
+  - boxcar/bin/gen_interactive_app_rails4
+  - boxcar/bin/gen_api_only_app_rails4
+  - boxcar/bin/gen_api_admin_app_rails4
 script:
   - rubocop ./boxcar
-  - cd interactive_app
+  - cd interactive_app_rails5
   - bundle exec rubocop
   - bundle exec rspec
   - bundle exec rake cucumber
   - cd ..
-  - cd api_only_app
+  - cd api_only_app_rails5
   - bundle exec rubocop
   - bundle exec rspec
   - cd ..
-  - cd api_admin_app
+  - cd api_admin_app_rails5
+  - bundle exec rubocop
+  - bundle exec rspec
+  - bundle exec rake cucumber
+  - cd ..
+  - cd interactive_app_rails4
+  - bundle exec rubocop
+  - bundle exec rspec
+  - bundle exec rake cucumber
+  - cd ..
+  - cd api_only_app_rails4
+  - bundle exec rubocop
+  - bundle exec rspec
+  - cd ..
+  - cd api_admin_app_rails4
   - bundle exec rubocop
   - bundle exec rspec
   - bundle exec rake cucumber

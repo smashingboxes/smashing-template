@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rm -rf api_admin_app
-printf 'y\ny\ny\ny\ny\nn' | rails new api_admin_app -m boxcar/template.rb -B
+printf 'y\ny\ny\ny\ny\nn' | rails new api_admin_app_rails5 -m boxcar/template.rb -B
 ( cd api_admin_app ; cp config/database.example.yml config/database.yml )
 ( cd api_admin_app ; cp config/secrets.example.yml config/secrets.yml )
 ( cd api_admin_app ; bundle exec rake db:migrate --trace )
