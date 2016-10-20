@@ -8,10 +8,10 @@ require_relative 'lib/git_initializer.rb'
 # -----------------------------
 # CREATE TEMPLATE
 # -----------------------------
+remove_gemfile
 # -----------------------------
 # API ONLY APP?
 # -----------------------------
-remove_gemfile
 if yes?("Is this an API app? (y/n)")
   api_gemfile
   rails_4_gemfile if rails_4_app?
