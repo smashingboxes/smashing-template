@@ -6,16 +6,36 @@ Boxcar is the Rails application template used at
 [Smashing Boxes](https://smashingboxes.com/) according to our best practices.
 
 ## Requirements
-This template currently assumes:
+This template is compatible with:
   - Rails 5.0.0
+  - Rails 4.2.7
+
+The template currently assumes:
   - PostgreSQL
 
+and that the application will be deployed using:
+  - Taperole
+  - Unicorn
+
+NOTE: Taperole is not yet compatible with Rails 5.
+
 ## Installation
-To create a new Rails app with this template using Rails 5.0.0, do the following:
+To create a new Rails app with this template, do the following:
 ```
 git clone https://github.com/smashingboxes/boxcar.git
+```
+
+To use Rails 5, do the following:
+```
 rails new [app_name] -m boxcar/template.rb -B
 ```
+
+To use Rails 4, do the following:
+```
+rails _4.2.7_ new [app_name] -m boxcar/template.rb -B
+```
+
+If you run into an issue with Rails 4.2.7, run ```gem install rails -v 4.2.7``` to ensure you have access to this version of Rails.
 
 Note that the ``-B`` is optional and equivalent to ``--skip-bundle``. Since there is a bundle install command inside the template, the final bundle when creating a new Rails app is unnecessary.
 
@@ -69,6 +89,7 @@ Once these app-type dependent modifications are complete, the template will modi
     * database_cleaner
     * shoulda_matchers
     * codeclimate-test-reporter
+    * taperole
   - Installation of optional gem configs:
     * smashing_docs
     * devise
@@ -79,10 +100,7 @@ Once these app-type dependent modifications are complete, the template will modi
   - Remove test directory
   - Generate README.md
   - Create development and test databases
-  - Initialize git
-
-NOTE: For now, the template will not install or set up taperole. When taperole is compatible with Rails 5, we will add this functionality back.   
-  * [Taperole](https://github.com/smashingboxes/taperole) for deployment
+  - Initialize git  
 
 ## Gemfile
 
@@ -92,6 +110,9 @@ Boxcar contains application gems including:
 * [Devise Token Auth](https://github.com/lynndylanhurley/devise_token_auth) for token-based authentication
 * [Postgres](https://github.com/ged/ruby-pg) for access to the Postgres database
 * [Unicorn](https://github.com/defunkt/unicorn) as the app server
+* [Taperole](https://github.com/smashingboxes/taperole) for deployment
+
+NOTE: For now, the template will only install and set up taperole if using Rails 4. When taperole is compatible with Rails 5, we will add this functionality back.
 
 And development gems including:
 
