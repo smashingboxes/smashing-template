@@ -4,45 +4,46 @@ require_relative 'lib/file_modifier.rb'
 require_relative 'lib/database_generator.rb'
 require_relative 'lib/installer.rb'
 require_relative 'lib/git_initializer.rb'
+require 'pry-byebug'
 
 # -----------------------------
 # CREATE TEMPLATE
 # -----------------------------
-rails_version="$(rails -v | cut -d ' ' -f 2)"
-if rails_version == '5.0.0.1'
-  remove_gemfile
-  # -----------------------------
-  # API ONLY APP?
-  # -----------------------------
-  if yes?("Is this an API app? (y/n)")
-    api_gemfile
-    if yes?("Does this API app have an admin interface? (y/n)")
-      api_with_admin_install
-    else
-      api_only_install
-    end
+# -----------------------------
+# API ONLY APP?
+# -----------------------------
+remove_gemfile
+if yes?("Is this an API app? (y/n)")
+  api_gemfile
+  rails_4_gemfile if Rails::VERSION::STRING.start_with?('4')
+  if yes?("Does this API app have an admin interface? (y/n)")
+    api_with_admin_install
   else
-    integrated_app_install
+    api_only_install
   end
-  # -----------------------------
-  # DATABASE
-  # -----------------------------
-  database_set_up
-  travis_set_up
-  git_ignore_append
-  # -----------------------------
-  # GEM ADDITIONS (OPTIONAL)
-  # -----------------------------
-  add_gem_configs
-  install_optional_gems
-  # -----------------------------
-  # SETUP
-  # -----------------------------
-  rubocop_clean_up
-  remove_test_dir
-  create_database
-  initialize_git
+else
+  integrated_app_install
+  rails_4_gemfile if Rails::VERSION::STRING.start_with?('4')
 end
+# -----------------------------
+# DATABASE
+# -----------------------------
+database_set_up
+travis_set_up
+git_ignore_append
+# -----------------------------
+# GEM ADDITIONS (OPTIONAL)
+# -----------------------------
+add_gem_configs
+install_optional_gems
+# -----------------------------
+# SETUP
+# -----------------------------
+rubocop_clean_up
+remove_test_dir
+generate_readme if Rails::VERSION::STRING.start_with?('4')
+create_database
+initialize_git
 # -----------------------------
 # COMPLETE
 # -----------------------------
