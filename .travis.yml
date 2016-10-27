@@ -7,6 +7,7 @@ before_script:
   - boxcar/bin/gen_interactive_app
   - boxcar/bin/gen_api_only_app
   - boxcar/bin/gen_api_admin_app
+  - boxcar/bin/gen_interactive_app_rails4
 script:
   - rubocop ./boxcar
   - cd interactive_app
