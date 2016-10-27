@@ -14,6 +14,7 @@ remove_gemfile
 # -----------------------------
 if yes?("Is this an API app? (y/n)")
   api_gemfile
+  rails_4_gemfile if rails_4_app?
   if yes?("Does this API app have an admin interface? (y/n)")
     api_with_admin_install
   else
@@ -21,6 +22,7 @@ if yes?("Is this an API app? (y/n)")
   end
 else
   integrated_app_install
+  rails_4_gemfile if rails_4_app?
 end
 # -----------------------------
 # DATABASE
@@ -38,6 +40,7 @@ install_optional_gems
 # -----------------------------
 rubocop_clean_up
 remove_test_dir
+generate_readme if rails_4_app?
 create_database
 initialize_git
 # -----------------------------
