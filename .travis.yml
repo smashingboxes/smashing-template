@@ -4,9 +4,9 @@ rvm:
 before_script:
   - gem install rails -v 5.0.0 --no-ri --no-rdoc
   - cd ..
-  - boxcar/bin/gen_interactive_app_rails5
-  - boxcar/bin/gen_api_only_app_rails5
-  - boxcar/bin/gen_api_admin_app_rails5
+  - boxcar/bin/gen_interactive_app
+  - boxcar/bin/gen_api_only_app
+  - boxcar/bin/gen_api_admin_app
   - boxcar/bin/gen_interactive_app_rails4
   - boxcar/bin/gen_api_only_app_rails4
   - boxcar/bin/gen_api_admin_app_rails4
