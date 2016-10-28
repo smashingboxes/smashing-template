@@ -94,6 +94,13 @@ def devise_auth?
 gem 'devise_token_auth'
       RUBY
     end
+    json_api_compliance?
+  end
+end
+
+def json_api_compliance?
+  if yes?("Make it json api compliant via controller overrides? (y/n)")
+    implement_json_api_compliance
   end
 end
 

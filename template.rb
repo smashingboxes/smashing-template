@@ -12,34 +12,38 @@ remove_gemfile
 # -----------------------------
 # API ONLY APP?
 # -----------------------------
-if yes?("Is this an API app? (y/n)")
+# if yes?("Is this an API app? (y/n)")
   api_gemfile
-  if yes?("Does this API app have an admin interface? (y/n)")
-    api_with_admin_install
-  else
-    api_only_install
-  end
-else
-  integrated_app_install
-end
+  # if yes?("Does this API app have an admin interface? (y/n)")
+  #   api_with_admin_install
+  # else
+    # if yes?("Does this API app have an admin interface? (y/n)")
+    #   api_only_install
+    # else
+      api_only_install
+    # end
+  # end
+# else
+#   integrated_app_install
+# end
 # -----------------------------
 # DATABASE
-# -----------------------------
-database_set_up
-travis_set_up
-git_ignore_append
-# -----------------------------
-# GEM ADDITIONS (OPTIONAL)
-# -----------------------------
-add_gem_configs
-install_optional_gems
-# -----------------------------
-# SETUP
-# -----------------------------
-rubocop_clean_up
-remove_test_dir
-create_database
-initialize_git
+# # -----------------------------
+# database_set_up
+# travis_set_up
+# git_ignore_append
+# # -----------------------------
+# # GEM ADDITIONS (OPTIONAL)
+# # -----------------------------
+# add_gem_configs
+# install_optional_gems
+# # -----------------------------
+# # SETUP
+# # -----------------------------
+# rubocop_clean_up
+# remove_test_dir
+# create_database
+# initialize_git
 # -----------------------------
 # COMPLETE
 # -----------------------------

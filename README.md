@@ -44,7 +44,7 @@ The template will generate a Rails app using ``rails new``, and then will custom
   - Option to install the gem 'smashing_docs'
 
 2. API with Admin Interface
-  - Modify the Gemfile  
+  - Modify the Gemfile
   - Remove Turbolinks
   - Option to install the gem 'devise_token_auth'
   - Option to install the gems 'cucumber-rails' and 'capybara'
@@ -81,7 +81,7 @@ Once these app-type dependent modifications are complete, the template will modi
   - Create development and test databases
   - Initialize git
 
-NOTE: For now, the template will not install or set up taperole. When taperole is compatible with Rails 5, we will add this functionality back.   
+NOTE: For now, the template will not install or set up taperole. When taperole is compatible with Rails 5, we will add this functionality back.
   * [Taperole](https://github.com/smashingboxes/taperole) for deployment
 
 ## Gemfile
@@ -113,3 +113,9 @@ And testing gems including:
 * [Rubocop](https://github.com/bbatsov/rubocop) for linting
 * [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers) for common RSpec matchers
 * [Smashing Docs](https://github.com/thoughtbot/shoulda-matchers) for API documentation
+
+## Development
+
+### Testing
+
+Travis is doing the testing for us. Whenever a commit is pushed up, Travis will try to run rubocop, rspec, and cucumber. If those 3 can run then we know it's been _initialized_ properly.
