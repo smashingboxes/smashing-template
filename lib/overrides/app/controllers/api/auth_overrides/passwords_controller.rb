@@ -8,7 +8,7 @@ class Api::AuthOverrides::PasswordsController < DeviseTokenAuth::PasswordsContro
       client_id  = SecureRandom.urlsafe_base64(nil, false)
       token      = SecureRandom.urlsafe_base64(nil, false)
       token_hash = BCrypt::Password.create(token)
-      expiry     = (Time.now + DeviseTokenAuth.token_lifespan).to_i
+      expiry     = (Time.now + DeviseTokenAuth.token_lifespan).to_i # rubocop:disable Rails/TimeZone
 
       @resource.tokens[client_id] = {
         token:  token_hash,
@@ -16,7 +16,7 @@ class Api::AuthOverrides::PasswordsController < DeviseTokenAuth::PasswordsContro
       }
 
       # ensure that user is confirmed
-      @resource.skip_confirmation! if @resource.devise_modules.include?(:confirmable) && !@resource.confirmed_at
+      @resource.skip_confirmation! if @resource.devise_modules.include?(:confirmable) && !@resource.confirmed_at # rubocop:disable Metrics/LineLength
 
       # allow user to change password once without current_password
       @resource.allow_password_change = true
@@ -105,7 +105,7 @@ class Api::AuthOverrides::PasswordsController < DeviseTokenAuth::PasswordsContro
   private
 
   def edit_params
-    params.permit(:email, :password, :password_confirmation, :current_password, :reset_password_token)
+    params.permit(:email, :password, :password_confirmation, :current_password, :reset_password_token) # rubocop:disable Metrics/LineLength
   end
 
   def resource_params

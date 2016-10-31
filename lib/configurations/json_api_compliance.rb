@@ -2,16 +2,6 @@ require_relative './controller.rb'
 require_relative '../content_editor'
 
 class JsonApiCompliance
-  attr_reader :devise_auth_controllers
-
-  def initialize
-    @devise_auth_controllers = %w{
-      passwords
-      registrations
-      sessions
-    }
-  end
-
   def integrate
     override_devise_auth_controllers
     modify_regular_controllers
@@ -22,6 +12,7 @@ class JsonApiCompliance
   def override_devise_auth_controllers
     path = "app/controllers/api/auth_overrides"
     FileUtils.mkdir_p path
+    devise_auth_controllers = %w{passwords registrations sessions}
     devise_auth_controllers.each do |controller|
       override_controller(path, controller)
     end
