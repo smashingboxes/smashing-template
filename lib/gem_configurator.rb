@@ -92,6 +92,7 @@ def devise_auth?
     inject_into_file 'Gemfile', after: "gem 'taperole'\n" do
       <<-RUBY
 gem 'devise_token_auth'
+gem 'omniauth'
       RUBY
     end
     json_api_compliance?
@@ -99,7 +100,7 @@ gem 'devise_token_auth'
 end
 
 def json_api_compliance?
-  if yes?("Make it json api compliant via controller overrides? (y/n)")
+  if yes?("Make the auth errors json-api compliant via controller overrides? (y/n)")
     implement_json_api_compliance
   end
 end
