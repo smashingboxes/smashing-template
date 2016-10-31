@@ -1,7 +1,17 @@
-require_relative './controllers.rb'
+require_relative './controller.rb'
 require_relative '../content_editor'
 
 class JsonApiCompliance
+  attr_reader :devise_auth_controllers
+
+  def initialize
+    @devise_auth_controllers = [
+      "passwords",
+      "registrations",
+      "sessions"
+    ]
+  end
+
   def integrate
     override_devise_auth_controllers
     modify_regular_controllers
@@ -12,11 +22,9 @@ class JsonApiCompliance
   def override_devise_auth_controllers
     path = "app/controllers/api/auth_overrides"
     FileUtils.mkdir_p path
-    override_controllers(path, [
-      "passwords",
-      "registrations",
-      "sessions"
-    ])
+    devise_auth_controllers.each do |controller|
+      override_controller(path, controller)
+    end
   end
 
   def modify_regular_controllers
@@ -27,12 +35,12 @@ class JsonApiCompliance
 
   def add_render_methods_to_application
     path = "app/controllers"
-    override_controllers(path, ["application"])
+    override_controller(path, "application")
   end
 
   def add_api_controller
     path = "app/controllers/api"
-    override_controllers(path, ["api"])
+    override_controller(path, "api")
   end
 
   def add_json_error_concern
@@ -40,10 +48,10 @@ class JsonApiCompliance
     replace_content(path: path)
   end
 
-  def override_controllers(path, controllers)
-    Controllers.new(
+  def override_controller(path, controller)
+    Controller.new(
       path: path,
-      controllers: controllers
+      controller: controller
     ).override
   end
 end
