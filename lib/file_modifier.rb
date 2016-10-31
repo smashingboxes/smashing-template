@@ -1,4 +1,5 @@
 require_relative './file_creator.rb'
+require_relative './configurations/json_api_compliance.rb'
 
 def api_only_modifications
   api_remove_files
@@ -67,4 +68,8 @@ def rubocop_clean_up
   if @devise
     gsub_file 'config/initializers/devise.rb', /^\s*#.*\n/, ''
   end
+end
+
+def implement_json_api_compliance
+  JsonApiCompliance.new.integrate
 end
