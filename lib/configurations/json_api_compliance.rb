@@ -5,11 +5,11 @@ class JsonApiCompliance
   attr_reader :devise_auth_controllers
 
   def initialize
-    @devise_auth_controllers = [
-      "passwords",
-      "registrations",
-      "sessions"
-    ]
+    @devise_auth_controllers = %w{
+      passwords
+      registrations
+      sessions
+    }
   end
 
   def integrate
