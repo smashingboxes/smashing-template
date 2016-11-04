@@ -9,7 +9,7 @@ def add_gem_configs
   database_cleaner_config
   shoulda_matchers_config
   code_climate_config
-  rubocop_config
+  # rubocop_config
   # No tape configuration until Tape gem is updated to be compatible with Rails 5
   # tape_config
 end
