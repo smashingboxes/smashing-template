@@ -55,7 +55,7 @@ def rubocop_clean_up
   gsub_file 'db/seeds.rb', /^\s*#.*\n/, ''
   gsub_file 'spec/spec_helper.rb', / != 0/, ".exitstatus.nonzero?"
   gsub_file 'config/environments/production.rb', /\[\s/, "["
-  gsub_file 'config/environments/production.rb', /\s]/, "]"
+  gsub_file 'config/environments/production.rb', /\s\]/, "]"
   if @cucumber_capybara
     remove_file 'lib/tasks/cucumber.rake'
     file 'lib/tasks/cucumber.rake', render_file(path("cucumber.rake"))
