@@ -125,7 +125,7 @@ end
 def active_admin?
   if yes?("Is your preferred admin interface ActiveAdmin? (y/n)")
     @active_admin = true
-    inject_into_file 'Gemfile', after: "gem 'taperole'" do
+    inject_into_file 'Gemfile', after: "gem 'taperole'\n" do
       <<-RUBY
 # Use active_admin for admin interface
 gem 'activeadmin', '~> 1.0.0.pre4'
