@@ -142,9 +142,12 @@ def active_admin_rubocop_clean_up
   gsub_file 'app/admin/admin_user.rb', /\nend/, "end"
   gsub_file 'app/admin/dashboard.rb', /do\n\n/, "do\n"
   gsub_file 'app/admin/dashboard.rb', /\{/, " {"
+  gsub_file 'app/models/admin_user.rb', /,\s\n/, ", "
   gsub_file 'config/initializers/active_admin.rb', /an options/, "options"
   gsub_file 'config/initializers/active_admin.rb', /My Great Website/, "Website"
   gsub_file 'config/initializers/active_admin.rb', /mygreatwebsite/, "website"
+  gsub_file 'config/initializers/devise.rb', /config.secret_key =/, "config.secret_key =\n #"
+  gsub_file 'config/initializers/devise.rb', /config.secret_key =/, "config.pepper =\n #"
 end
 
 def install_optional_gems
