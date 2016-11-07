@@ -138,10 +138,22 @@ gem 'inherited_resources', github: 'activeadmin/inherited_resources'
   end
 end
 
+def active_admin_rubocop_clean_up
+  gsub_file 'app/admin/admin_user.rb', /\nend/, "end"
+  gsub_file 'app/admin/dashboard.rb', /do\n\n/, "do\n"
+  gsub_file 'app/admin/dashboard.rb', /\{/, " {"
+  gsub_file 'config/initializers/active_admin.rb', /an options/, "options"
+  gsub_file 'config/initializers/active_admin.rb', /My Great Website/, "Website"
+  gsub_file 'config/initializers/active_admin.rb', /mygreatwebsite/, "website"
+end
+
 def install_optional_gems
   bundle if @smashing_docs || @devise || @devise_auth || @cucumber_capybara
   generate 'docs:install' if @smashing_docs
   generate 'devise:install' if @devise
   generate 'cucumber:install' if @cucumber_capybara
-  generate 'active_admin:install' if @active_admin
+  if @active_admin
+    generate 'active_admin:install'
+    active_admin_rubocop_clean_up
+  end
 end
