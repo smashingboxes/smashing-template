@@ -24,6 +24,7 @@ if yes?("Is this an API app? (y/n)")
 else
   integrated_app_install
   rails_4_gemfile if rails_4_app?
+  active_admin_install
 end
 # -----------------------------
 # DATABASE

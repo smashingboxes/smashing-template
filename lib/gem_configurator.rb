@@ -123,16 +123,22 @@ def cucumber_capybara?
 end
 
 def active_admin?
-  if yes?("Is your preferred admin interface ActiveAdmin? (y/n)")
+  if yes?("Would you like to use admin interface ActiveAdmin? (y/n)")
     @active_admin = true
     inject_into_file 'Gemfile', after: "gem 'taperole'\n" do
       <<-RUBY
 # Use active_admin for admin interface
 gem 'activeadmin', '~> 1.0.0.pre4'
-# To add authentication to ActiveAdmin interface
-gem 'devise'
 # To use preliminary support of ActiveAdmin with Rails 5
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+      RUBY
+    end
+  end
+  unless @devise
+    inject_into_file 'Gemfile', after: "gem 'taperole'\n" do
+      <<-RUBY
+# To add authentication to ActiveAdmin interface
+gem 'devise'
       RUBY
     end
   end
@@ -142,12 +148,11 @@ def active_admin_rubocop_clean_up
   gsub_file 'app/admin/admin_user.rb', /\nend/, "end"
   gsub_file 'app/admin/dashboard.rb', /do\n\n/, "do\n"
   gsub_file 'app/admin/dashboard.rb', /\{/, " {"
-  gsub_file 'app/models/admin_user.rb', /,\s\n/, ", "
+  gsub_file 'app/models/admin_user.rb', /,\s\n\s+/, ", "
   gsub_file 'config/initializers/active_admin.rb', /an options/, "options"
   gsub_file 'config/initializers/active_admin.rb', /My Great Website/, "Website"
   gsub_file 'config/initializers/active_admin.rb', /mygreatwebsite/, "website"
-  gsub_file 'config/initializers/devise.rb', /config.secret_key =/, "config.secret_key =\n #"
-  gsub_file 'config/initializers/devise.rb', /config.secret_key =/, "config.pepper =\n #"
+  gsub_file 'spec/factories/admin_users.rb', /\n/, ""
 end
 
 def install_optional_gems
