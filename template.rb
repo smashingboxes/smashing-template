@@ -16,6 +16,7 @@ if yes?("Is this an API app? (y/n)")
   api_gemfile
   rails_4_gemfile if rails_4_app?
   if yes?("Does this API app have an admin interface? (y/n)")
+    active_admin_install
     api_with_admin_install
   else
     api_only_install

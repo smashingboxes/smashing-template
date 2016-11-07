@@ -122,9 +122,26 @@ def cucumber_capybara?
   end
 end
 
+def active_admin?
+  if yes?("Is your preferred admin interface ActiveAdmin? (y/n)")
+    @active_admin = true
+    inject_into_file 'Gemfile', after: "gem 'taperole'" do
+      <<-RUBY
+# Use active_admin for admin interface
+gem 'activeadmin', '~> 1.0.0.pre4'
+# To add authentication to ActiveAdmin interface
+gem 'devise'
+# To use preliminary support of ActiveAdmin with Rails 5
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+      RUBY
+    end
+  end
+end
+
 def install_optional_gems
   bundle if @smashing_docs || @devise || @devise_auth || @cucumber_capybara
   generate 'docs:install' if @smashing_docs
   generate 'devise:install' if @devise
   generate 'cucumber:install' if @cucumber_capybara
+  generate 'active_admin:install' if @active_admin
 end

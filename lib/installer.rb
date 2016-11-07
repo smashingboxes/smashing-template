@@ -4,6 +4,10 @@ def api_only_install
   smashing_docs?
 end
 
+def active_admin_install
+  active_admin?
+end
+
 def api_with_admin_install
   remove_turbolinks
   remove_require_jquery
