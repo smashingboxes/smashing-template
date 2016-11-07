@@ -36,7 +36,8 @@ group :development, :test do
   # Use shouldamatchers to test associations and validations
   gem 'shoulda-matchers'
   # Use to integrate Code Climate and Travis
-  gem "codeclimate-test-reporter", require: nil
+  gem "simplecov"
+  gem "codeclimate-test-reporter", "~> 1.0.0"
 end
 
 group :development do

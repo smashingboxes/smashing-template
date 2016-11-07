@@ -46,8 +46,8 @@ def code_climate_config
   inside 'spec' do
     inject_into_file 'spec_helper.rb', after: "# users commonly want.\n" do
       <<-RUBY
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
+require 'simplecov'
+SimpleCov.start 'rails'
       RUBY
     end
   end
