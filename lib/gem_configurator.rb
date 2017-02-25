@@ -57,7 +57,7 @@ end
 def rubocop_config
   inside 'spec' do
     inject_into_file 'spec_helper.rb', after: "RSpec.configure do |config|\n" do
-      <<-RUBY
+      <<-'RUBY'
   config.after(:suite) do
     examples = RSpec.world.filtered_examples.values.flatten
     after_hooks = ["bundle exec rubocop", "brakeman -w2 -z --no-summary", "bundle-audit"]
