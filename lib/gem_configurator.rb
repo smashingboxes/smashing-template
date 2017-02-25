@@ -12,6 +12,7 @@ def add_gem_configs
   rubocop_config
   # tape configuration only with Rails 4 as tape not yet compatible with Rails 5
   tape_config if rails_4_app?
+  update_ruby_advisory_db
 end
 
 def update_rubygems
@@ -59,10 +60,13 @@ def rubocop_config
       <<-RUBY
   config.after(:suite) do
     examples = RSpec.world.filtered_examples.values.flatten
+    after_hooks = ["bundle exec rubocop", "brakeman -w2 -z --no-summary", "bundle-audit"]
     if examples.none?(&:exception)
-      system("echo '\n' && bundle exec rubocop")
-      exitstatus = $?.exitstatus
-      exit exitstatus if exitstatus.nonzero?
+      after_hooks.each do |hook_command|
+        system("echo ' ' && #{hook_command}")
+        exitstatus = $?.exitstatus
+        exit exitstatus if exitstatus.nonzero?
+      end
     end
   end
       RUBY
@@ -72,6 +76,10 @@ end
 
 def tape_config
   run 'tape installer install'
+end
+
+def update_ruby_advisory_db
+  run 'bundle-audit --update'
 end
 
 def smashing_docs?

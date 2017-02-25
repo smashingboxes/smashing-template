@@ -13,7 +13,7 @@ def integrated_app_gemfile
 end
 
 def rails_4_gemfile
-  gsub_file 'Gemfile', /5.\d.\d/, '4.2.7'
+  gsub_file 'Gemfile', /5.\d.\d/, '4.2.7.1'
 end
 
 def rails_4_app?

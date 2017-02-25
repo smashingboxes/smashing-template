@@ -40,6 +40,10 @@ group :development, :test do
   # Use to integrate Code Climate and Travis
   gem "simplecov"
   gem "codeclimate-test-reporter", "~> 1.0.0"
+  # Use static code analysis to check for vulnerabilities
+  gem 'brakeman', '~> 3.5'
+  # Scan Gemfile.lock for gems with vulnerabilities
+  gem 'bundler-audit'
 end
 
 group :development do
