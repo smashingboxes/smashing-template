@@ -7,7 +7,6 @@ before_script:
   - psql -c 'create database app_name_test;' -U postgres
   - bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare --trace
-  - bundle exec bundle-audit --update
 script:
   - bundle exec rubocop
   - bundle exec rspec
