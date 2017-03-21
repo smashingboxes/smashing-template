@@ -134,3 +134,11 @@ And testing gems including:
 * [Rubocop](https://github.com/bbatsov/rubocop) for linting
 * [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers) for common RSpec matchers
 * [Smashing Docs](https://github.com/thoughtbot/shoulda-matchers) for API documentation
+
+## SimpleCov
+Boxcar installs and configures simplecov to run when you set the `GENERATE_COVERAGE` env variable to `true`
+
+```
+GENERATE_COVERAGE=true rspec /path/to/spec.rb
+```
+
