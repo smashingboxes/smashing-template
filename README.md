@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/smashingboxes/boxcar.svg?branch=master)](https://travis-ci.org/smashingboxes/boxcar)
+[![Stories in Ready](https://badge.waffle.io/smashingboxes/boxcar.png?label=ready&title=Ready)](http://waffle.io/smashingboxes/boxcar)
+
 
 # Boxcar
 
