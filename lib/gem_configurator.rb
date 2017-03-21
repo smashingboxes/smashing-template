@@ -47,8 +47,10 @@ def code_climate_config
   inside 'spec' do
     inject_into_file 'spec_helper.rb', after: "# users commonly want.\n" do
       <<-RUBY
-require 'simplecov'
-SimpleCov.start 'rails'
+if ENV['GENERATE_COVERAGE'] == 'true'
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
       RUBY
     end
   end
