@@ -24,6 +24,7 @@ config/database.yml
 # Ignore .DS_Store files
 .DS_Store
 */.DS_Store
+vendor/ruby
     EOF
   end
 end
