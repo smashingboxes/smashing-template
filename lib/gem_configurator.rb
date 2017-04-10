@@ -46,11 +46,11 @@ end
 def code_climate_config
   inside 'spec' do
     inject_into_file 'spec_helper.rb', after: "# users commonly want.\n" do
-      <<-RUBY
-if ENV['GENERATE_COVERAGE'] == 'true'
-  require 'simplecov'
-  SimpleCov.start 'rails'
-end
+      <<~RUBY
+        if ENV['GENERATE_COVERAGE'] == 'true'
+          require 'simplecov'
+          SimpleCov.start 'rails'
+        end
       RUBY
     end
   end
@@ -59,18 +59,18 @@ end
 def rubocop_config
   inside 'spec' do
     inject_into_file 'spec_helper.rb', after: "RSpec.configure do |config|\n" do
-      <<-'RUBY'
-  config.after(:suite) do
-    examples = RSpec.world.filtered_examples.values.flatten
-    after_hooks = ["bundle exec rubocop", "brakeman -q -w2 -z --no-summary", "bundle-audit --update"]
-    if examples.none?(&:exception)
-      after_hooks.each do |hook_command|
-        system("echo ' ' && #{hook_command}")
-        exitstatus = $?.exitstatus
-        exit exitstatus if exitstatus.nonzero?
-      end
-    end
-  end
+      <<~'RUBY'
+        config.after(:suite) do
+          examples = RSpec.world.filtered_examples.values.flatten
+          after_hooks = ["bundle exec rubocop", "brakeman -q -w2 -z --no-summary", "bundle-audit --update"]
+          if examples.none?(&:exception)
+            after_hooks.each do |hook_command|
+              system("echo ' ' && #{hook_command}")
+              exitstatus = $?.exitstatus
+              exit exitstatus if exitstatus.nonzero?
+            end
+          end
+        end
       RUBY
     end
   end
@@ -100,8 +100,8 @@ def devise_auth?
   if yes?("Add devise_token_auth? (y/n)")
     @devise_auth = true
     inject_into_file 'Gemfile', after: "gem 'taperole'\n" do
-      <<-RUBY
-gem 'devise_token_auth'
+      <<~RUBY
+        gem 'devise_token_auth'
       RUBY
     end
   end
@@ -111,8 +111,8 @@ def devise?
   if yes?("Add devise? (y/n)")
     @devise = true
     inject_into_file 'Gemfile', after: "gem 'taperole'\n" do
-      <<-RUBY
-gem 'devise'
+      <<~RUBY
+        gem 'devise'
       RUBY
     end
   end
