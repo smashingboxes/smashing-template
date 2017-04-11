@@ -10,8 +10,7 @@ def add_gem_configs
   shoulda_matchers_config
   code_climate_config
   rubocop_config
-  # tape configuration only with Rails 4 as tape not yet compatible with Rails 5
-  tape_config if rails_4_app?
+  tape_config
   update_ruby_advisory_db
 end
 

@@ -20,7 +20,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Puma as the app server
 gem 'puma'
 # Use Taperole for deployment
-gem 'taperole'
+gem 'taperole', '~> 2.0'
 
 group :development, :test do
   # Use rspec as the testing framework
