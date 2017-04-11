@@ -14,17 +14,17 @@ end
 
 def git_ignore_append
   append_file '.gitignore' do
-    <<~EOF
+    <<-EOF
 
-      # Ignore all secrets and database config files
-      config/initializers/secret_token.rb
-      config/secrets.yml
-      config/database.yml
+# Ignore all secrets and database config files
+config/initializers/secret_token.rb
+config/secrets.yml
+config/database.yml
 
-      # Ignore .DS_Store files
-      .DS_Store
-      */.DS_Store
-      vendor/ruby
+# Ignore .DS_Store files
+.DS_Store
+*/.DS_Store
+vendor/ruby
     EOF
   end
 end
