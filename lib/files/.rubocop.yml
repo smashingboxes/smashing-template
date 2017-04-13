@@ -4,7 +4,11 @@ AllCops:
     - "vendor/**/*"
     - "db/schema.rb"
     - "bin/*"
+    - "lib/files/cucumber.rake"
+    - "lib/tasks/*"
   UseCache: false
+Bundler/OrderedGems:
+  Enabled: false
 Style/CollectionMethods:
   Description: Preferred collection methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
@@ -41,6 +45,8 @@ Style/IfUnlessModifier:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#if-as-a-modifier
   Enabled: false
   MaxLineLength: 100
+Style/IndentHeredoc:
+  Enabled: false
 Style/OptionHash:
   Description: Don't use option hashes when you can use keyword arguments.
   Enabled: false
@@ -118,24 +124,18 @@ Style/TrailingCommaInArguments:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
   Enabled: false
   EnforcedStyleForMultiline: no_comma
-  SupportedStyles:
-  - comma
-  - consistent_comma
-  - no_comma
 Style/TrailingCommaInLiteral:
   Description: Checks for trailing comma in array and hash literals.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
   Enabled: false
   EnforcedStyleForMultiline: no_comma
-  SupportedStyles:
-  - comma
-  - consistent_comma
-  - no_comma
 Metrics/AbcSize:
   Description: A calculated magnitude based on number of assignments, branches, and
     conditions.
   Enabled: false
   Max: 15
+Metrics/BlockLength:
+  Enabled: false
 Metrics/ClassLength:
   Description: Avoid classes longer than 100 lines of code.
   Enabled: false
@@ -260,6 +260,8 @@ Rails/Output:
   Enabled: true
 Rails/Date:
   Enabled: true
+Rails/FilePath:
+  Enabled: false
 Rails/FindBy:
   Enabled: true
 Rails/FindEach:

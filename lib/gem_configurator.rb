@@ -10,8 +10,8 @@ def add_gem_configs
   shoulda_matchers_config
   code_climate_config
   rubocop_config
-  # tape configuration only with Rails 4 as tape not yet compatible with Rails 5
-  tape_config if rails_4_app?
+  tape_config
+  update_ruby_advisory_db
 end
 
 def update_rubygems
@@ -46,8 +46,10 @@ def code_climate_config
   inside 'spec' do
     inject_into_file 'spec_helper.rb', after: "# users commonly want.\n" do
       <<-RUBY
-require 'simplecov'
-SimpleCov.start 'rails'
+if ENV['GENERATE_COVERAGE'] == 'true'
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
       RUBY
     end
   end
@@ -56,13 +58,18 @@ end
 def rubocop_config
   inside 'spec' do
     inject_into_file 'spec_helper.rb', after: "RSpec.configure do |config|\n" do
-      <<-RUBY
+      <<-'RUBY'
   config.after(:suite) do
     examples = RSpec.world.filtered_examples.values.flatten
+    after_hooks = ["bundle exec rubocop",
+                   "brakeman -q -w2 -z --no-summary",
+                   "bundle-audit --update"]
     if examples.none?(&:exception)
-      system("echo '\n' && bundle exec rubocop")
-      exitstatus = $?.exitstatus
-      exit exitstatus if exitstatus.nonzero?
+      after_hooks.each do |hook_command|
+        system("echo ' ' && #{hook_command}")
+        exitstatus = $?.exitstatus
+        exit exitstatus if exitstatus.nonzero?
+      end
     end
   end
       RUBY
@@ -72,6 +79,10 @@ end
 
 def tape_config
   run 'tape installer install'
+end
+
+def update_ruby_advisory_db
+  run 'bundle-audit --update'
 end
 
 def smashing_docs?

@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/smashingboxes/boxcar.svg?branch=master)](https://travis-ci.org/smashingboxes/boxcar)
+[![Stories in Ready](https://badge.waffle.io/smashingboxes/boxcar.png?label=ready&title=Ready)](http://waffle.io/smashingboxes/boxcar)
+
 
 # Boxcar
 
@@ -8,7 +10,7 @@ Boxcar is the Rails application template used at
 ## Requirements
 This template is compatible with:
   - Rails 5.0.0
-  - Rails 4.2.7
+  - Rails 4.2.7.1
 
 The template currently assumes:
   - PostgreSQL
@@ -32,10 +34,10 @@ rails new [app_name] -m boxcar/template.rb -B
 
 To use Rails 4, do the following:
 ```
-rails _4.2.7_ new [app_name] -m boxcar/template.rb -B
+rails _4.2.7.1_ new [app_name] -m boxcar/template.rb -B
 ```
 
-If you run into an issue with Rails 4.2.7, run ```gem install rails -v 4.2.7``` to ensure you have access to this version of Rails.
+If you run into an issue with Rails 4.2.7.1, run ```gem install rails -v 4.2.7.1``` to ensure you have access to this version of Rails.
 
 Note that the ``-B`` is optional and equivalent to ``--skip-bundle``. Since there is a bundle install command inside the template, the final bundle when creating a new Rails app is unnecessary.
 
@@ -134,3 +136,11 @@ And testing gems including:
 * [Rubocop](https://github.com/bbatsov/rubocop) for linting
 * [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers) for common RSpec matchers
 * [Smashing Docs](https://github.com/thoughtbot/shoulda-matchers) for API documentation
+
+## SimpleCov
+Boxcar installs and configures simplecov to run when you set the `GENERATE_COVERAGE` env variable to `true`
+
+```
+GENERATE_COVERAGE=true rspec /path/to/spec.rb
+```
+
