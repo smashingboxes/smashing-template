@@ -13,7 +13,6 @@ def api_with_admin_install
 end
 
 def integrated_app_install
-  integrated_app_gemfile
   remove_turbolinks
   devise?
   cucumber_capybara?
