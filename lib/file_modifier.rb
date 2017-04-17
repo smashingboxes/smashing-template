@@ -2,6 +2,7 @@ require_relative './file_creator.rb'
 
 def api_only_modifications
   api_remove_files
+  modify_gemfile_for_api
   gsub_file "app/controllers/application_controller.rb", /Base/, "API"
   gsub_file "app/controllers/application_controller.rb", /protect/, "# protect"
 end
@@ -34,6 +35,18 @@ def api_remove_files
   remove_dir "app/views"
   remove_dir "app/assets/javascripts"
   remove_dir "app/assets/stylesheets"
+end
+
+def modify_gemfile_for_api
+  inject_into_file 'Gemfile', after: /taperole.*\n/ do
+    <<-RUBY
+# Use serializers to format json data
+# gem 'active_model_serializers'
+# Use rack-cors to make CORS requests from the browser client
+# gem 'rack-cors', require: 'rack/cors'
+    RUBY
+  end
+  gsub_file 'Gemfile', /.*SCSS.*\n.*\n/, ''
 end
 
 def remove_turbolinks
