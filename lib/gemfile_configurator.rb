@@ -5,7 +5,7 @@ def remove_gemfile
 end
 
 def render_gemfile
-  file "Gemfile", render_file(path("Gemfile"))
+  file 'Gemfile', render_file(path('Gemfile'))
 end
 
 def rails_4_gemfile
