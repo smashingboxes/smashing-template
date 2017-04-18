@@ -9,11 +9,11 @@ require_relative 'lib/git_initializer.rb'
 # CREATE TEMPLATE
 # -----------------------------
 remove_gemfile
+render_gemfile
 # -----------------------------
 # API ONLY APP?
 # -----------------------------
 if yes?("Is this an API app? (y/n)")
-  api_gemfile
   rails_4_gemfile if rails_4_app?
   if yes?("Does this API app have an admin interface? (y/n)")
     active_admin_install
