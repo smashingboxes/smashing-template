@@ -16,6 +16,7 @@ render_gemfile
 if yes?("Is this an API app? (y/n)")
   rails_4_gemfile if rails_4_app?
   if yes?("Does this API app have an admin interface? (y/n)")
+    active_admin_install
     api_with_admin_install
   else
     api_only_install
@@ -23,6 +24,7 @@ if yes?("Is this an API app? (y/n)")
 else
   integrated_app_install
   rails_4_gemfile if rails_4_app?
+  active_admin_install
 end
 # -----------------------------
 # DATABASE
