@@ -19,7 +19,7 @@ Style/CollectionMethods:
     collect!: map!
     find_all: select
     reduce: inject
-Style/DotPosition:
+Layout/DotPosition:
   Description: Checks the position of the dot in multi-line method calls.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
   Enabled: true
@@ -46,7 +46,7 @@ Style/IfUnlessModifier:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#if-as-a-modifier
   Enabled: false
   MaxLineLength: 100
-Style/IndentHeredoc:
+Layout/IndentHeredoc:
   Enabled: false
 Style/OptionHash:
   Description: Don't use option hashes when you can use keyword arguments.
