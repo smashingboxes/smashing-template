@@ -1,9 +1,9 @@
-require_relative 'lib/gem_configurator.rb'
-require_relative 'lib/gemfile_configurator.rb'
-require_relative 'lib/file_modifier.rb'
-require_relative 'lib/database_generator.rb'
-require_relative 'lib/installer.rb'
-require_relative 'lib/git_initializer.rb'
+require_relative "lib/gem_configurator.rb"
+require_relative "lib/gemfile_configurator.rb"
+require_relative "lib/file_modifier.rb"
+require_relative "lib/database_generator.rb"
+require_relative "lib/installer.rb"
+require_relative "lib/git_initializer.rb"
 
 # -----------------------------
 # CREATE TEMPLATE

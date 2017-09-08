@@ -110,8 +110,10 @@ Style/SingleLineMethods:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-single-line-methods
   Enabled: false
   AllowIfMethodIsEmpty: true
+# https://www.viget.com/articles/just-use-double-quoted-ruby-strings
 Style/StringLiterals:
-  Enabled: false
+  Enabled: true
+  EnforcedStyle: double_quotes
 Style/StringLiteralsInInterpolation:
   Description: Checks if uses of quotes inside expressions in interpolated strings
     match the configured preference.

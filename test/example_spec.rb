@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe "Example Test" do
   it "passes" do

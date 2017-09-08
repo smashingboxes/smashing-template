@@ -1,4 +1,4 @@
-require_relative './file_creator.rb'
+require_relative "./file_creator.rb"
 
 def api_only_modifications
   api_remove_files
@@ -8,13 +8,13 @@ def api_only_modifications
 end
 
 def generate_readme
-  remove_file 'README.rdoc'
-  file 'README.md', render_file(path("README.md"))
-  gsub_file 'README.md', /app_name/, app_name.upcase
+  remove_file "README.rdoc"
+  file "README.md", render_file(path("README.md"))
+  gsub_file "README.md", /app_name/, app_name.upcase
 end
 
 def git_ignore_append
-  append_file '.gitignore' do
+  append_file ".gitignore" do
     <<-EOF
 
 # Ignore all secrets and database config files
@@ -38,7 +38,7 @@ def api_remove_files
 end
 
 def modify_gemfile_for_api
-  inject_into_file 'Gemfile', after: /taperole.*\n/ do
+  inject_into_file "Gemfile", after: /taperole.*\n/ do
     <<-RUBY
 # Use serializers to format json data
 # gem 'active_model_serializers'
@@ -46,17 +46,17 @@ def modify_gemfile_for_api
 # gem 'rack-cors', require: 'rack/cors'
     RUBY
   end
-  gsub_file 'Gemfile', /.*SCSS.*\n.*\n/, ''
+  gsub_file "Gemfile", /.*SCSS.*\n.*\n/, ""
 end
 
 def remove_turbolinks
-  gsub_file 'app/assets/javascripts/application.js', /= require turbolinks/, ''
-  gsub_file 'app/views/layouts/application.html.erb', /, 'data-turbolinks-track' => true/, ""
+  gsub_file "app/assets/javascripts/application.js", /= require turbolinks/, ""
+  gsub_file "app/views/layouts/application.html.erb", /, 'data-turbolinks-track' => true/, ""
 end
 
 def remove_require_jquery
-  gsub_file 'app/assets/javascripts/application.js', /= require jquery\S+/, ''
-  gsub_file 'app/assets/javascripts/application.js', /= require jquery/, ''
+  gsub_file "app/assets/javascripts/application.js", /= require jquery\S+/, ""
+  gsub_file "app/assets/javascripts/application.js", /= require jquery/, ""
 end
 
 def remove_test_dir
@@ -64,21 +64,21 @@ def remove_test_dir
 end
 
 def rubocop_clean_up
-  remove_file 'config/initializers/backtrace_silencers.rb'
-  gsub_file 'config/environments/production.rb', /^\s*#.*\n/, ''
-  gsub_file 'db/seeds.rb', /^\s*#.*\n/, ''
-  gsub_file 'spec/spec_helper.rb', / != 0/, ".exitstatus.nonzero?"
-  gsub_file 'config/environments/production.rb', /\[\s/, "["
-  gsub_file 'config/environments/production.rb', /\s\]/, "]"
+  remove_file "config/initializers/backtrace_silencers.rb"
+  gsub_file "config/environments/production.rb", /^\s*#.*\n/, ""
+  gsub_file "db/seeds.rb", /^\s*#.*\n/, ""
+  gsub_file "spec/spec_helper.rb", / != 0/, ".exitstatus.nonzero?"
+  gsub_file "config/environments/production.rb", /\[\s/, "["
+  gsub_file "config/environments/production.rb", /\s\]/, "]"
   if @cucumber_capybara
-    remove_file 'lib/tasks/cucumber.rake'
-    file 'lib/tasks/cucumber.rake', render_file(path("cucumber.rake"))
-    remove_file 'features/support/env.rb'
-    file 'features/support/env.rb', render_file(path("env.rb"))
-    remove_file 'script/cucumber'
-    file 'script/cucumber', render_file(path("cucumber"))
+    remove_file "lib/tasks/cucumber.rake"
+    file "lib/tasks/cucumber.rake", render_file(path("cucumber.rake"))
+    remove_file "features/support/env.rb"
+    file "features/support/env.rb", render_file(path("env.rb"))
+    remove_file "script/cucumber"
+    file "script/cucumber", render_file(path("cucumber"))
   end
   if @devise
-    gsub_file 'config/initializers/devise.rb', /^\s*#.*\n/, ''
+    gsub_file "config/initializers/devise.rb", /^\s*#.*\n/, ""
   end
 end
