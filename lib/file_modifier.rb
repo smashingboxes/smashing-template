@@ -81,4 +81,5 @@ def rubocop_clean_up
   if @devise
     gsub_file "config/initializers/devise.rb", /^\s*#.*\n/, ""
   end
+  run "rubocop -a > /dev/null"
 end
