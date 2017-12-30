@@ -20,11 +20,13 @@ module Boxcar
 
       def boxcar_customization
         # Extensions go here
-        # invoke :extra_thing_to_do
+        invoke :setup_test_environment
       end
 
-      # def extra_thing_to_do
-      # end
+      def setup_test_environment
+        say "Setting up the test environment"
+        build :configure_travis
+      end
 
       protected
 

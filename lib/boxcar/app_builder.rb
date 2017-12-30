@@ -9,5 +9,9 @@ module Boxcar
     def readme
       template "README.md.erb", "README.md"
     end
+
+    def configure_travis
+      template "travis.yml.erb", ".travis.yml"
+    end
   end
 end
