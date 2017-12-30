@@ -1,6 +1,20 @@
-## Usage
-As a template:
-`rails new testing -m ~/repos/boxcar/template.rb -B`
+# Boxcar
 
-Or as a command line tool later:
-`boxcar add active_admin`
+Boxcar is the base Rails application used at [Smashing Boxes](http://smashingboxes.com/). It is heavily inspired by [thoughtbot's suspenders](https://github.com/thoughtbot/suspenders).
+
+## Installation
+
+First install the boxcar gem (eventually, we'll have it published on rubygems, but there's some naming conflicts at the moment):
+
+```sh
+git clone git@github.com:smashingboxes/boxcar.git
+cd boxcar
+bin/setup
+```
+
+Then run:
+
+```sh
+bin/boxcar new path/to/project_name
+```
+Don't forget to replace `path/to/project_name` with the actual path. For example, if you want to make a hello world app, you might run `bin/boxcar new ~/repos/hello-world`.
