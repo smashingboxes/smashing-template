@@ -13,5 +13,9 @@ module Boxcar
     def configure_travis
       template "travis.yml.erb", ".travis.yml"
     end
+
+    def gemfile
+      template "Gemfile.erb", "Gemfile"
+    end
   end
 end
