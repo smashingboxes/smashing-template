@@ -7,7 +7,7 @@ module Boxcar
     include Boxcar::Actions
 
     def readme
-      template 'README.md.erb', 'README.md'
+      template "README.md.erb", "README.md"
     end
   end
 end

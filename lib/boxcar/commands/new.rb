@@ -1,5 +1,5 @@
-require 'rails/generators'
-require 'rails/generators/rails/app/app_generator'
+require "rails/generators"
+require "rails/generators/rails/app/app_generator"
 
 # The purpose of this class is to control the overall process of creating the rails app. We're
 # inheriting from Rails::Generators::AppGenerator which is the default app generator
@@ -28,7 +28,7 @@ module Boxcar
 
       protected
 
-      def get_builder_class
+      def get_builder_class # rubocop:disable Naming/AccessorMethodName
         ::Boxcar::AppBuilder
       end
     end

@@ -1,16 +1,16 @@
-require 'thor'
+require "thor"
 
 module Boxcar
-  autoload :VERSION, 'boxcar/version'
-  autoload :RUBY_VERSION, 'boxcar/version'
-  autoload :RAILS_VERSION, 'boxcar/version'
+  autoload :VERSION, "boxcar/version"
+  autoload :RUBY_VERSION, "boxcar/version"
+  autoload :RAILS_VERSION, "boxcar/version"
 
-  autoload :Actions, 'boxcar/actions'
-  autoload :AppBuilder, 'boxcar/app_builder'
+  autoload :Actions, "boxcar/actions"
+  autoload :AppBuilder, "boxcar/app_builder"
 
   module Commands
-    autoload :Boxcar, 'boxcar/commands/boxcar'
-    autoload :New, 'boxcar/commands/new'
+    autoload :Boxcar, "boxcar/commands/boxcar"
+    autoload :New, "boxcar/commands/new"
   end
 end
 

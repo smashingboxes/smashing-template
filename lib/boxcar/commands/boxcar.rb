@@ -1,4 +1,4 @@
-require 'thor'
+require "thor"
 
 module Boxcar
   module Commands
