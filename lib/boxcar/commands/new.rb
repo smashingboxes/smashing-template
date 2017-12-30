@@ -1,23 +1,15 @@
-# The purpose of this file is to extend the steps used to create a new rails app. If you want to
-# override an action in the existing setup, use AppBuilder
 require 'rails/generators'
 require 'rails/generators/rails/app/app_generator'
 
-# Boxcar::AppGenerator
-#   inherits Rails::Generators::AppGenerator
-#     (https://github.com/rails/rails/blob/master/railties/lib/rails/generators/rails/app/app_generator.rb)
-#   inherits Rails::Generators::AppBase
-#     (https://github.com/rails/rails/blob/master/railties/lib/rails/generators/app_base.rb)
-#   inherits Rails::Generators::Base
-#     (https://github.com/rails/rails/blob/master/railties/lib/rails/generators/base.rb)
-#     includes Rails::Generators::Actions
-#       (https://github.com/rails/rails/blob/master/railties/lib/rails/generators/actions.rb)
-#   inherits Thor::Group
-#     (https://github.com/erikhuda/thor/blob/master/lib/thor/group.rb)
-
-# Because we're inheriting from Thor::Group, all methods are run in the order they're defined in here:
-# https://github.com/rails/rails/blob/master/railties/lib/rails/generators/rails/app/app_generator.rb#L279
-
+# The purpose of this class is to control the overall process of creating the rails app. We're
+# inheriting from Rails::Generators::AppGenerator which is the default app generator
+# (ie `rails new`). It, in turn, inherits from Thor::Group (a few steps up the chain), which means
+# that all of the steps defined in it are run in the order they're defined.
+#
+# One thing to note: This class controls the generation of the app, but AppBuilder is the class
+# that does the work of creating the files, and setting configs. The only methods we should be
+# calling here are `invoke` (to call another method in this class) and `build` (to call methods
+# in `AppBuilder`).
 module Boxcar
   module Commands
     class New < Rails::Generators::AppGenerator

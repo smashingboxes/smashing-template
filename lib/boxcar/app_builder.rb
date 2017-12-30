@@ -1,5 +1,7 @@
-# The purpose of this file is to override parts of the default rails setup process. To add new
-# steps, use Boxcar::Commands::New
+# The purpose of this class is to provide the building blocks that are used for generating a rails
+# app. For example, the readme method is responsible for creating the readme file. Since we're
+# inheriting from Rails::AppBuilder, we have a lot of those building blocks set up for us already.
+# We can override those methods to customize how they work, or we can create new ones.
 module Boxcar
   class AppBuilder < Rails::AppBuilder
     include Boxcar::Actions
