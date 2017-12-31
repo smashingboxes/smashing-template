@@ -13,6 +13,9 @@ require "rails/generators/rails/app/app_generator"
 module Boxcar
   module Commands
     class New < Rails::Generators::AppGenerator
+      class_option :skip_test, type: :boolean, default: true, desc: "Skip Test Unit"
+      class_option :skip_spring, type: :boolean, default: true, desc: "Skip Spring"
+
       def finish_template
         invoke :boxcar_customization
         super
@@ -21,9 +24,15 @@ module Boxcar
       def boxcar_customization
         # Extensions go here
         invoke :setup_test_environment
+        invoke :create_database
       end
 
       def setup_test_environment
+        say "Setting up the test environment"
+        build :configure_travis
+      end
+
+      def create_database
         say "Setting up the test environment"
         build :configure_travis
       end

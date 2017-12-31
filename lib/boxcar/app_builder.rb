@@ -17,5 +17,13 @@ module Boxcar
     def gemfile
       template "Gemfile.erb", "Gemfile"
     end
+
+    def database_yml
+      template "database.yml.erb", "config/database.yml"
+    end
+
+    def create_database
+      bundle_command "exec rails db:create db:migrate"
+    end
   end
 end
