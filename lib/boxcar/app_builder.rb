@@ -6,6 +6,10 @@ module Boxcar
   class AppBuilder < Rails::AppBuilder
     include Boxcar::Actions
 
+    def gitignore
+      copy_file "boxcar_gitignore", ".gitignore"
+    end
+
     def readme
       template "README.md.erb", "README.md"
     end
@@ -24,6 +28,10 @@ module Boxcar
 
     def create_database
       bundle_command "exec rails db:create db:migrate"
+    end
+
+    def create_secrets_example
+      run "cp config/secrets.yml config/secrets.example.yml"
     end
 
     def generate_rspec

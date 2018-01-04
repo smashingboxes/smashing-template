@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe "Create a new app with default configuration" do
+RSpec.describe "`boxcar new <app_name>`" do
   before(:all) do
     drop_dummy_database
     remove_project_directory
@@ -31,6 +31,15 @@ RSpec.describe "Create a new app with default configuration" do
     database_yml = IO.read("#{project_path}/config/database.yml")
     expect(database_yml)
       .to match(/^  database: #{BoxcarTestHelpers::APP_NAME.underscore}_development$/)
+  end
+
+  it "sets up secrets.example.yml" do
+    expect(File).to exist("#{project_path}/config/secrets.example.yml")
+  end
+
+  it "gitignores secrets.yml" do
+    gitignore = IO.read("#{project_path}/.gitignore")
+    expect(gitignore).to match(%r{^/config/secrets.yml$})
   end
 
   it "doesn't generate test directory" do

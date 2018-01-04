@@ -1,0 +1,15 @@
+!.keep
+*.DS_Store
+*.swo
+*.swp
+.tape
+.byebug_history
+/.bundle
+/config/secrets.yml
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/log/*
+/node_modules
+/public/docs
+/tmp/*
+/yarn-error.log

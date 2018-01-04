@@ -23,8 +23,14 @@ module Boxcar
 
       def boxcar_customization
         # Extensions go here
+        invoke :setup_secrets
         invoke :setup_test_environment
         invoke :create_database
+      end
+
+      def setup_secrets
+        say "Setting up secrets"
+        build :create_secrets_example
       end
 
       def setup_test_environment
@@ -37,7 +43,7 @@ module Boxcar
       end
 
       def create_database
-        say "Setting up the test environment"
+        say "Creating the local database"
         build :create_database
       end
 
