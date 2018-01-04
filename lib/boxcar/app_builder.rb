@@ -38,6 +38,13 @@ module Boxcar
       generate "rspec:install"
     end
 
+    def configure_rspec
+      remove_file "spec/rails_helper.rb"
+      remove_file "spec/spec_helper.rb"
+      copy_file "rails_helper.rb", "spec/rails_helper.rb"
+      copy_file "spec_helper.rb", "spec/spec_helper.rb"
+    end
+
     def create_database_cleaner_config
       copy_file "database_cleaner.rb", "spec/support/database_cleaner.rb"
     end

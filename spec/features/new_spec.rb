@@ -50,6 +50,22 @@ RSpec.describe "`boxcar new <app_name>`" do
     expect(File).to exist("#{project_path}/spec")
   end
 
+  it "configures rspec" do
+    rails_helper_path = "#{project_path}/spec/rails_helper.rb"
+    expect(File).to exist(rails_helper_path)
+    rails_helper = IO.read(rails_helper_path)
+    expect(rails_helper)
+      .to match(%r{^Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }$})
+
+    spec_helper_path = "#{project_path}/spec/spec_helper.rb"
+    expect(File).to exist(spec_helper_path)
+
+    spec_helper = IO.read(spec_helper_path)
+    expect(spec_helper).to match(/^\s+"bundle exec rubocop",$/)
+    expect(spec_helper).to match(/^\s+"brakeman -q -w2 -z --no-summary",$/)
+    expect(spec_helper).to match(/^\s+"bundle-audit --update"$/)
+  end
+
   it "creates the database cleaner config" do
     expect(File).to exist("#{project_path}/spec/support/database_cleaner.rb")
   end
