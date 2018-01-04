@@ -37,5 +37,9 @@ module Boxcar
     def create_factory_bot_config
       copy_file "factory_bot.rb", "spec/support/factory_bot.rb"
     end
+
+    def create_shoulda_matchers_config
+      copy_file "shoulda_matchers.rb", "spec/support/shoulda_matchers.rb"
+    end
   end
 end

@@ -48,4 +48,8 @@ RSpec.describe "Create a new app with default configuration" do
   it "creates the factory bot config" do
     expect(File).to exist("#{project_path}/spec/support/factory_bot.rb")
   end
+
+  it "creates the shoulda matchers config" do
+    expect(File).to exist("#{project_path}/spec/support/shoulda_matchers.rb")
+  end
 end
