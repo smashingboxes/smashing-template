@@ -33,5 +33,9 @@ module Boxcar
     def create_database_cleaner_config
       copy_file "database_cleaner.rb", "spec/support/database_cleaner.rb"
     end
+
+    def create_factory_bot_config
+      copy_file "factory_bot.rb", "spec/support/factory_bot.rb"
+    end
   end
 end

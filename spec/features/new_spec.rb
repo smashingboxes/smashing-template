@@ -44,4 +44,8 @@ RSpec.describe "Create a new app with default configuration" do
   it "creates the database cleaner config" do
     expect(File).to exist("#{project_path}/spec/support/database_cleaner.rb")
   end
+
+  it "creates the factory bot config" do
+    expect(File).to exist("#{project_path}/spec/support/factory_bot.rb")
+  end
 end

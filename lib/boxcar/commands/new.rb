@@ -31,6 +31,7 @@ module Boxcar
         say "Setting up the test environment"
         build :generate_rspec
         build :create_database_cleaner_config
+        build :create_factory_bot_config
         build :configure_travis
       end
 
