@@ -29,8 +29,9 @@ module Boxcar
 
       def setup_test_environment
         say "Setting up the test environment"
-        build :configure_travis
         build :generate_rspec
+        build :create_database_cleaner_config
+        build :configure_travis
       end
 
       def create_database

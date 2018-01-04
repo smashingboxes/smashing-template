@@ -29,5 +29,9 @@ module Boxcar
     def generate_rspec
       generate "rspec:install"
     end
+
+    def create_database_cleaner_config
+      copy_file "database_cleaner.rb", "spec/support/database_cleaner.rb"
+    end
   end
 end
