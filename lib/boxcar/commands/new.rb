@@ -34,7 +34,7 @@ module Boxcar
 
       def create_database
         say "Setting up the test environment"
-        build :configure_travis
+        build :create_database
       end
 
       protected
