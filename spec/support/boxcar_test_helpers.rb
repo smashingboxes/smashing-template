@@ -16,12 +16,6 @@ module BoxcarTestHelpers
         `
           #{boxcar_bin} new #{APP_NAME} #{arguments}
         `
-        Dir.chdir(APP_NAME) do
-          with_env("HOME", tmp_path) do
-            `git add .`
-            `git commit -m 'Initial commit'`
-          end
-        end
       end
     end
   end

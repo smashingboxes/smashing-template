@@ -32,4 +32,12 @@ RSpec.describe "Create a new app with default configuration" do
     expect(database_yml)
       .to match(/^  database: #{BoxcarTestHelpers::APP_NAME.underscore}_development$/)
   end
+
+  it "doesn't generate test directory" do
+    expect(File).not_to exist("#{project_path}/test")
+  end
+
+  it "sets up rspec" do
+    expect(File).to exist("#{project_path}/spec")
+  end
 end

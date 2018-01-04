@@ -25,5 +25,9 @@ module Boxcar
     def create_database
       bundle_command "exec rails db:create db:migrate"
     end
+
+    def generate_rspec
+      generate "rspec:install"
+    end
   end
 end
