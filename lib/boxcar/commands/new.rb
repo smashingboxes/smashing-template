@@ -15,6 +15,9 @@ module Boxcar
     class New < Rails::Generators::AppGenerator
       class_option :skip_test, type: :boolean, default: true, desc: "Skip Test Unit"
       class_option :skip_spring, type: :boolean, default: true, desc: "Skip Spring"
+      class_option :skip_tape, type: :boolean, default: false, desc: "Skip setting up the tape gem"
+
+      attr_accessor :tape
 
       def finish_template
         invoke :boxcar_customization
@@ -26,6 +29,7 @@ module Boxcar
         invoke :setup_secrets
         invoke :setup_test_environment
         invoke :create_database
+        invoke :setup_tape
       end
 
       def setup_secrets
@@ -47,6 +51,15 @@ module Boxcar
         say "Creating the local database"
         build :create_database
       end
+
+      def setup_tape
+        unless options[:skip_tape]
+          say "Setting up Tape"
+          build :install_tape
+        end
+      end
+
+      # @tape = options[:tape] || yes?("Use tape? (y/N)")
 
       protected
 

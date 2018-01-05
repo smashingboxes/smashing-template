@@ -56,5 +56,10 @@ module Boxcar
     def create_shoulda_matchers_config
       copy_file "shoulda_matchers.rb", "spec/support/shoulda_matchers.rb"
     end
+
+    def install_tape
+      run "tape installer install --no-vagrant"
+      gsub_file "taperole/tape_vars.yml", /app_name:/, "app_name: #{app_name.underscore}"
+    end
   end
 end
