@@ -5,7 +5,6 @@ AllCops:
     - "db/schema.rb"
     - "bin/*"
     - "lib/files/cucumber.rake"
-    - "lib/tasks/*"
     - "db/migrate/*"
   UseCache: false
 Bundler/OrderedGems:
