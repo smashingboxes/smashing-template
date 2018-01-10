@@ -9,6 +9,9 @@ ruby "<%= Boxcar::RUBY_VERSION %>"
 
 gem "rails", "<%= Boxcar::RAILS_VERSION %>"
 
+<% if @active_admin %>
+gem "active_admin", "~> 1.2.0"
+<% end %>
 gem "coffee-rails", "~> 4.2"
 gem "sass-rails", "~> 5.0"
 gem "pg"

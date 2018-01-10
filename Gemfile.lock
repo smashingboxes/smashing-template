@@ -48,6 +48,8 @@ GEM
     arel (8.0.0)
     ast (2.3.0)
     builder (3.2.3)
+    byebug (9.1.0)
+    coderay (1.1.2)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     diff-lcs (1.3)
@@ -72,6 +74,12 @@ GEM
     parser (2.4.0.2)
       ast (~> 2.3)
     powerpack (0.1.1)
+    pry (0.11.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-byebug (3.5.1)
+      byebug (~> 9.1)
+      pry (~> 0.10)
     rack (2.0.3)
     rack-test (0.8.2)
       rack (>= 1.0, < 3)
@@ -142,6 +150,7 @@ PLATFORMS
 
 DEPENDENCIES
   boxcar!
+  pry-byebug (~> 3.5)
   rspec (~> 3.2)
   rubocop (~> 0.52)
 

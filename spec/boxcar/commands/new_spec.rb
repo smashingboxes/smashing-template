@@ -1,12 +1,15 @@
 require "spec_helper"
 
-RSpec.describe "`boxcar new <app_name>`" do
+RSpec.describe Boxcar::Commands::New do
   context "with no arguments" do
     before(:all) do
       drop_dummy_database
       remove_project_directory
-      run_boxcar_new
-      setup_app_dependencies
+      RSpec::Mocks.with_temporary_scope do
+        expect(Thor::LineEditor).to receive(:readline)
+          .with("Install active admin? (y/N) ", add_to_history: false).and_return("y")
+        run_boxcar_new
+      end
     end
 
     it "uses custom Gemfile" do
@@ -90,14 +93,18 @@ RSpec.describe "`boxcar new <app_name>`" do
       expect(File).to exist("#{project_path}/taperole/provision.yml")
       expect(File).to exist("#{project_path}/taperole/deploy.yml")
     end
+
+    # pending "installs devise/devise_token_auth"
   end
 
   context "when given the skip-tape flag" do
     before(:all) do
       drop_dummy_database
       remove_project_directory
-      run_boxcar_new("--skip-tape")
-      setup_app_dependencies
+      RSpec::Mocks.with_temporary_scope do
+        allow(Thor::LineEditor).to receive(:readline).and_return("y")
+        run_boxcar_new(["--skip-tape"])
+      end
     end
 
     it "does not include taperole in the Gemfile" do
@@ -111,4 +118,10 @@ RSpec.describe "`boxcar new <app_name>`" do
       expect(File).to_not exist("#{project_path}/taperole/deploy.yml")
     end
   end
+
+  # context "When given the active-admin flag" do
+  #   it "installs active_admin" do
+  #     expect(gemfile).to match(/^gem "active_admin".*/)
+  #   end
+  # end
 end

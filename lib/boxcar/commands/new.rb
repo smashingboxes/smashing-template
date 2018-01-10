@@ -16,8 +16,9 @@ module Boxcar
       class_option :skip_test, type: :boolean, default: true, desc: "Skip Test Unit"
       class_option :skip_spring, type: :boolean, default: true, desc: "Skip Spring"
       class_option :skip_tape, type: :boolean, default: false, desc: "Skip setting up the tape gem"
+      # class_option :active_admin, type: :boolean, desc: "Include active admin?"
 
-      attr_accessor :tape
+      attr_accessor :active_admin
 
       def finish_template
         invoke :boxcar_customization
@@ -28,8 +29,8 @@ module Boxcar
         # Extensions go here
         invoke :setup_secrets
         invoke :setup_test_environment
-        invoke :create_database
         invoke :setup_tape
+        # invoke :setup_active_admin
       end
 
       def setup_secrets
@@ -47,11 +48,6 @@ module Boxcar
         build :configure_travis
       end
 
-      def create_database
-        say "Creating the local database"
-        build :create_database
-      end
-
       def setup_tape
         unless options[:skip_tape]
           say "Setting up Tape"
@@ -59,7 +55,12 @@ module Boxcar
         end
       end
 
-      # @tape = options[:tape] || yes?("Use tape? (y/N)")
+      # def setup_active_admin
+      #   if
+      #     say "Installing active admin"
+      #     build :install_active_admin
+      #   end
+      # end
 
       protected
 

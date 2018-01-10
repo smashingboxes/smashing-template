@@ -1,6 +1,8 @@
 module BoxcarTestHelpers
   APP_NAME = "dummy_app".freeze
 
+  attr_reader :output
+
   def remove_project_directory
     FileUtils.rm_rf(project_path)
   end
@@ -9,24 +11,14 @@ module BoxcarTestHelpers
     FileUtils.mkdir_p(tmp_path)
   end
 
-  def run_boxcar_new(arguments = nil)
-    arguments = "--path=#{root_path} #{arguments}"
-    Dir.chdir(tmp_path) do
-      Bundler.with_clean_env do
-        `
-          #{boxcar_bin} new #{APP_NAME} #{arguments}
-        `
-      end
-    end
-  end
-
-  def setup_app_dependencies
-    if File.exist?(project_path)
-      Dir.chdir(project_path) do
-        Bundler.with_clean_env do
-          `bundle check || bundle install`
-        end
-      end
+  def run_boxcar_new(arguments = [])
+    args = [APP_NAME, "--skip-bundle"] + arguments
+    Dir.chdir(tmp_path)
+    Bundler.with_clean_env do
+      @output = capture(:stdout) { Boxcar::Commands::New.start(args) }
+      # `
+      #   #{boxcar_bin} new #{APP_NAME} #{arguments}
+      # `
     end
   end
 

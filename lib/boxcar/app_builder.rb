@@ -19,15 +19,12 @@ module Boxcar
     end
 
     def gemfile
+      @active_admin = options[:active_admin] || yes?("Install active admin? (y/N)")
       template "Gemfile.erb", "Gemfile"
     end
 
     def database_yml
       template "database.yml.erb", "config/database.yml"
-    end
-
-    def create_database
-      bundle_command "exec rails db:create db:migrate"
     end
 
     def create_secrets_example
@@ -61,5 +58,9 @@ module Boxcar
       run "tape installer install --no-vagrant"
       gsub_file "taperole/tape_vars.yml", /app_name:/, "app_name: #{app_name.underscore}"
     end
+
+    # def install_active_admin
+    #
+    # end
   end
 end
