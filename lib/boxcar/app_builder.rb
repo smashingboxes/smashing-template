@@ -19,8 +19,11 @@ module Boxcar
     end
 
     def gemfile
-      @active_admin = options[:active_admin] || yes?("Install active admin? (y/N)")
-      template "Gemfile.erb", "Gemfile"
+      config = {
+        active_admin: options[:active_admin] || yes?("Install active admin? (y/N)"),
+        tape: !options[:skip_tape]
+      }
+      template "Gemfile.erb", "Gemfile", config
     end
 
     def database_yml
@@ -62,5 +65,18 @@ module Boxcar
     # def install_active_admin
     #
     # end
+
+    private
+
+    # This is neccessary because the default `run` outputs in a different stream for some reason,
+    # which was creating unwanted output in tests
+    def run(command)
+      say(super(command, capture: true))
+    end
+
+    # This is necessary because the default `generate` runs the default `run` instead of our run
+    def generate(command)
+      run "rails generate #{command}"
+    end
   end
 end

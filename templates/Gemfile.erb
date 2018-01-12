@@ -9,14 +9,14 @@ ruby "<%= Boxcar::RUBY_VERSION %>"
 
 gem "rails", "<%= Boxcar::RAILS_VERSION %>"
 
-<% if @active_admin %>
-gem "active_admin", "~> 1.2.0"
+<% if config[:active_admin] %>
+gem "activeadmin", "~> 1.2.0"
 <% end %>
 gem "coffee-rails", "~> 4.2"
 gem "sass-rails", "~> 5.0"
 gem "pg"
 gem "puma", "~> 3.7"
-<% unless options[:skip_tape] %>
+<% if config[:taperole] %>
 gem "taperole", "~> 2.0"
 <% end %>
 gem "uglifier", ">= 1.3.0"

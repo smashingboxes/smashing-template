@@ -16,7 +16,7 @@ module Boxcar
       class_option :skip_test, type: :boolean, default: true, desc: "Skip Test Unit"
       class_option :skip_spring, type: :boolean, default: true, desc: "Skip Spring"
       class_option :skip_tape, type: :boolean, default: false, desc: "Skip setting up the tape gem"
-      # class_option :active_admin, type: :boolean, desc: "Include active admin?"
+      class_option :active_admin, type: :boolean, desc: "Include active admin?"
 
       attr_accessor :active_admin
 
@@ -30,7 +30,7 @@ module Boxcar
         invoke :setup_secrets
         invoke :setup_test_environment
         invoke :setup_tape
-        # invoke :setup_active_admin
+        invoke :setup_active_admin
       end
 
       def setup_secrets
@@ -55,12 +55,12 @@ module Boxcar
         end
       end
 
-      # def setup_active_admin
-      #   if
-      #     say "Installing active admin"
-      #     build :install_active_admin
-      #   end
-      # end
+      def setup_active_admin
+        if @active_admin
+          say "Installing active admin"
+          build :install_active_admin
+        end
+      end
 
       protected
 

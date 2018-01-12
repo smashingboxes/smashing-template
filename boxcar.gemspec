@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency "bundler", "~> 1.3"
   s.add_dependency "rails", Boxcar::RAILS_VERSION
 
-  s.add_development_dependency "pry-byebug", "~> 3.5"
   s.add_development_dependency "rspec", "~> 3.2"
   s.add_development_dependency "rubocop", "~> 0.52"
 end

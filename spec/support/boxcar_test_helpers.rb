@@ -13,12 +13,24 @@ module BoxcarTestHelpers
 
   def run_boxcar_new(arguments = [])
     args = [APP_NAME, "--skip-bundle"] + arguments
-    Dir.chdir(tmp_path)
-    Bundler.with_clean_env do
-      @output = capture(:stdout) { Boxcar::Commands::New.start(args) }
-      # `
-      #   #{boxcar_bin} new #{APP_NAME} #{arguments}
-      # `
+    Dir.chdir(tmp_path) do
+      Bundler.with_clean_env do
+        @output = capture(:stdout) do
+          @error = capture(:stderr) do
+            Boxcar::Commands::New.start(args)
+          end
+        end
+      end
+    end
+  end
+
+  def setup_app_dependencies
+    if File.exist?(project_path)
+      Dir.chdir(project_path) do
+        Bundler.with_clean_env do
+          `bundle check || bundle install`
+        end
+      end
     end
   end
 
@@ -30,6 +42,18 @@ module BoxcarTestHelpers
         end
       end
     end
+  end
+
+  def setup_and_run_boxcar_new(arguments = [])
+    drop_dummy_database
+    remove_project_directory
+    RSpec::Mocks.with_temporary_scope do
+      allow(Thor::LineEditor).to receive(:readline).and_return("n")
+      # Yield here, to allow for any additional stubbing
+      yield if block_given?
+      run_boxcar_new(arguments)
+    end
+    setup_app_dependencies
   end
 
   def project_path

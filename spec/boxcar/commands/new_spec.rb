@@ -3,12 +3,10 @@ require "spec_helper"
 RSpec.describe Boxcar::Commands::New do
   context "with no arguments" do
     before(:all) do
-      drop_dummy_database
-      remove_project_directory
-      RSpec::Mocks.with_temporary_scope do
+      setup_and_run_boxcar_new do
+        # it "asks whether to install active_admin"
         expect(Thor::LineEditor).to receive(:readline)
-          .with("Install active admin? (y/N) ", add_to_history: false).and_return("y")
-        run_boxcar_new
+          .with("Install active admin? (y/N) ", add_to_history: false).and_return("n")
       end
     end
 
@@ -98,14 +96,7 @@ RSpec.describe Boxcar::Commands::New do
   end
 
   context "when given the skip-tape flag" do
-    before(:all) do
-      drop_dummy_database
-      remove_project_directory
-      RSpec::Mocks.with_temporary_scope do
-        allow(Thor::LineEditor).to receive(:readline).and_return("y")
-        run_boxcar_new(["--skip-tape"])
-      end
-    end
+    before(:all) { setup_and_run_boxcar_new(["--skip-tape"]) }
 
     it "does not include taperole in the Gemfile" do
       expect(gemfile).to_not match(/^gem "taperole"/)
@@ -119,9 +110,11 @@ RSpec.describe Boxcar::Commands::New do
     end
   end
 
-  # context "When given the active-admin flag" do
-  #   it "installs active_admin" do
-  #     expect(gemfile).to match(/^gem "active_admin".*/)
-  #   end
-  # end
+  context "When given the active-admin flag" do
+    before(:all) { setup_and_run_boxcar_new(["--active-admin"]) }
+
+    it "installs active_admin" do
+      expect(gemfile).to match(/^gem "activeadmin".*/)
+    end
+  end
 end
