@@ -18,8 +18,6 @@ module Boxcar
       class_option :skip_tape, type: :boolean, default: false, desc: "Skip setting up the tape gem"
       class_option :active_admin, type: :boolean, desc: "Include active admin?"
 
-      attr_accessor :active_admin
-
       def finish_template
         invoke :boxcar_customization
         super
@@ -49,14 +47,14 @@ module Boxcar
       end
 
       def setup_tape
-        unless options[:skip_tape]
+        if builder.gem_config[:tape]
           say "Setting up Tape"
           build :install_tape
         end
       end
 
       def setup_active_admin
-        if @active_admin
+        if builder.gem_config[:activeadmin]
           say "Installing active admin"
           build :install_active_admin
         end

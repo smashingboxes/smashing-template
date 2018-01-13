@@ -5,7 +5,6 @@ module Boxcar
   autoload :RUBY_VERSION, "boxcar/version"
   autoload :RAILS_VERSION, "boxcar/version"
 
-  autoload :Actions, "boxcar/actions"
   autoload :AppBuilder, "boxcar/app_builder"
 
   module Commands

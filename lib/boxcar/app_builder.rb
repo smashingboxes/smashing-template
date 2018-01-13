@@ -4,8 +4,6 @@
 # We can override those methods to customize how they work, or we can create new ones.
 module Boxcar
   class AppBuilder < Rails::AppBuilder
-    include Boxcar::Actions
-
     def gitignore
       copy_file "boxcar_gitignore", ".gitignore"
     end
@@ -19,11 +17,7 @@ module Boxcar
     end
 
     def gemfile
-      config = {
-        active_admin: options[:active_admin] || yes?("Install active admin? (y/N)"),
-        tape: !options[:skip_tape]
-      }
-      template "Gemfile.erb", "Gemfile", config
+      template "Gemfile.erb", "Gemfile", gem_config
     end
 
     def database_yml
@@ -62,9 +56,16 @@ module Boxcar
       gsub_file "taperole/tape_vars.yml", /app_name:/, "app_name: #{app_name.underscore}"
     end
 
-    # def install_active_admin
-    #
-    # end
+    def install_active_admin
+      generate "active_admin:install --skip-users"
+    end
+
+    def gem_config
+      {
+        activeadmin: options[:active_admin] || yes?("Install active admin? (y/N)"),
+        tape: !options[:skip_tape]
+      }
+    end
 
     private
 
