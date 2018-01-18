@@ -60,15 +60,17 @@ def rubocop_config
     inject_into_file 'spec_helper.rb', after: "RSpec.configure do |config|\n" do
       <<-'RUBY'
   config.after(:suite) do
-    examples = RSpec.world.filtered_examples.values.flatten
-    after_hooks = ["bundle exec rubocop",
-                   "brakeman -q -w2 -z --no-summary",
-                   "bundle-audit --update"]
-    if examples.none?(&:exception)
-      after_hooks.each do |hook_command|
-        system("echo ' ' && #{hook_command}")
-        exitstatus = $?.exitstatus
-        exit exitstatus if exitstatus.nonzero?
+    unless ENV['DISABLE_POSTCHECKS'] == 'true'
+      examples = RSpec.world.filtered_examples.values.flatten
+      after_hooks = ["bundle exec rubocop",
+                     "brakeman -q -w2 -z --no-summary",
+                     "bundle-audit --update"]
+      if examples.none?(&:exception)
+        after_hooks.each do |hook_command|
+          system("echo ' ' && #{hook_command}")
+          exitstatus = $?.exitstatus
+          exit exitstatus if exitstatus.nonzero?
+        end
       end
     end
   end
