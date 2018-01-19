@@ -57,7 +57,9 @@ module Boxcar
     end
 
     def install_active_admin
-      generate "active_admin:install --skip-users"
+      # NOTE: The --skip-comments won't work until this is merged:
+      # https://github.com/activeadmin/activeadmin/issues/5322
+      generate "active_admin:install --skip-users --skip-comments"
     end
 
     def gem_config
