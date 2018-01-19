@@ -56,6 +56,14 @@ module BoxcarTestHelpers
     setup_app_dependencies
   end
 
+  # Expect the user to be prompted with the given question,
+  # and return the given answer
+  def expect_prompt_and_answer(question, answer)
+    expect(Thor::LineEditor).to receive(:readline)
+      .with("#{question} ", add_to_history: false)
+      .and_return(answer)
+  end
+
   def project_path
     @project_path ||= Pathname.new("#{tmp_path}/#{APP_NAME}")
   end

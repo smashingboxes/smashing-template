@@ -6,9 +6,8 @@ RSpec.describe Boxcar::Commands::New do
   context "with no arguments" do
     before(:all) do
       setup_and_run_boxcar_new do
-        # it "asks whether to install active_admin"
-        expect(Thor::LineEditor).to receive(:readline)
-          .with("Install active admin? (y/N) ", add_to_history: false).and_return("n")
+        # Prompt expectations go here because they're hard to test otherwise
+        expect_prompt_and_answer("Install active admin? (y/N)", "n")
       end
     end
 
