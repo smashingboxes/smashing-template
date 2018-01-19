@@ -97,7 +97,7 @@ RSpec.describe Boxcar::Commands::New do
     # pending "installs devise/devise_token_auth"
     # pending "installs smashing_docs"
 
-    pending "generates a project with no linter errors" do
+    it "generates a project with no linter errors" do
       Dir.chdir(project_path) do
         Bundler.with_clean_env do
           `bundle exec rubocop`

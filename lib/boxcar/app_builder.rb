@@ -70,6 +70,20 @@ module Boxcar
       }
     end
 
+    def create_rubocop_config
+      copy_file ".rubocop.yml", ".rubocop.yml"
+    end
+
+    def rubocop_autocorrect
+      run "rubocop -a", capture: true
+    end
+
+    def cleanup_other_linter_violations
+      remove_file "config/initializers/backtrace_silencers.rb"
+      gsub_file "config/environments/production.rb", /^  # `config.assets.precompile`.*\n\n/, ""
+      gsub_file "db/seeds.rb", /^\s*#.*\n/, ""
+    end
+
     private
 
     # If a flag was given, return that. Otherwise, ask the user, with `yes?`
@@ -79,8 +93,10 @@ module Boxcar
 
     # This is neccessary because the default `run` outputs in a different stream for some reason,
     # which was creating unwanted output in tests
-    def run(command)
-      say(super(command, capture: true))
+    def run(command, capture: false)
+      output = super(command, capture: true)
+      say(output) unless capture
+      output
     end
 
     # This is necessary because the default `generate` runs the default `run` instead of our run

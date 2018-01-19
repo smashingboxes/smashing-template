@@ -29,6 +29,7 @@ module Boxcar
         invoke :setup_test_environment
         invoke :setup_tape
         invoke :setup_active_admin
+        invoke :setup_linter
       end
 
       def setup_secrets
@@ -58,6 +59,13 @@ module Boxcar
           say "Installing active admin"
           build :install_active_admin
         end
+      end
+
+      def setup_linter
+        say "Setting up the linter"
+        build :create_rubocop_config
+        build :rubocop_autocorrect
+        build :cleanup_other_linter_violations
       end
 
       protected
