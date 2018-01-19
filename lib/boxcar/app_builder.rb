@@ -65,12 +65,17 @@ module Boxcar
     def gem_config
       # This is a class variable because the builder gets instantiated multiple times
       @@boxcar_gem_configs ||= { # rubocop:disable Style/ClassVars
-        activeadmin: options[:active_admin] || yes?("Install active admin? (y/N)"),
+        activeadmin: preference?(:active_admin, "Install active admin? (y/N)"),
         tape: !options[:skip_tape]
       }
     end
 
     private
+
+    # If a flag was given, return that. Otherwise, ask the user, with `yes?`
+    def preference?(flag, question)
+      options[flag].nil? ? yes?(question) : options[flag]
+    end
 
     # This is neccessary because the default `run` outputs in a different stream for some reason,
     # which was creating unwanted output in tests
