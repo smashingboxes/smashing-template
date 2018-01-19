@@ -61,7 +61,8 @@ module Boxcar
     end
 
     def gem_config
-      {
+      # This is a class variable because the builder gets instantiated multiple times
+      @@boxcar_gem_configs ||= { # rubocop:disable Style/ClassVars
         activeadmin: options[:active_admin] || yes?("Install active admin? (y/N)"),
         tape: !options[:skip_tape]
       }

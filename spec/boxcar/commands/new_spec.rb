@@ -1,6 +1,8 @@
 require "spec_helper"
 
 RSpec.describe Boxcar::Commands::New do
+  before(:each) { Boxcar::AppBuilder.class_variable_set :@@boxcar_gem_configs, nil }
+
   context "with no arguments" do
     before(:all) do
       setup_and_run_boxcar_new do
@@ -93,13 +95,23 @@ RSpec.describe Boxcar::Commands::New do
     end
 
     # pending "installs devise/devise_token_auth"
+    # pending "installs smashing_docs"
+
+    pending "generates a project with no linter errors" do
+      Dir.chdir(project_path) do
+        Bundler.with_clean_env do
+          `bundle exec rubocop`
+          expect($?).to be_success
+        end
+      end
+    end
   end
 
   context "when given the skip-tape flag" do
     before(:all) { setup_and_run_boxcar_new(["--skip-tape"]) }
 
     it "does not include taperole in the Gemfile" do
-      expect(gemfile).to_not match(/^gem "taperole"/)
+      expect(gemfile).to_not match(/gem "taperole"/)
     end
 
     it "does not set up tape" do
