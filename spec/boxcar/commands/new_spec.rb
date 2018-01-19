@@ -1,12 +1,19 @@
 require "spec_helper"
 
 RSpec.describe Boxcar::Commands::New do
-  before(:each) { Boxcar::AppBuilder.class_variable_set :@@boxcar_gem_configs, nil }
+  before(:each) do
+    # This resets class variables that are set for user preferences
+    # Without these, user preferences would be persisted across our boxcar runs
+    # (eg: when we test the --active-admin flag, it will think we already chose no)
+    Boxcar::AppBuilder.class_variable_set :@@boxcar_gem_configs, nil
+    Boxcar::AppBuilder.class_variable_set :@@api_app, nil
+  end
 
   context "with no arguments" do
     before(:all) do
       setup_and_run_boxcar_new do
         # Prompt expectations go here because they're hard to test otherwise
+        expect_prompt_and_answer("Is this an API only app? (y/N)", "n")
         expect_prompt_and_answer("Install active admin? (y/N)", "n")
       end
     end
@@ -92,9 +99,6 @@ RSpec.describe Boxcar::Commands::New do
       expect(File).to exist("#{project_path}/taperole/provision.yml")
       expect(File).to exist("#{project_path}/taperole/deploy.yml")
     end
-
-    # pending "installs devise/devise_token_auth"
-    # pending "installs smashing_docs"
 
     it "generates a project with no linter errors" do
       Dir.chdir(project_path) do

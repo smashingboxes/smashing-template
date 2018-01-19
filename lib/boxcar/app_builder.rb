@@ -17,6 +17,7 @@ module Boxcar
     end
 
     def gemfile
+      api_app? # Ask if this is an API only app
       template "Gemfile.erb", "Gemfile", gem_config
     end
 
@@ -57,17 +58,7 @@ module Boxcar
     end
 
     def install_active_admin
-      # NOTE: The --skip-comments won't work until this is merged:
-      # https://github.com/activeadmin/activeadmin/issues/5322
       generate "active_admin:install --skip-users --skip-comments"
-    end
-
-    def gem_config
-      # This is a class variable because the builder gets instantiated multiple times
-      @@boxcar_gem_configs ||= { # rubocop:disable Style/ClassVars
-        activeadmin: preference?(:active_admin, "Install active admin? (y/N)"),
-        tape: !options[:skip_tape]
-      }
     end
 
     def create_rubocop_config
@@ -84,9 +75,32 @@ module Boxcar
       gsub_file "db/seeds.rb", /^\s*#.*\n/, ""
     end
 
+    ##################
+    # User preferences
+    ##################
+
+    # rubocop:disable Style/ClassVars
+    # These are stored in class variables because the builder gets instantiated multiple times,
+    # and we want to remember those preferences across instantiations
+    # NOTE: When adding a new class variable here, you'll also need to update the spec to add
+    # a new `Boxcar::AppBuilder.class_variable_set` line
+
+    def gem_config
+      @@boxcar_gem_configs ||= {
+        activeadmin: preference?(:active_admin, "Install active admin? (y/N)"),
+        tape: !options[:skip_tape]
+      }
+    end
+
+    def api_app?
+      @@api_app ||= yes?("Is this an API only app? (y/N)")
+    end
+
+    # rubocop:enable Style/ClassVars
+
     private
 
-    # If a flag was given, return that. Otherwise, ask the user, with `yes?`
+    # If a flag was given, return that. Otherwise, ask the user with `yes?`
     def preference?(flag, question)
       options[flag].nil? ? yes?(question) : options[flag]
     end
