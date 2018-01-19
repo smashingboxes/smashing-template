@@ -10,11 +10,14 @@ ruby "<%= Boxcar::RUBY_VERSION %>"
 gem "rails", "<%= Boxcar::RAILS_VERSION %>"
 
 <% if config[:activeadmin] %>
-gem "activeadmin", "~> 1.2.0"
+# TODO: When AA gets bumped to v1.2.2, change this back to
+# gem activeadmin, "~> 1.2.0"
+gem "activeadmin", github: 'dkniffin/activeadmin', branch: 'skip-comments'
 <% end %>
 gem "coffee-rails", "~> 4.2"
 gem "sass-rails", "~> 5.0"
-gem "pg"
+# TODO: bump this to ~> 1.0.0, once this gets resolved: https://github.com/rails/rails/pull/31671
+gem "pg", "~> 0.21.0"
 gem "puma", "~> 3.7"
 <% if config[:taperole] %>
 gem "taperole", "~> 2.0"
