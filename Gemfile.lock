@@ -150,7 +150,7 @@ PLATFORMS
 
 DEPENDENCIES
   boxcar!
-  pry-byebug (~> 3.5)
+  pry-byebug
   rspec (~> 3.2)
   rubocop (~> 0.52)
 
