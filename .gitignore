@@ -1,2 +1,5 @@
 tmp
 old
+# This is in here, because this is a ruby gem.
+# http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile/
+Gemfile.lock
