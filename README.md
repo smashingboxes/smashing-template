@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.org/smashingboxes/boxcar.svg?branch=master)](https://travis-ci.org/smashingboxes/boxcar)
 [![Stories in Ready](https://badge.waffle.io/smashingboxes/boxcar.png?label=ready&title=Ready)](http://waffle.io/smashingboxes/boxcar)
 
-
 # Boxcar
 
 Boxcar is the Rails application template used at
@@ -10,18 +9,16 @@ Boxcar is the Rails application template used at
 ## Requirements
 This template is compatible with:
   - Rails 5.0.0
-  - Rails 4.2.7.1
 
 The template currently assumes:
   - PostgreSQL
 
 and that the application will be deployed using:
   - Taperole
-  - Unicorn
-
-NOTE: Taperole is not yet compatible with Rails 5.
+  - Puma
 
 ## Installation
+
 To create a new Rails app with this template, do the following:
 ```
 git clone https://github.com/smashingboxes/boxcar.git
@@ -32,16 +29,33 @@ To use Rails 5, do the following:
 rails new [app_name] -m boxcar/template.rb -B
 ```
 
-To use Rails 4, do the following:
-```
-rails _4.2.7.1_ new [app_name] -m boxcar/template.rb -B
-```
+### Additional steps
 
-If you run into an issue with Rails 4.2.7.1, run ```gem install rails -v 4.2.7.1``` to ensure you have access to this version of Rails.
+Derek is in the progress of rewriting boxcar as a gem, instead of a rails template. In the meantime, there are some known bugs and extra steps that need to be taken after generating the app. They are as follows:
+- Gemfile updates
+  - Change `gem 'pg'` to `gem 'pg', "~> 0.21.0"`
+  - Change `factory_girl_rails` to `factory_bot_rails`
+- Rename `spec/support/factory_girl.rb` and inside, change `FactoryGirl` to `FactoryBot`
+- Update rubocop configs
+  - Run `bundle exec rubocop`
+  - You'll see stuff like:
+    .rubocop.yml: Style/DotPosition has the wrong namespace - should be Layout
+    .rubocop.yml: Style/FileName has the wrong namespace - should be Naming
+    .rubocop.yml: Style/IndentHeredoc has the wrong namespace - should be Layout
+    .rubocop.yml: Style/PredicateName has the wrong namespace - should be Naming
+    .rubocop.yml: Style/AccessorMethodName has the wrong namespace - should be Naming
+    Warning: unrecognized cop Lint/LiteralInCondition
+    Error: obsolete parameter MaxLineLength (for Style/IfUnlessModifier) found in .rubocop.yml
+    `Style/IfUnlessModifier: MaxLineLength` has been removed. Use `Metrics/LineLength: Max` instead
+  - Fix the errors and warnings it talks about in .rubocop.yml
+  - Run `bundle exec rubocop` again
+  - Fix all linting errors
+- Check `.travis.yml` and `config/database.yml`. Postgres doesn't allow dashes in DB names
+- In `config/database.yml`, upcase the app name in the ENV variable
+- Copy this README template into place and fill it in:
+  https://raw.githubusercontent.com/smashingboxes/boxcar/rewrite/templates/README.md.erb
+- Delete the `tests` directory
 
-Note that the ``-B`` is optional and equivalent to ``--skip-bundle``. Since there is a bundle install command inside the template, the final bundle when creating a new Rails app is unnecessary.
-
-Note that this command will be updated when the template is compatible with Rails 5.
 
 ## Options
 When using this template, you will be asked one or more questions to determine what type of Rails app to generate. There are 3 types of apps you can select:
