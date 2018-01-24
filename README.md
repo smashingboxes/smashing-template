@@ -33,23 +33,8 @@ rails new [app_name] -m boxcar/template.rb -B
 
 Derek is in the progress of rewriting boxcar as a gem, instead of a rails template. In the meantime, there are some known bugs and extra steps that need to be taken after generating the app. They are as follows:
 - Gemfile updates
-  - Change `gem 'pg'` to `gem 'pg', "~> 0.21.0"`
   - Change `factory_girl_rails` to `factory_bot_rails`
 - Rename `spec/support/factory_girl.rb` and inside, change `FactoryGirl` to `FactoryBot`
-- Update rubocop configs
-  - Run `bundle exec rubocop`
-  - You'll see stuff like:
-    .rubocop.yml: Style/DotPosition has the wrong namespace - should be Layout
-    .rubocop.yml: Style/FileName has the wrong namespace - should be Naming
-    .rubocop.yml: Style/IndentHeredoc has the wrong namespace - should be Layout
-    .rubocop.yml: Style/PredicateName has the wrong namespace - should be Naming
-    .rubocop.yml: Style/AccessorMethodName has the wrong namespace - should be Naming
-    Warning: unrecognized cop Lint/LiteralInCondition
-    Error: obsolete parameter MaxLineLength (for Style/IfUnlessModifier) found in .rubocop.yml
-    `Style/IfUnlessModifier: MaxLineLength` has been removed. Use `Metrics/LineLength: Max` instead
-  - Fix the errors and warnings it talks about in .rubocop.yml
-  - Run `bundle exec rubocop` again
-  - Fix all linting errors
 - Check `.travis.yml` and `config/database.yml`. Postgres doesn't allow dashes in DB names
 - In `config/database.yml`, upcase the app name in the ENV variable
 - Copy this README template into place and fill it in:
