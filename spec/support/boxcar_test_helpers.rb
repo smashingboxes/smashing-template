@@ -15,11 +15,11 @@ module BoxcarTestHelpers
     args = [APP_NAME, "--skip-bundle"] + arguments
     Dir.chdir(tmp_path) do
       Bundler.with_clean_env do
-        @output = capture(:stdout) do
+        # @output = capture(:stdout) do
           @error = capture(:stderr) do
             Boxcar::Commands::New.start(args)
           end
-        end
+        # end
       end
     end
   end
@@ -47,6 +47,7 @@ module BoxcarTestHelpers
   def setup_and_run_boxcar_new(arguments = [])
     drop_dummy_database
     remove_project_directory
+    reset_class_variables
     RSpec::Mocks.with_temporary_scope do
       allow(Thor::LineEditor).to receive(:readline).and_return("n")
       # Yield here, to allow for any additional stubbing
@@ -62,6 +63,13 @@ module BoxcarTestHelpers
     expect(Thor::LineEditor).to receive(:readline)
       .with("#{question} ", add_to_history: false)
       .and_return(answer)
+  end
+
+  # This resets class variables that are set for user preferences
+  # Without these, user preferences would be persisted across our boxcar runs
+  # (eg: when we test the --active-admin flag, it will think we already chose no)
+  def reset_class_variables
+    Boxcar::AppBuilder.class_variable_set :@@boxcar_configs, nil
   end
 
   def project_path

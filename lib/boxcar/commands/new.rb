@@ -16,11 +16,16 @@ module Boxcar
       class_option :skip_test, type: :boolean, default: true, desc: "Skip Test Unit"
       class_option :skip_spring, type: :boolean, default: true, desc: "Skip Spring"
       class_option :skip_tape, type: :boolean, default: false, desc: "Skip setting up the tape gem"
-      class_option :active_admin, type: :boolean, desc: "Include active admin?"
+      class_option :api_only, type: :boolean, desc: "API only app?"
+      class_option :active_admin, type: :boolean, desc: "Install active admin?"
+      class_option :devise, type: :boolean, desc: "Install devise?"
+      class_option :devise_token_auth, type: :boolean, desc: "Install devise_token_auth?"
 
-      def finish_template
-        invoke :boxcar_customization
+      # We're overriding run_after_bundle_callbacks because it's almost the last thing that the
+      # rails generator does, and it's where we want to do our custom behavior
+      def run_after_bundle_callbacks
         super
+        invoke :boxcar_customization
       end
 
       def boxcar_customization
@@ -29,6 +34,8 @@ module Boxcar
         invoke :setup_test_environment
         invoke :setup_tape
         invoke :setup_active_admin
+        invoke :setup_database
+        invoke :setup_devise
         invoke :setup_linter
       end
 
@@ -48,16 +55,31 @@ module Boxcar
       end
 
       def setup_tape
-        if builder.gem_config[:tape]
+        if builder.gem_configs[:tape]
           say "Setting up Tape"
           build :install_tape
         end
       end
 
       def setup_active_admin
-        if builder.gem_config[:activeadmin]
+        if builder.gem_configs[:activeadmin]
           say "Installing active admin"
           build :install_active_admin
+        end
+      end
+
+      def setup_database
+        say "Setting up database"
+        build :setup_database
+      end
+
+      def setup_devise
+        if builder.gem_configs[:devise]
+          say "Installing devise"
+          build :install_devise
+        elsif builder.gem_configs[:devise_token_auth]
+          say "Installing devise_token_auth"
+          build :install_devise_token_auth
         end
       end
 

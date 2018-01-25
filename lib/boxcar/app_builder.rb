@@ -17,8 +17,7 @@ module Boxcar
     end
 
     def gemfile
-      api_app? # Ask if this is an API only app
-      template "Gemfile.erb", "Gemfile", gem_config
+      template "Gemfile.erb", "Gemfile", gem_configs
     end
 
     def database_yml
@@ -61,6 +60,19 @@ module Boxcar
       generate "active_admin:install --skip-users --skip-comments"
     end
 
+    def install_devise
+      generate "devise:install"
+      generate "devise User"
+    end
+
+    def install_devise_token_auth
+      generate "devise_token_auth:install User auth"
+    end
+
+    def setup_database
+      run "rails db:setup"
+    end
+
     def create_rubocop_config
       copy_file ".rubocop.yml", ".rubocop.yml"
     end
@@ -75,28 +87,36 @@ module Boxcar
       gsub_file "db/seeds.rb", /^\s*#.*\n/, ""
     end
 
-    ##################
-    # User preferences
-    ##################
-
     # rubocop:disable Style/ClassVars
     # These are stored in class variables because the builder gets instantiated multiple times,
     # and we want to remember those preferences across instantiations
-    # NOTE: When adding a new class variable here, you'll also need to update the spec to add
-    # a new `Boxcar::AppBuilder.class_variable_set` line
 
-    def gem_config
-      @@boxcar_gem_configs ||= {
-        activeadmin: preference?(:active_admin, "Install active admin? (y/N)"),
-        tape: !options[:skip_tape]
-      }
+    def boxcar_configs
+      @@boxcar_configs ||= begin
+        api_app = preference?(:api_only, "Is this an API only app? (y/N)")
+        gems = {}
+        if api_app
+          gems[:devise] = false
+          gems[:devise_token_auth] =
+            preference?(:devise_token_auth, "Install devise_token_auth? (y/N)")
+        else
+          gems[:devise] = preference?(:devise, "Install devise? (y/N)")
+          gems[:devise_token_auth] = false
+        end
+        gems[:activeadmin] = preference?(:active_admin, "Install active admin? (y/N)")
+        gems[:tape] = !options[:skip_tape]
+
+        {
+          api_app: api_app,
+          gems: gems
+        }
+      end
     end
-
-    def api_app?
-      @@api_app ||= yes?("Is this an API only app? (y/N)")
-    end
-
     # rubocop:enable Style/ClassVars
+
+    def gem_configs
+      boxcar_configs[:gems]
+    end
 
     private
 
