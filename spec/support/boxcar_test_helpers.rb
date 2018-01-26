@@ -1,3 +1,5 @@
+require 'pry-byebug'
+
 module BoxcarTestHelpers
   APP_NAME = "dummy_app".freeze
 
@@ -15,11 +17,11 @@ module BoxcarTestHelpers
     args = [APP_NAME, "--skip-bundle"] + arguments
     Dir.chdir(tmp_path) do
       Bundler.with_clean_env do
-        # @output = capture(:stdout) do
+        @output = capture(:stdout) do
           @error = capture(:stderr) do
             Boxcar::Commands::New.start(args)
           end
-        # end
+        end
       end
     end
   end

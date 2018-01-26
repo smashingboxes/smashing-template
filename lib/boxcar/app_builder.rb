@@ -58,19 +58,28 @@ module Boxcar
 
     def install_active_admin
       generate "active_admin:install --skip-users --skip-comments"
+      remove_long_comments "config/initializers/active_admin.rb"
+      gsub_file "app/admin/dashboard.rb", "end # content", "end"
     end
 
     def install_devise
       generate "devise:install"
       generate "devise User"
+      gsub_file "config/initializers/devise.rb", /# config.secret_key.*/, "# config.secret_key = ''"
+      gsub_file "config/initializers/devise.rb", /# config.pepper.*/, "# config.pepper = ''"
     end
 
     def install_devise_token_auth
       generate "devise_token_auth:install User auth"
+      # This does two things different from the default.
+      # 1. It inherits from ApplicationRecord instead of ActiveRecord::Base
+      # 2. It doesn't include omniauthable by default
+      copy_file "user.rb", "app/model/user.rb"
     end
 
     def setup_database
-      run "rails db:setup"
+      run "rails db:create"
+      run "rails db:migrate"
     end
 
     def create_rubocop_config
@@ -83,7 +92,7 @@ module Boxcar
 
     def cleanup_other_linter_violations
       remove_file "config/initializers/backtrace_silencers.rb"
-      gsub_file "config/environments/production.rb", /^  # `config.assets.precompile`.*\n\n/, ""
+      remove_long_comments "config/environments/production.rb"
       gsub_file "db/seeds.rb", /^\s*#.*\n/, ""
     end
 
@@ -119,6 +128,15 @@ module Boxcar
     end
 
     private
+
+    def remove_long_comments(filename)
+      # The aim of this regex is to find any comment lines that would cause the
+      # linter to fail because the line is to long (> 100 characters)
+      # It's not fool-proof, because the number of spaces at the beginning varies,
+      # but most of the time it's four or less. With the pound, that leaves 95 characters
+      gsub_file filename, /\s+#(.*){95,}/, ""
+    end
+
 
     # If a flag was given, return that. Otherwise, ask the user with `yes?`
     def preference?(flag, question)
