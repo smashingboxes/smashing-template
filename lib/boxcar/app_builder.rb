@@ -137,7 +137,6 @@ module Boxcar
       gsub_file filename, /\s+#(.*){95,}/, ""
     end
 
-
     # If a flag was given, return that. Otherwise, ask the user with `yes?`
     def preference?(flag, question)
       options[flag].nil? ? yes?(question) : options[flag]
