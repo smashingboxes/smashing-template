@@ -14,15 +14,16 @@ module BoxcarTestHelpers
   end
 
   def run_boxcar_new(arguments = [])
-    args = [APP_NAME, "--skip-bundle"] + arguments
+    args = [APP_NAME] + arguments
     Dir.chdir(tmp_path) do
-      Bundler.with_clean_env do
-        @output = capture(:stdout) do
-          @error = capture(:stderr) do
-            Boxcar::Commands::New.start(args)
-          end
+      before_gemfile = ENV["BUNDLE_GEMFILE"]
+      ENV["BUNDLE_GEMFILE"] = gemfile_path
+      @output = capture(:stdout) do
+        @error = capture(:stderr) do
+          Boxcar::Commands::New.start(args)
         end
       end
+      ENV["BUNDLE_GEMFILE"] = before_gemfile
     end
   end
 
@@ -50,6 +51,7 @@ module BoxcarTestHelpers
     drop_dummy_database
     remove_project_directory
     reset_class_variables
+    # This is here because we normally can't stub out methods in a `before(:all)`
     RSpec::Mocks.with_temporary_scope do
       allow(Thor::LineEditor).to receive(:readline).and_return("n")
       # Yield here, to allow for any additional stubbing
@@ -78,8 +80,12 @@ module BoxcarTestHelpers
     @project_path ||= Pathname.new("#{tmp_path}/#{APP_NAME}")
   end
 
+  def gemfile_path
+    "#{project_path}/Gemfile"
+  end
+
   def gemfile
-    @gemfile ||= IO.read("#{project_path}/Gemfile")
+    @gemfile ||= IO.read(gemfile_path)
   end
 
   private
