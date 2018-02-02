@@ -92,8 +92,8 @@ module Boxcar
 
     def cleanup_other_linter_violations
       remove_file "config/initializers/backtrace_silencers.rb"
-      remove_long_comments "config/environments/production.rb"
-      gsub_file "db/seeds.rb", /^\s*#.*\n/, ""
+      split_long_comments "config/environments/production.rb"
+      split_long_comments "db/seeds.rb"
     end
 
     # rubocop:disable Style/ClassVars
@@ -129,12 +129,35 @@ module Boxcar
 
     private
 
-    def remove_long_comments(filename)
-      # The aim of this regex is to find any comment lines that would cause the
-      # linter to fail because the line is to long (> 100 characters)
-      # It's not fool-proof, because the number of spaces at the beginning varies,
-      # but most of the time it's four or less. With the pound, that leaves 95 characters
-      gsub_file filename, /\s+#(.*){95,}/, ""
+    def split_long_comments(filename)
+      gsub_file filename, /(.){100,}/ do |match|
+        split_long_comment_string(match)
+      end
+    end
+
+    def split_long_comment_string(line)
+      limit = 100
+
+      matches = line.match(/(\s*\#\s*)/)
+      return line unless matches
+      line_prefix = matches[0]
+      comment_limit = limit - line_prefix.length
+
+      comment = line.split("# ")[1]
+      words = comment.split(" ")
+      lines = words.reduce([line_prefix]) do |memo, word|
+        previous_lines = memo[0..-2]
+        current_line = memo.last
+        word_appended = "#{current_line} #{word}"
+        if word_appended.length > comment_limit
+          next_line = "#{line_prefix} #{word}"
+          memo.concat([next_line])
+        else
+          previous_lines.concat([word_appended])
+        end
+      end
+
+      lines.join("\n")
     end
 
     # If a flag was given, return that. Otherwise, ask the user with `yes?`
