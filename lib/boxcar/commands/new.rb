@@ -92,7 +92,7 @@ module Boxcar
 
       protected
 
-      def get_builder_class # rubocop:disable Naming/AccessorMethodName
+      def get_builder_class
         ::Boxcar::AppBuilder
       end
     end
