@@ -16,8 +16,4 @@ RSpec.configure do |config|
   config.before(:all) do
     create_tmp_directory
   end
-
-  # config.before(:each) do
-  #   FakeGithub.clear!
-  # end
 end

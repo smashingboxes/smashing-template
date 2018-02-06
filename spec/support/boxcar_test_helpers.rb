@@ -58,7 +58,6 @@ module BoxcarTestHelpers
       yield if block_given?
       run_boxcar_new(arguments)
     end
-    setup_app_dependencies
   end
 
   # Expect the user to be prompted with the given question,
@@ -100,14 +99,5 @@ module BoxcarTestHelpers
 
   def root_path
     File.expand_path("../../../", __FILE__)
-  end
-
-  def with_env(name, new_value)
-    prior = ENV[name]
-    ENV[name] = new_value.to_s
-
-    yield
-  ensure
-    ENV[name] = prior
   end
 end

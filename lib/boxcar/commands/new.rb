@@ -7,7 +7,7 @@ require "rails/generators/rails/app/app_generator"
 # that all of the steps defined in it are run in the order they're defined.
 #
 # One thing to note: This class controls the generation of the app, but AppBuilder is the class
-# that does the work of creating the files, and setting configs. The only methods we should be
+# that does the work of creating the files, setting configs, etc. The only methods we should be
 # calling here are `invoke` (to call another method in this class) and `build` (to call methods
 # in `AppBuilder`).
 module Boxcar
