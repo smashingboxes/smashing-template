@@ -79,15 +79,15 @@ module BoxcarTestHelpers
     @project_path ||= Pathname.new("#{tmp_path}/#{APP_NAME}")
   end
 
-  def gemfile_path
-    "#{project_path}/Gemfile"
-  end
-
   def gemfile
     @gemfile ||= IO.read(gemfile_path)
   end
 
   private
+
+  def gemfile_path
+    "#{project_path}/Gemfile"
+  end
 
   def tmp_path
     @tmp_path ||= Pathname.new("#{root_path}/tmp")

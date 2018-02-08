@@ -5,7 +5,7 @@ following are a few things to note for how these specs work:
 
 - Boxcar gets set up and run via the `setup_and_run_boxcar_new` method. Running
   boxcar takes a bit of time, so we don't want to do it more often than necessary.
-  Because of that, we call that method (and it's related setup steps) in a
+  Because of that, we call that method (and its related setup steps) in a
   `before(:all)` block, rather than the normal `subject` or `before(:each)`.
 - The `expect_prompt_and_answer` method is available for testing and stubbing
   interactive prompts. All of the calls to that method need to be set up before
