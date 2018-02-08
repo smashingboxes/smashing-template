@@ -5,7 +5,7 @@ RSpec.describe "boxcar new <app_name>" do
     setup_and_run_boxcar_new do
       # Prompt expectations go here because they're hard to test otherwise
       expect_prompt_and_answer("Is this an API only app? (y/N)", "n")
-      expect_prompt_and_answer("Install active admin? (y/N)", "n")
+      expect_prompt_and_answer("Install Active Admin? (y/N)", "n")
       expect_prompt_and_answer("Install devise? (y/N)", "n")
     end
   end
