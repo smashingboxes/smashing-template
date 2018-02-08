@@ -56,7 +56,7 @@ module Boxcar
 
       def setup_tape
         if builder.gem_configs[:tape]
-          say "Setting up Tape"
+          say "Setting up tape"
           build :install_tape
         end
       end
