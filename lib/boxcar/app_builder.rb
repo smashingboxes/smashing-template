@@ -56,7 +56,7 @@ module Boxcar
       gsub_file "taperole/tape_vars.yml", /app_name:/, "app_name: #{app_name.underscore}"
     end
 
-    def install_active_admin
+    def install_activeadmin
       generate "active_admin:install --skip-users --skip-comments"
       split_long_comments "config/initializers/active_admin.rb"
       gsub_file "app/admin/dashboard.rb", "end # content", "end"
@@ -111,7 +111,7 @@ module Boxcar
           gems[:devise] = preference?(:devise, "Install devise? (y/N)")
           gems[:devise_token_auth] = false
         end
-        gems[:activeadmin] = preference?(:active_admin, "Install active admin? (y/N)")
+        gems[:activeadmin] = preference?(:activeadmin, "Install Active Admin? (y/N)")
         gems[:tape] = !options[:skip_tape]
 
         {

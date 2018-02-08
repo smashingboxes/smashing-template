@@ -17,7 +17,7 @@ module Boxcar
       class_option :skip_spring, type: :boolean, default: true, desc: "Skip Spring"
       class_option :skip_tape, type: :boolean, default: false, desc: "Skip setting up the tape gem"
       class_option :api_only, type: :boolean, desc: "API only app?"
-      class_option :active_admin, type: :boolean, desc: "Install active admin?"
+      class_option :activeadmin, type: :boolean, desc: "Install active admin?"
       class_option :devise, type: :boolean, desc: "Install devise?"
       class_option :devise_token_auth, type: :boolean, desc: "Install devise_token_auth?"
 
@@ -33,7 +33,7 @@ module Boxcar
         invoke :setup_secrets
         invoke :setup_test_environment
         invoke :setup_tape
-        invoke :setup_active_admin
+        invoke :setup_activeadmin
         invoke :setup_database
         invoke :setup_devise
         invoke :setup_linter
@@ -61,10 +61,10 @@ module Boxcar
         end
       end
 
-      def setup_active_admin
+      def setup_activeadmin
         if builder.gem_configs[:activeadmin]
           say "Installing active admin"
-          build :install_active_admin
+          build :install_activeadmin
         end
       end
 
