@@ -72,6 +72,10 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(File).to exist("#{project_path}/spec/support/shoulda_matchers.rb")
   end
 
+  it "creates the request helpers config" do
+    expect(File).to exist("#{project_path}/spec/support/request_helpers.rb")
+  end
+
   it "generates a project with no linter errors" do
     Dir.chdir(project_path) do
       Bundler.with_clean_env do

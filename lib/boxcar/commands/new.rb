@@ -52,6 +52,7 @@ module Boxcar
         build :create_database_cleaner_config
         build :create_factory_bot_config
         build :create_shoulda_matchers_config
+        build :create_request_helpers_config
         build :configure_travis
       end
 

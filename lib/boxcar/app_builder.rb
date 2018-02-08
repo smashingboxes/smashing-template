@@ -51,6 +51,10 @@ module Boxcar
       copy_file "shoulda_matchers.rb", "spec/support/shoulda_matchers.rb"
     end
 
+    def create_request_helpers_config
+      copy_file "request_helpers.rb", "spec/support/request_helpers.rb"
+    end
+
     def install_tape
       run "tape installer install --no-vagrant"
       gsub_file "taperole/tape_vars.yml", /app_name:/, "app_name: #{app_name.underscore}"
