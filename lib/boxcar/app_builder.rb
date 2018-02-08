@@ -99,7 +99,6 @@ module Boxcar
     # rubocop:disable Style/ClassVars
     # These are stored in class variables because the builder gets instantiated multiple times,
     # and we want to remember those preferences across instantiations
-
     def boxcar_configs
       @@boxcar_configs ||= begin
         api_app = preference?(:api_only, "Is this an API only app? (y/N)")

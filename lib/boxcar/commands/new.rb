@@ -3,7 +3,7 @@ require "rails/generators/rails/app/app_generator"
 
 # The purpose of this class is to control the overall process of creating the rails app. We're
 # inheriting from Rails::Generators::AppGenerator which is the default app generator
-# (ie `rails new`). It, in turn, inherits from Thor::Group (a few steps up the chain), which means
+# (i.e. `rails new`). It, in turn, inherits from Thor::Group (a few steps up the chain), which means
 # that all of the steps defined in it are run in the order they're defined.
 #
 # One thing to note: This class controls the generation of the app, but AppBuilder is the class
