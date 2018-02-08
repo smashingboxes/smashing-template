@@ -16,6 +16,7 @@ module Boxcar
       class_option :skip_test, type: :boolean, default: true, desc: "Skip Test Unit"
       class_option :skip_spring, type: :boolean, default: true, desc: "Skip Spring"
       class_option :skip_tape, type: :boolean, default: false, desc: "Skip setting up the tape gem"
+      class_option :skip_turbolinks, type: :boolean, default: true, desc: "Skip Turbolinks"
       class_option :api_only, type: :boolean, desc: "API only app?"
       class_option :activeadmin, type: :boolean, desc: "Install active admin?"
       class_option :devise, type: :boolean, desc: "Install devise?"
