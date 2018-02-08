@@ -91,7 +91,7 @@ module Boxcar
     end
 
     def cleanup_other_linter_violations
-      remove_file "config/initializers/backtrace_silencers.rb"
+      split_long_comments "config/initializers/backtrace_silencers.rb"
       split_long_comments "config/environments/production.rb"
       split_long_comments "db/seeds.rb"
     end

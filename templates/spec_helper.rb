@@ -2,6 +2,8 @@ RSpec.configure do |config|
   config.after(:each, type: :controller) do
     SmashingDocs.run!(request, response, true)
   end
+  # This is intentionally commented out. SmashingDocs will uncomment
+  # it when running `rails g docs:build_docs`
   # config.after(:suite) { SmashingDocs.finish! }
   config.after(:suite) do
     examples = RSpec.world.filtered_examples.values.flatten
