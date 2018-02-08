@@ -1,5 +1,7 @@
 # Boxcar
 
+[![Build Status](https://travis-ci.org/smashingboxes/boxcar.svg?branch=master)](https://travis-ci.org/smashingboxes/boxcar)
+
 Boxcar is the base Rails application used at [Smashing Boxes](http://smashingboxes.com/). It is heavily inspired by [thoughtbot's suspenders](https://github.com/thoughtbot/suspenders).
 
 ## Installation
