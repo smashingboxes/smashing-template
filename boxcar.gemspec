@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.authors = ["Smashing Boxes"]
   s.date = Date.today.strftime("%Y-%m-%d")
 
-  s.description = "Boxcar is a Rails generator used by Smashing Boxes"
+  s.description = "Boxcar is a Rails project generator used by Smashing Boxes"
 
-  s.email = "developers@smashingboxes.com"
+  s.email = "dev@smashingboxes.com"
   s.executables = ["boxcar"]
   s.extra_rdoc_files = %w[README.md LICENSE]
   s.files = `git ls-files`.split("\n")
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.name = "boxcar"
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.summary = "Generate a Rails app using smashingboxes' best practices."
+  s.summary = "Generate a Rails app using the defaults for Smashing Boxes."
   s.test_files = `git ls-files -- spec/*`.split("\n")
   s.version = Boxcar::VERSION
 
