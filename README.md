@@ -12,7 +12,7 @@ naming conflicts](https://github.com/dstrctrng/boxcar/issues/2) at the moment):
 ```sh
 git clone git@github.com:smashingboxes/boxcar.git
 cd boxcar
-bin/setup
+bundle install
 ```
 
 ## Usage
