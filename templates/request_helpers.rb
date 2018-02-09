@@ -8,3 +8,7 @@ module Request
     end
   end
 end
+
+RSpec.configure do |config|
+  config.include Request::Helpers
+end
