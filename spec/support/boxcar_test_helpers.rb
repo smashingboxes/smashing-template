@@ -1,5 +1,3 @@
-require "pry-byebug"
-
 module BoxcarTestHelpers
   APP_NAME = "dummy_app".freeze
 

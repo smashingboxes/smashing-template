@@ -1,8 +1,4 @@
 shared_examples_for "a run that includes all the basic setup steps" do
-  it "returns a zero exit code" do
-    expect(@failure).to_not eq(true)
-  end
-
   it "uses custom Gemfile" do
     expect(gemfile).to match(/^ruby "#{Boxcar::RUBY_VERSION}"$/)
     expect(gemfile).to match(/^gem "rails", "#{Boxcar::RAILS_VERSION}"$/)
