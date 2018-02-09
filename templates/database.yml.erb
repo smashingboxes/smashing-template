@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: <%= app_name.underscore %>_development
+
+test:
+  <<: *default
+  database: <%= app_name.underscore %>_test
+
+production:
+  <<: *default
+  database: <%= app_name.underscore %>_production
+  username: <%= app_name.underscore %>
+  password: <%%= ENV['<%= app_name.upcase %>_DATABASE_PASSWORD'] %>
