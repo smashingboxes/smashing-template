@@ -81,8 +81,9 @@ module Boxcar
       copy_file "user.rb", "app/model/user.rb"
     end
 
-    def create_github_template
-      copy_file "pull_request_template.md", "app/"
+    def create_github_markdown
+      Dir.mkdir(".github/")
+      copy_file "pull_request_template.md", ".github/pull_request_template.md"
     end
 
     def setup_database

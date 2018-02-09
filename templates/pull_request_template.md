@@ -1,6 +1,6 @@
 ## Why?
-- :notebook: https://smashingboxes.atlassian.net/browse/KAB-###
-- :bug: https://smashingboxes.atlassian.net/browse/KAB-###
+- :notebook: https://smashingboxes.atlassian.net/browse/###-###
+- :bug: https://smashingboxes.atlassian.net/browse/###-###
 
 ## What Changed?
 - List of changes here
