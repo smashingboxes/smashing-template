@@ -2,3 +2,5 @@ inherit_from:
   - templates/.rubocop.yml
 Rails:
   Enabled: false
+Style/MutableConstant:
+  Enabled: false

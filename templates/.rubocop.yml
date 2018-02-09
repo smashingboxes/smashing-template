@@ -10,6 +10,7 @@ AllCops:
     - "config/initializers/*"
     - "Vagrantfile"
     - "Rakefile"
+    - "tmp/*"
   UseCache: false
 Bundler/OrderedGems:
   Enabled: false
