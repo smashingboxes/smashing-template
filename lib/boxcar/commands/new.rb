@@ -45,6 +45,11 @@ module Boxcar
         build :create_secrets_example
       end
 
+      def create_github_template
+        say "add the github template"
+        build :create_github_markdown
+      end
+
       def setup_test_environment
         say "Setting up the test environment"
         build :generate_rspec
