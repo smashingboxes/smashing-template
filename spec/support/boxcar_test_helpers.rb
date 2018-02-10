@@ -95,3 +95,7 @@ module BoxcarTestHelpers
     File.expand_path("../../../", __FILE__)
   end
 end
+
+RSpec.configure do |config|
+  config.include BoxcarTestHelpers
+end
