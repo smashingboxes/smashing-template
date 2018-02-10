@@ -32,6 +32,11 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(gitignore).to match(%r{^/config/secrets.yml$})
   end
 
+  it "sets up the annotate" do
+    expect(gemfile).to match(/^gem "annotate"$/)
+    expect(File).to exist("#{project_path}/lib/tasks/auto_annotate_models.rake")
+  end
+
   it "doesn't generate test directory" do
     expect(File).not_to exist("#{project_path}/test")
   end

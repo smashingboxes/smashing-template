@@ -86,6 +86,10 @@ module Boxcar
       run "rails db:migrate"
     end
 
+    def setup_annotate
+      copy_file "auto_annotate_models.rake", "lib/rake/auto_annotate_models.rake"
+    end
+
     def create_rubocop_config
       copy_file ".rubocop.yml", ".rubocop.yml"
     end
