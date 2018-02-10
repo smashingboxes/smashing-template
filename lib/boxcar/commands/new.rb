@@ -10,6 +10,9 @@ require "rails/generators/rails/app/app_generator"
 # that does the work of creating the files, setting configs, etc. The only methods we should be
 # calling here are `invoke` (to call another method in this class) and `build` (to call methods
 # in `AppBuilder`).
+#
+# Adding new functionality should be placed in the boxcar_customization function.  Please invoke
+# the new functionality like the commands in boxcar_customization function.
 module Boxcar
   module Commands
     class New < Rails::Generators::AppGenerator
@@ -38,11 +41,17 @@ module Boxcar
         invoke :setup_database
         invoke :setup_devise
         invoke :setup_linter
+        invoke :setup_github_template
       end
 
       def setup_secrets
         say "Setting up secrets"
         build :create_secrets_example
+      end
+
+      def setup_github_template
+        say "Adding the github template"
+        build :create_github_markdown
       end
 
       def setup_test_environment
