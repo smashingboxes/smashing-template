@@ -27,6 +27,10 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(File).to exist("#{project_path}/config/secrets.example.yml")
   end
 
+  it "sets up pull_request_template.md" do
+    expect(File).to exist("#{project_path}/.github/pull_request_template.md")
+  end
+
   it "gitignores secrets.yml" do
     gitignore = IO.read("#{project_path}/.gitignore")
     expect(gitignore).to match(%r{^/config/secrets.yml$})
