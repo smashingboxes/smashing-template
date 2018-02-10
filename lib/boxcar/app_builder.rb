@@ -87,7 +87,7 @@ module Boxcar
     end
 
     def setup_annotate
-      copy_file "auto_annotate_models.rake", "lib/rake/auto_annotate_models.rake"
+      copy_file "auto_annotate_models.rake", "lib/tasks/auto_annotate_models.rake"
     end
 
     def create_rubocop_config
