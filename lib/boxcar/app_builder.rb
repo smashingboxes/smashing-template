@@ -82,7 +82,6 @@ module Boxcar
     end
 
     def create_github_markdown
-      # Dir.mkdir(".github/")
       copy_file "pull_request_template.md", ".github/pull_request_template.md"
     end
 
