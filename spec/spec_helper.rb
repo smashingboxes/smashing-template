@@ -10,9 +10,6 @@ require boxcar_path
 Dir["./spec/support/**/*.rb"].each { |file| require file }
 
 RSpec.configure do |config|
-  config.include ThorHelpers
-  config.include BoxcarTestHelpers
-
   config.before(:all) do
     create_tmp_directory
   end

@@ -40,6 +40,7 @@ module Boxcar
         invoke :setup_activeadmin
         invoke :setup_database
         invoke :setup_devise
+        invoke :setup_annotate
         invoke :setup_linter
         invoke :setup_github_template
       end
@@ -92,6 +93,11 @@ module Boxcar
           say "Installing devise_token_auth"
           build :install_devise_token_auth
         end
+      end
+
+      def setup_annotate
+        say "Setting up annotate"
+        build :setup_annotate
       end
 
       def setup_linter
