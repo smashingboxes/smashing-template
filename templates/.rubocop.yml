@@ -1,3 +1,5 @@
+require: rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:
@@ -293,3 +295,20 @@ Rails/UnknownEnv:
     - staging
     - development
     - test
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Description: Checks if examples contain too many `expect` calls.
+  Enabled: true
+  Max: 5
+  AggregateFailuresByDefault: false
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations
+RSpec/NestedGroups:
+  Max: 5
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/NotToNot:
+  Description: Checks for consistent method usage for negating expectations.
+  EnforcedStyle: to_not
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot
