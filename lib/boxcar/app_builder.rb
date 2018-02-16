@@ -140,6 +140,7 @@ module Boxcar
           gems[:devise] = false
           gems[:devise_token_auth] =
             preference?(:devise_token_auth, "Install devise_token_auth? (y/N)")
+            gems[:active_model_serializers] = true
         else
           gems[:devise] = preference?(:devise, "Install devise? (y/N)")
           gems[:devise_token_auth] = false
