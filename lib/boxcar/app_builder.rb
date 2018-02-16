@@ -81,8 +81,33 @@ module Boxcar
       copy_file "user.rb", "app/model/user.rb"
     end
 
+    def create_routes
+      remove_file "config/routes.rb"
+      template "routes.rb.erb", "config/routes.rb", gem_configs
+    end
+
     def create_github_markdown
       copy_file "pull_request_template.md", ".github/pull_request_template.md"
+    end
+
+    def create_devise_token_auth_helpers
+      say "Running generator"
+      # Controller Helpers
+      copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
+      copy_file "application_controller.rb", "app/controllers/api/v1/application_controller.rb"
+      copy_file "registrations_controller.rb", "app/controllers/api/v1/users/registration_controller.rb"
+      copy_file "sessions_controller.rb", "app/controllers/api/v1/users/sessions_controller.rb"
+      copy_file "render_helper.rb", "app/controllers/concerns/render_helper.rb"
+      copy_file "devise_token_auth_response_serializer.rb", "app/controllers/concerns/devise_token_auth_response_serializer.rb"
+      # Spec Helpers
+      copy_file "sign_in_spec.rb", "spec/api/v1/users/sign_in_spec.rb"
+      copy_file "sign_in_spec.rb", "spec/api/v1/users/sign_in_spec.rb"
+      copy_file "valid_sign_in.rb", "spec/support/valid_sign_in.rb"
+      copy_file "valid_sign_in_credentials.rb", "spec/support/valid_sign_in_credentials.rb"
+      copy_file "requests.rb", "spec/support/requests.rb"
+      copy_file "auth_helper.rb", "spec/support/auth_helper.rb"
+      # Factories
+      copy_file "users_factory.rb", "spec/factories/users_factory.rb"
     end
 
     def setup_database
@@ -115,6 +140,7 @@ module Boxcar
           gems[:devise] = false
           gems[:devise_token_auth] =
             preference?(:devise_token_auth, "Install devise_token_auth? (y/N)")
+          gems[:active_model_serializers] = true
         else
           gems[:devise] = preference?(:devise, "Install devise? (y/N)")
           gems[:devise_token_auth] = false

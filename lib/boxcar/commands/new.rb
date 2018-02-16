@@ -42,6 +42,11 @@ module Boxcar
         invoke :setup_devise
         invoke :setup_linter
         invoke :setup_github_template
+        invoke :setup_routes
+      end
+
+      def setup_routes
+        build :create_routes
       end
 
       def setup_secrets
@@ -91,6 +96,7 @@ module Boxcar
         elsif builder.gem_configs[:devise_token_auth]
           say "Installing devise_token_auth"
           build :install_devise_token_auth
+          build :create_devise_token_auth_helpers
         end
       end
 
