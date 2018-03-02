@@ -119,8 +119,10 @@ module Boxcar
     end
 
     def devise_controller
-      copy_file "devise_token_auth_response_serializer.rb", "app/controllers/concerns/devise_token_auth_response_serializer.rb"
-      copy_file "registrations_controller.rb", "app/controllers/api/v1/users/registration_controller.rb"
+      copy_file "devise_token_auth_response_serializer.rb",
+                "app/controllers/concerns/devise_token_auth_response_serializer.rb"
+      copy_file "registrations_controller.rb",
+                "app/controllers/api/v1/users/registration_controller.rb"
       copy_file "sessions_controller.rb", "app/controllers/api/v1/users/sessions_controller.rb"
     end
 
