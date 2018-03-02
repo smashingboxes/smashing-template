@@ -16,11 +16,7 @@ module BoxcarTestHelpers
     Dir.chdir(tmp_path) do
       before_gemfile = ENV["BUNDLE_GEMFILE"]
       ENV["BUNDLE_GEMFILE"] = gemfile_path
-      @output = capture(:stdout) do
-        @error = capture(:stderr) do
-          Boxcar::Commands::New.start(args)
-        end
-      end
+      Boxcar::Commands::New.start(args)
       ENV["BUNDLE_GEMFILE"] = before_gemfile
     end
   end
@@ -98,4 +94,8 @@ module BoxcarTestHelpers
   def root_path
     File.expand_path("../../../", __FILE__)
   end
+end
+
+RSpec.configure do |config|
+  config.include BoxcarTestHelpers
 end
