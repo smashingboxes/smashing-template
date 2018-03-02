@@ -42,21 +42,23 @@ shared_examples_for "a run that includes all the basic setup steps" do
       .to match(/^  database: #{BoxcarTestHelpers::APP_NAME.underscore}_development$/)
   end
 
-  it "sets up secrets.example.yml" do
-    expect(File).to exist("#{project_path}/config/secrets.example.yml")
+  it "sets up secrets.yml" do
+    secrets_path = "#{project_path}/config/secrets.yml"
+    expect(File).to exist(secrets_path)
+    secrets_file = IO.read(secrets_path)
+    expect(secrets_file).to match(/^shared:/)
   end
 
-  it "sets up pull_request_template.md" do
-    expect(File).to exist("#{project_path}/.github/pull_request_template.md")
+  it "sets up .env" do
+    expect(File).to exist("#{project_path}/.env")
   end
 
   it "sets up .erdconfig file" do
     expect(File).to exist("#{project_path}/.erdconfig")
   end
 
-  it "gitignores secrets.yml" do
-    gitignore = IO.read("#{project_path}/.gitignore")
-    expect(gitignore).to match(%r{^/config/secrets.yml$})
+  it "sets up pull_request_template.md" do
+    expect(File).to exist("#{project_path}/.github/pull_request_template.md")
   end
 
   it "includes all of the defaults gems" do

@@ -60,7 +60,7 @@ module Boxcar
 
       def setup_secrets
         say "Setting up secrets"
-        build :create_secrets_example
+        build :create_secrets
       end
 
       def setup_ruby_version

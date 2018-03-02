@@ -30,9 +30,10 @@ module Boxcar
       template "database.yml.erb", "config/database.yml"
     end
 
-    def create_secrets_example
-      copy_file "secrets.example.yml", "config/secrets.example.yml"
-      run "cp config/secrets.example.yml config/secrets.yml"
+    def create_secrets
+      remove_file "config/secrets.yml"
+      copy_file "secrets.yml", "config/secrets.yml"
+      copy_file ".env", ".env"
     end
 
     def generate_rspec
