@@ -1,4 +1,4 @@
-shared_examples "a valid sign in" do
+shared_examples_for "a valid sign in" do
   context "with valid params" do
     include_context "with valid sign in credentials"
     let(:endpoint) { "/api/v1/users/sign_in" }
