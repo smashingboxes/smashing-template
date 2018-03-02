@@ -30,6 +30,11 @@ module Boxcar
 
     def generate_rspec
       generate "rspec:install"
+      install_specs
+    end
+
+    def install_specs
+      copy_file "seed_spec.rb", "spec/seeds/seed_spec.rb"
     end
 
     def configure_rspec
