@@ -41,9 +41,9 @@ module Boxcar
         invoke :setup_database
         invoke :setup_devise
         invoke :setup_annotate
-        invoke :setup_linter
         invoke :setup_github_template
         invoke :setup_routes
+        invoke :setup_linter # This line should be last
       end
 
       def setup_routes

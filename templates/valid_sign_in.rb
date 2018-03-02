@@ -1,12 +1,9 @@
 shared_examples "a valid sign in" do
   context "with valid params" do
+    include_context "with valid sign in credentials"
     let(:endpoint) { "/api/v1/users/sign_in" }
-    let(:password) { "Secur3P@ssw0rd" }
-    let(:user) { create(:user, password: password) }
-
+    let(:params) { { email: user.email, password: user.password } }
     before { post endpoint, params: params }
-
-    let(:params) { { email: user.email, password: password } }
 
     it_behaves_like "a successful request" do
       let(:doc_message) { "User Sign In" }
