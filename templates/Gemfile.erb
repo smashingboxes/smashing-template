@@ -13,6 +13,7 @@ gem "rails", "<%= Boxcar::RAILS_VERSION %>"
 gem "coffee-rails", "~> 4.2"
 <%= 'gem "devise"' if config[:devise] %>
 <%= 'gem "devise_token_auth"' if config[:devise_token_auth] %>
+<%= 'gem "active_model_serializers"' if config[:active_model_serializers] %>
 gem "sass-rails", "~> 5.0"
 # TODO: bump this to ~> 1.0.0, once this gets resolved: https://github.com/rails/rails/pull/31671
 gem "pg", "~> 0.21.0"

@@ -16,6 +16,10 @@ RSpec.describe "boxcar new <app_name>" do
     expect(gemfile).to match(/^gem "taperole"/)
   end
 
+  it "includes the seeds_spec test" do
+    expect(File).to exist("#{project_path}/spec/seeds/seed_spec.rb")
+  end
+
   it "installs tape" do
     expect(File).to exist("#{project_path}/taperole/hosts")
 
