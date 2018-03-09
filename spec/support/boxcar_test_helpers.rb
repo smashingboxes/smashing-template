@@ -92,7 +92,7 @@ module BoxcarTestHelpers
   end
 
   def root_path
-    File.expand_path("../../../", __FILE__)
+    File.expand_path("../../", __dir__)
   end
 end
 

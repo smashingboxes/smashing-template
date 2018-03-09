@@ -1,0 +1,11 @@
+Rails.application.routes.draw do
+  # root to: "/"
+  <%= "ActiveAdmin.routes(self)" if config[:activeadmin] %>
+  <%- if config[:devise_token_auth] -%>
+  mount_devise_token_auth_for 'User',
+                              at: 'api/v1/users',
+                              controllers: {
+                                sessions: "api/v1/users/sessions",
+                              }
+  <%- end -%>
+end

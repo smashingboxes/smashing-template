@@ -12,7 +12,7 @@ RSpec.configure do |config|
       "brakeman -q -w2 -z --no-summary",
       "bundle-audit --update"
     ]
-    if examples.none?(&:exception) && ENV['DISABLE_POSTCHECKS'] != 'true'
+    if examples.none?(&:exception) && ENV["DISABLE_POSTCHECKS"] != "true"
       after_hooks.each do |hook_command|
         system("echo ' ' && #{hook_command}")
         exitstatus = $?.exitstatus

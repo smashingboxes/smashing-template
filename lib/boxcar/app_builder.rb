@@ -84,14 +84,63 @@ module Boxcar
       # 1. It inherits from ApplicationRecord instead of ActiveRecord::Base
       # 2. It doesn't include omniauthable by default
       copy_file "user.rb", "app/model/user.rb"
+      copy_file "users_factory.rb", "spec/factories/users_factory.rb"
+    end
+
+    def create_routes
+      remove_file "config/routes.rb"
+      template "routes.rb.erb", "config/routes.rb", gem_configs
     end
 
     def create_github_markdown
       copy_file "pull_request_template.md", ".github/pull_request_template.md"
     end
 
+    def create_devise_token_auth_helpers
+      api_controller
+      devise_controller
+      render_helper
+      spec_request_helper
+      spec_auth_helpers
+      auth_specs
+    end
+
+    def auth_specs
+      copy_file "sign_in_spec.rb", "spec/requests/api/v1/users/sign_in_spec.rb"
+    end
+
+    def spec_auth_helpers
+      copy_file "auth_helper.rb", "spec/support/auth_helper.rb"
+      copy_file "valid_sign_in_credentials.rb", "spec/support/valid_sign_in_credentials.rb"
+      copy_file "valid_sign_in.rb", "spec/support/valid_sign_in.rb"
+    end
+
+    def spec_request_helper
+      copy_file "requests.rb", "spec/support/requests.rb"
+    end
+
+    def render_helper
+      copy_file "render_helper.rb", "app/controllers/concerns/render_helper.rb"
+    end
+
+    def devise_controller
+      copy_file "devise_token_auth_response_serializer.rb",
+                "app/controllers/concerns/devise_token_auth_response_serializer.rb"
+      copy_file "registrations_controller.rb",
+                "app/controllers/api/v1/users/registration_controller.rb"
+      copy_file "sessions_controller.rb", "app/controllers/api/v1/users/sessions_controller.rb"
+    end
+
+    def api_controller
+      copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
+      copy_file "application_controller.rb", "app/controllers/api/v1/application_controller.rb"
+    end
+
     def setup_database
       run "rails db:create"
+    end
+
+    def migrate_database
       run "rails db:migrate"
     end
 
@@ -124,6 +173,7 @@ module Boxcar
           gems[:devise] = false
           gems[:devise_token_auth] =
             preference?(:devise_token_auth, "Install devise_token_auth? (y/N)")
+          gems[:active_model_serializers] = true
         else
           gems[:devise] = preference?(:devise, "Install devise? (y/N)")
           gems[:devise_token_auth] = false

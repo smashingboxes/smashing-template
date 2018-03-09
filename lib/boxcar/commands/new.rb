@@ -41,8 +41,14 @@ module Boxcar
         invoke :setup_database
         invoke :setup_devise
         invoke :setup_annotate
-        invoke :setup_linter
+        invoke :migrate_database
         invoke :setup_github_template
+        invoke :setup_routes
+        invoke :setup_linter # This line should be last
+      end
+
+      def setup_routes
+        build :create_routes
       end
 
       def setup_secrets
@@ -85,6 +91,11 @@ module Boxcar
         build :setup_database
       end
 
+      def migrate_database
+        say "Migrating database"
+        build :migrate_database
+      end
+
       def setup_devise
         if builder.gem_configs[:devise]
           say "Installing devise"
@@ -92,6 +103,7 @@ module Boxcar
         elsif builder.gem_configs[:devise_token_auth]
           say "Installing devise_token_auth"
           build :install_devise_token_auth
+          build :create_devise_token_auth_helpers
         end
       end
 

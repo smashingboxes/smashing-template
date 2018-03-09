@@ -119,7 +119,7 @@ Style/SingleLineMethods:
   Enabled: false
   AllowIfMethodIsEmpty: true
 Style/StringLiterals:
-  Enabled: false
+  Enabled: true
   EnforcedStyle: double_quotes
 Style/StringLiteralsInInterpolation:
   Description: Checks if uses of quotes inside expressions in interpolated strings
@@ -138,7 +138,16 @@ Style/TrailingCommaInArguments:
   - comma
   - consistent_comma
   - no_comma
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInHashLiteral:
+  Description: Checks for trailing comma in hash literals.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
+  Enabled: false
+  EnforcedStyleForMultiline: no_comma
+  SupportedStylesForMultiline:
+  - comma
+  - consistent_comma
+  - no_comma
+Style/TrailingCommaInArrayLiteral:
   Description: Checks for trailing comma in array and hash literals.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
   Enabled: false
@@ -237,6 +246,9 @@ Style/PerlBackrefs:
   Description: Avoid Perl-style regex back references.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-perl-regexp-last-matchers
   Enabled: false
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
+  AllowInnerSlashes: false
 Style/Send:
   Description: Prefer `Object#__send__` or `Object#public_send` to `send`, as `send`
     may overlap with existing methods.
