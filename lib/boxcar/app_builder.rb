@@ -138,6 +138,9 @@ module Boxcar
 
     def setup_database
       run "rails db:create"
+    end
+
+    def migrate_database
       run "rails db:migrate"
     end
 

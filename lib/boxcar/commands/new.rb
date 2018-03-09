@@ -41,6 +41,7 @@ module Boxcar
         invoke :setup_database
         invoke :setup_devise
         invoke :setup_annotate
+        invoke :migrate_database
         invoke :setup_github_template
         invoke :setup_routes
         invoke :setup_linter # This line should be last
@@ -88,6 +89,11 @@ module Boxcar
       def setup_database
         say "Setting up database"
         build :setup_database
+      end
+
+      def migrate_database
+        say "Migrating database"
+        build :migrate_database
       end
 
       def setup_devise
