@@ -1,4 +1,4 @@
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path("lib", __dir__)
 require "boxcar/version"
 require "date"
 
