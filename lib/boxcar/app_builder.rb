@@ -123,6 +123,10 @@ module Boxcar
       copy_file "render_helper.rb", "app/controllers/concerns/render_helper.rb"
     end
 
+    def create_erd_config
+      copy_file ".erdconfig", ".erdconfig"
+    end
+
     def devise_controller
       copy_file "devise_token_auth_response_serializer.rb",
                 "app/controllers/concerns/devise_token_auth_response_serializer.rb"

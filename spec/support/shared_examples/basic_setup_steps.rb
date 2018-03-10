@@ -1,3 +1,17 @@
+DEFAULT_GEMS = %w(annotate
+                  awesome_print
+                  brakeman
+                  bundler-audit
+                  codeclimate-test-reporter
+                  database_cleaner
+                  faker
+                  pry-byebug
+                  rails-erd
+                  rspec-rails
+                  rubocop
+                  shoulda-matchers
+                  simplecov).freeze
+
 shared_examples_for "a run that includes all the basic setup steps" do
   it "uses custom Gemfile" do
     expect(gemfile).to match(/^ruby "#{Boxcar::RUBY_VERSION}"$/)
@@ -31,13 +45,19 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(File).to exist("#{project_path}/.github/pull_request_template.md")
   end
 
+  it "sets up .erdconfig file" do
+    expect(File).to exist("#{project_path}/.erdconfig")
+  end
+
   it "gitignores secrets.yml" do
     gitignore = IO.read("#{project_path}/.gitignore")
     expect(gitignore).to match(%r{^/config/secrets.yml$})
   end
 
-  it "adds the annotate gem" do
-    expect(gemfile).to match(/gem "annotate"/)
+  it "includes all of the defaults gems" do
+    DEFAULT_GEMS.each do |gem|
+      expect(gemfile).to match(/gem "#{gem}"/)
+    end
   end
 
   it "adds the annotate rake task" do
