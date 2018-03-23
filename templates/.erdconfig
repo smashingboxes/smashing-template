@@ -13,7 +13,7 @@ orientation: vertical
 polymorphism: false
 sort: true
 warn: true
-title: Kabook - Data Model
+title: Data Model
 exclude: null
 only: null
 only_recursion_depth: null
