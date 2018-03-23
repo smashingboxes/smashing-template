@@ -44,6 +44,7 @@ module Boxcar
         invoke :migrate_database
         invoke :setup_github_template
         invoke :setup_routes
+        invoke :setup_erd_template
         invoke :setup_linter # This line should be last
       end
 
@@ -54,6 +55,11 @@ module Boxcar
       def setup_secrets
         say "Setting up secrets"
         build :create_secrets_example
+      end
+
+      def setup_erd_template
+        say "Adding the erd config file"
+        build :create_erd_config
       end
 
       def setup_github_template
