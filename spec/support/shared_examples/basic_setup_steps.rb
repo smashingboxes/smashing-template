@@ -31,6 +31,10 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(travis_file).to match(/^  - bundle exec rspec$/)
   end
 
+  it "creates a .ruby-version file" do
+    expect(File).to exist("#{project_path}/.ruby-version")
+  end
+
   it "sets up the database config" do
     database_yml = IO.read("#{project_path}/config/database.yml")
     expect(database_yml)

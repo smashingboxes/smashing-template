@@ -16,6 +16,10 @@ module Boxcar
       template "travis.yml.erb", ".travis.yml"
     end
 
+    def ruby_version
+      template ".ruby-version.erb", ".ruby-version"
+    end
+
     def gemfile
       template "Gemfile.erb", "Gemfile", gem_configs
     end

@@ -34,6 +34,7 @@ module Boxcar
 
       def boxcar_customization
         # Extensions go here
+        invoke :setup_ruby_version
         invoke :setup_secrets
         invoke :setup_test_environment
         invoke :setup_tape
@@ -55,6 +56,11 @@ module Boxcar
       def setup_secrets
         say "Setting up secrets"
         build :create_secrets_example
+      end
+
+      def setup_ruby_version
+        say "Setting up .ruby_version"
+        build :ruby_version
       end
 
       def setup_erd_template
