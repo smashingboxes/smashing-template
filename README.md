@@ -23,3 +23,7 @@ bin/boxcar new path/to/project_name
 
 Don't forget to replace `path/to/project_name` with the actual path. For example, if you want to
 make a hello world app, you might run `bin/boxcar new ~/repos/hello-world`.
+
+## Contributing
+
+If you'd like to contribute to Boxcar, please see [CONTRIBUTING.md](/.github/CONTRIBUTING.md).
