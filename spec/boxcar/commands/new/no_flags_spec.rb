@@ -40,4 +40,12 @@ RSpec.describe "boxcar new <app_name>" do
   it "doesn't add devise to the gemfile" do
     expect(gemfile).to_not match(/^gem "devise"/)
   end
+
+  it "adds our eslint config" do
+    expect(File).to exist("#{project_path}/.eslintrc")
+  end
+
+  it "adds our stylelint config" do
+    expect(File).to exist("#{project_path}/.stylelint.config.js")
+  end
 end
