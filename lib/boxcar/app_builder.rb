@@ -165,7 +165,7 @@ module Boxcar
     end
 
     def create_stylelint_config
-      run "wget https://github.com/smashingboxes/web-boilerplate/blob/master/.stylelint.config.js"
+      run "wget https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/.stylelint.config.js"
     end
 
     def rubocop_autocorrect
