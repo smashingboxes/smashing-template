@@ -26,4 +26,4 @@ make a hello world app, you might run `bin/boxcar new ~/repos/hello-world`.
 
 ## Contributing
 
-If you'd like to contribute to Boxcar, please see [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
+If you'd like to contribute to Boxcar, please see [CONTRIBUTING.md](/.github/CONTRIBUTING.md).
