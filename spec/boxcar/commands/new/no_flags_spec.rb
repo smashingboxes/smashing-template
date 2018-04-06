@@ -46,7 +46,7 @@ RSpec.describe "boxcar new <app_name>" do
   end
 
   it "adds our stylelint config" do
-    expect(File).to exist("#{project_path}/.stylelint.config.js")
+    expect(File).to exist("#{project_path}/stylelint.config.js")
   end
 
   it "adds package.json scripts for eslint and stylelint" do

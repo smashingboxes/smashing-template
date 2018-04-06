@@ -184,7 +184,7 @@ module Boxcar
     end
 
     def cleanup_eslint_violations
-      eslint_disable_file 'app/assets/javascripts/cable.js'
+      eslint_disable_file "app/assets/javascripts/cable.js"
     end
 
     # rubocop:disable Style/ClassVars
@@ -221,7 +221,7 @@ module Boxcar
     private
 
     def eslint_disable_file(filename)
-      prepend_to_file filename, '/* eslint-disable */'
+      prepend_to_file filename, "/* eslint-disable */"
       append_to_file filename, "/* eslint-enable */\n"
     end
 
