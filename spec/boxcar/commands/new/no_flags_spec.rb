@@ -40,4 +40,32 @@ RSpec.describe "boxcar new <app_name>" do
   it "doesn't add devise to the gemfile" do
     expect(gemfile).to_not match(/^gem "devise"/)
   end
+
+  it "adds our eslint config" do
+    expect(File).to exist("#{project_path}/.eslintrc")
+  end
+
+  it "adds our stylelint config" do
+    expect(File).to exist("#{project_path}/stylelint.config.js")
+  end
+
+  it "adds package.json scripts for eslint and stylelint" do
+    package_json = IO.read("#{project_path}/package.json")
+    expect(package_json).to include('"lint": "npm run lint:css && npm run lint:js"')
+    expect(package_json).to include("lint:css")
+    expect(package_json).to include("lint:js")
+  end
+
+  it "doesn't have any eslint violations" do
+    Dir.chdir(project_path) do
+      Bundler.with_clean_env do
+        `yarn install && yarn lint`
+        expect($?).to be_success
+      end
+    end
+  end
+
+  it "configures travis to run eslint" do
+    expect(IO.read("#{project_path}/.travis.yml")).to match(/^  - yarn lint$/)
+  end
 end

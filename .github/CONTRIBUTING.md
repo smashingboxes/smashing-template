@@ -37,6 +37,8 @@ are provided by `Rails::AppBuilder` and `Thor::Actions`. Here are some of the mo
 | generate | generate "model User ..." | Runs the given `rails generate` command inside the generated rails app |
 | run | run "echo 'hello' > world.txt" | Runs the given command inside the generated rails app
 
+For a more complete list, see [this page](http://www.rubydoc.info/github/wycats/thor/Thor/Actions).
+
 ## Tests
 
 Every new features should have tests to go with it. Boxcar's tests are written in RSpec. Here are

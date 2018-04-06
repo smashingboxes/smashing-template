@@ -46,7 +46,8 @@ module Boxcar
         invoke :setup_github_template
         invoke :setup_routes
         invoke :setup_erd_template
-        invoke :setup_linter # This line should be last
+        invoke :setup_package_json
+        invoke :setup_linters # This line should be last
       end
 
       def setup_routes
@@ -124,11 +125,19 @@ module Boxcar
         build :setup_annotate
       end
 
-      def setup_linter
-        say "Setting up the linter"
+      def setup_package_json
+        say "Setting up package.json"
+        build :setup_package_json
+      end
+
+      def setup_linters
+        say "Setting up the linter configs"
         build :create_rubocop_config
         build :rubocop_autocorrect
-        build :cleanup_other_linter_violations
+        build :cleanup_other_rubocop_violations
+        build :create_eslint_config
+        build :cleanup_eslint_violations
+        build :create_stylelint_config
       end
 
       protected
