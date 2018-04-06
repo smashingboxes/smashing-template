@@ -165,17 +165,26 @@ module Boxcar
     end
 
     def create_stylelint_config
-      run "wget https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/.stylelint.config.js"
+      run "wget https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/stylelint.config.js"
+    end
+
+    def setup_package_json
+      remove_file "package.json"
+      template "package.json.erb", "package.json"
     end
 
     def rubocop_autocorrect
       run "rubocop -a", capture: true
     end
 
-    def cleanup_other_linter_violations
+    def cleanup_other_rubocop_violations
       split_long_comments "config/initializers/backtrace_silencers.rb"
       split_long_comments "config/environments/production.rb"
       split_long_comments "db/seeds.rb"
+    end
+
+    def cleanup_eslint_violations
+      eslint_disable_file 'app/assets/javascripts/cable.js'
     end
 
     # rubocop:disable Style/ClassVars
@@ -210,6 +219,11 @@ module Boxcar
     end
 
     private
+
+    def eslint_disable_file(filename)
+      prepend_to_file filename, '/* eslint-disable */'
+      append_to_file filename, "/* eslint-enable */\n"
+    end
 
     def split_long_comments(filename)
       gsub_file filename, /(.){100,}/ do |match|
