@@ -41,31 +41,63 @@ RSpec.describe "boxcar new <app_name>" do
     expect(gemfile).to_not match(/^gem "devise"/)
   end
 
-  it "adds our eslint config" do
-    expect(File).to exist("#{project_path}/.eslintrc")
-  end
+  describe "frontend linting" do
+    it "adds our eslint config" do
+      expect(File).to exist("#{project_path}/.eslintrc")
+    end
 
-  it "adds our stylelint config" do
-    expect(File).to exist("#{project_path}/stylelint.config.js")
-  end
+    it "adds our stylelint config" do
+      expect(File).to exist("#{project_path}/stylelint.config.js")
+    end
 
-  it "adds package.json scripts for eslint and stylelint" do
-    package_json = IO.read("#{project_path}/package.json")
-    expect(package_json).to include('"lint": "npm run lint:css && npm run lint:js"')
-    expect(package_json).to include("lint:css")
-    expect(package_json).to include("lint:js")
-  end
+    it "adds package.json scripts for eslint and stylelint" do
+      package_json = IO.read("#{project_path}/package.json")
+      expect(package_json).to include('"lint": "npm run lint:css && npm run lint:js"')
+      expect(package_json).to include("lint:css")
+      expect(package_json).to include("lint:js")
+    end
 
-  it "doesn't have any eslint violations" do
-    Dir.chdir(project_path) do
-      Bundler.with_clean_env do
-        `yarn install && yarn lint`
-        expect($?).to be_success
+    it "doesn't have any eslint violations" do
+      Dir.chdir(project_path) do
+        Bundler.with_clean_env do
+          `yarn install && yarn lint`
+          expect($?).to be_success
+        end
       end
+    end
+
+    it "configures travis to run eslint" do
+      expect(IO.read("#{project_path}/.travis.yml")).to match(/^  - yarn lint$/)
     end
   end
 
-  it "configures travis to run eslint" do
-    expect(IO.read("#{project_path}/.travis.yml")).to match(/^  - yarn lint$/)
+  describe "ActionMailer configs" do
+    it "adds letter_opener to the gemfile" do
+      expect(gemfile).to match(/^\s+gem "letter_opener"/)
+    end
+
+    it "configures the development environment to use letter_opener" do
+      development = IO.read("#{project_path}/config/environments/development.rb")
+      expect(development).to match(/^\s*config.action_mailer.delivery_method = :letter_opener$/)
+      expect(development).to match(/^\s*config.action_mailer.perform_deliveries = true$/)
+      expect(development).to match(/^\s*config.action_mailer.default_url_options.*$/)
+    end
+
+    it "adds letter_opener to the gemfile" do
+      expect(gemfile).to match(/^gem "mailgun-ruby"/)
+    end
+
+    it "configures the production environment to use mailgun" do
+      production = IO.read("#{project_path}/config/environments/production.rb")
+      expect(production).to match(/^\s*config.action_mailer.default_url_options.*$/)
+      expect(production).to match(/^\s*config.action_mailer.delivery_method = :mailgun$/)
+      expect(production).to match(/^\s*config.action_mailer.mailgun_settings = {$/)
+    end
+
+    it "adds the mailgun lines to secrets.yml" do
+      secrets = IO.read("#{project_path}/config/secrets.yml")
+      expect(secrets).to match(/^\s*mailgun_api_key: <%= ENV\["MAILGUN_API_KEY"\] %>$/)
+      expect(secrets).to match(/^\s*mailgun_domain: <%= ENV\["MAILGUN_DOMAIN"\] %>$/)
+    end
   end
 end

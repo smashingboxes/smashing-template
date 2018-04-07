@@ -42,6 +42,7 @@ module Boxcar
         invoke :setup_database
         invoke :setup_devise
         invoke :setup_annotate
+        invoke :setup_action_mailer
         invoke :migrate_database
         invoke :setup_github_template
         invoke :setup_routes
@@ -118,6 +119,11 @@ module Boxcar
           build :install_devise_token_auth
           build :create_devise_token_auth_helpers
         end
+      end
+
+      def setup_action_mailer
+        say "Setting up ActionMailer"
+        build :setup_action_mailer
       end
 
       def setup_annotate
