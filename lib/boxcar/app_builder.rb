@@ -29,7 +29,8 @@ module Boxcar
     end
 
     def create_secrets_example
-      run "cp config/secrets.yml config/secrets.example.yml"
+      copy_file "secrets.example.yml", "config/secrets.example.yml"
+      run "cp config/secrets.example.yml config/secrets.yml"
     end
 
     def generate_rspec
@@ -154,6 +155,40 @@ module Boxcar
 
     def setup_annotate
       copy_file "auto_annotate_models.rake", "lib/tasks/auto_annotate_models.rake"
+    end
+
+    def setup_action_mailer
+      development_action_mailer_config = <<~CONFIG
+
+        config.action_mailer.delivery_method = :letter_opener
+        config.action_mailer.perform_deliveries = true
+
+        config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
+      CONFIG
+
+      insert_into_file "config/environments/development.rb",
+                       development_action_mailer_config,
+                       before: "# Don't care if the mailer can't send."
+
+      production_action_mailer_config = <<~CONFIG
+
+        config.action_mailer.default_url_options = {
+          host: Rails.application.secrets.mailgun_domain
+        }
+
+        config.action_mailer.delivery_method = :mailgun
+
+        config.action_mailer.mailgun_settings = {
+          api_key: Rails.application.secrets.mailgun_api_key,
+          domain: Rails.application.secrets.mailgun_domain
+        }
+
+      CONFIG
+
+      insert_into_file "config/environments/production.rb",
+                       production_action_mailer_config,
+                       before: "config.action_mailer.perform_caching = false"
     end
 
     def create_rubocop_config
