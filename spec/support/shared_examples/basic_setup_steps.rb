@@ -1,3 +1,17 @@
+DEFAULT_GEMS = %w(annotate
+                  awesome_print
+                  brakeman
+                  bundler-audit
+                  codeclimate-test-reporter
+                  database_cleaner
+                  faker
+                  pry-byebug
+                  rails-erd
+                  rspec-rails
+                  rubocop
+                  shoulda-matchers
+                  simplecov).freeze
+
 shared_examples_for "a run that includes all the basic setup steps" do
   it "uses custom Gemfile" do
     expect(gemfile).to match(/^ruby "#{Boxcar::RUBY_VERSION}"$/)
@@ -17,6 +31,10 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(travis_file).to match(/^  - bundle exec rspec$/)
   end
 
+  it "creates a .ruby-version file" do
+    expect(File).to exist("#{project_path}/.ruby-version")
+  end
+
   it "sets up the database config" do
     database_yml = IO.read("#{project_path}/config/database.yml")
     expect(database_yml)
@@ -27,9 +45,27 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(File).to exist("#{project_path}/config/secrets.example.yml")
   end
 
+  it "sets up pull_request_template.md" do
+    expect(File).to exist("#{project_path}/.github/pull_request_template.md")
+  end
+
+  it "sets up .erdconfig file" do
+    expect(File).to exist("#{project_path}/.erdconfig")
+  end
+
   it "gitignores secrets.yml" do
     gitignore = IO.read("#{project_path}/.gitignore")
     expect(gitignore).to match(%r{^/config/secrets.yml$})
+  end
+
+  it "includes all of the defaults gems" do
+    DEFAULT_GEMS.each do |gem|
+      expect(gemfile).to match(/gem "#{gem}"/)
+    end
+  end
+
+  it "adds the annotate rake task" do
+    expect(File).to exist("#{project_path}/lib/tasks/auto_annotate_models.rake")
   end
 
   it "doesn't generate test directory" do
@@ -76,6 +112,15 @@ shared_examples_for "a run that includes all the basic setup steps" do
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
         `bundle exec rubocop`
+        expect($?).to be_success
+      end
+    end
+  end
+
+  it "generated a project with all passing specs" do
+    Dir.chdir(project_path) do
+      Bundler.with_clean_env do
+        `bundle exec rspec`
         expect($?).to be_success
       end
     end

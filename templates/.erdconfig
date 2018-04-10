@@ -1,0 +1,22 @@
+attributes:
+  - content
+  - foreign_key
+  - inheritance
+disconnected: true
+filename: ER Model
+filetype: pdf
+indirect: true
+inheritance: false
+markup: true
+notation: bachman
+orientation: vertical
+polymorphism: false
+sort: true
+warn: true
+title: Data Model
+exclude: null
+only: null
+only_recursion_depth: null
+prepend_primary: false
+cluster: false
+splines: spline

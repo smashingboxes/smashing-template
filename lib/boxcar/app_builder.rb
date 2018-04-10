@@ -16,6 +16,10 @@ module Boxcar
       template "travis.yml.erb", ".travis.yml"
     end
 
+    def ruby_version
+      template ".ruby-version.erb", ".ruby-version"
+    end
+
     def gemfile
       template "Gemfile.erb", "Gemfile", gem_configs
     end
@@ -25,11 +29,17 @@ module Boxcar
     end
 
     def create_secrets_example
-      run "cp config/secrets.yml config/secrets.example.yml"
+      copy_file "secrets.example.yml", "config/secrets.example.yml"
+      run "cp config/secrets.example.yml config/secrets.yml"
     end
 
     def generate_rspec
       generate "rspec:install"
+      install_specs
+    end
+
+    def install_specs
+      copy_file "seed_spec.rb", "spec/seeds/seed_spec.rb"
     end
 
     def configure_rspec
@@ -79,25 +89,137 @@ module Boxcar
       # 1. It inherits from ApplicationRecord instead of ActiveRecord::Base
       # 2. It doesn't include omniauthable by default
       copy_file "user.rb", "app/model/user.rb"
+      copy_file "users_factory.rb", "spec/factories/users_factory.rb"
+    end
+
+    def create_routes
+      remove_file "config/routes.rb"
+      template "routes.rb.erb", "config/routes.rb", gem_configs
+    end
+
+    def create_github_markdown
+      copy_file "pull_request_template.md", ".github/pull_request_template.md"
+    end
+
+    def create_devise_token_auth_helpers
+      api_controller
+      devise_controller
+      render_helper
+      spec_request_helper
+      spec_auth_helpers
+      auth_specs
+    end
+
+    def auth_specs
+      copy_file "sign_in_spec.rb", "spec/requests/api/v1/users/sign_in_spec.rb"
+    end
+
+    def spec_auth_helpers
+      copy_file "auth_helper.rb", "spec/support/auth_helper.rb"
+      copy_file "valid_sign_in_credentials.rb", "spec/support/valid_sign_in_credentials.rb"
+      copy_file "valid_sign_in.rb", "spec/support/valid_sign_in.rb"
+    end
+
+    def spec_request_helper
+      copy_file "requests.rb", "spec/support/requests.rb"
+    end
+
+    def render_helper
+      copy_file "render_helper.rb", "app/controllers/concerns/render_helper.rb"
+    end
+
+    def create_erd_config
+      copy_file ".erdconfig", ".erdconfig"
+    end
+
+    def devise_controller
+      copy_file "devise_token_auth_response_serializer.rb",
+                "app/controllers/concerns/devise_token_auth_response_serializer.rb"
+      copy_file "registrations_controller.rb",
+                "app/controllers/api/v1/users/registration_controller.rb"
+      copy_file "sessions_controller.rb", "app/controllers/api/v1/users/sessions_controller.rb"
+    end
+
+    def api_controller
+      copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
+      copy_file "application_controller.rb", "app/controllers/api/v1/application_controller.rb"
     end
 
     def setup_database
       run "rails db:create"
+    end
+
+    def migrate_database
       run "rails db:migrate"
+    end
+
+    def setup_annotate
+      copy_file "auto_annotate_models.rake", "lib/tasks/auto_annotate_models.rake"
+    end
+
+    def setup_action_mailer
+      development_action_mailer_config = <<~CONFIG
+
+        config.action_mailer.delivery_method = :letter_opener
+        config.action_mailer.perform_deliveries = true
+
+        config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
+      CONFIG
+
+      insert_into_file "config/environments/development.rb",
+                       development_action_mailer_config,
+                       before: "# Don't care if the mailer can't send."
+
+      production_action_mailer_config = <<~CONFIG
+
+        config.action_mailer.default_url_options = {
+          host: Rails.application.secrets.mailgun_domain
+        }
+
+        config.action_mailer.delivery_method = :mailgun
+
+        config.action_mailer.mailgun_settings = {
+          api_key: Rails.application.secrets.mailgun_api_key,
+          domain: Rails.application.secrets.mailgun_domain
+        }
+
+      CONFIG
+
+      insert_into_file "config/environments/production.rb",
+                       production_action_mailer_config,
+                       before: "config.action_mailer.perform_caching = false"
     end
 
     def create_rubocop_config
       copy_file ".rubocop.yml", ".rubocop.yml"
     end
 
+    def create_eslint_config
+      run "wget https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/.eslintrc"
+    end
+
+    def create_stylelint_config
+      run "wget https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/stylelint.config.js"
+    end
+
+    def setup_package_json
+      remove_file "package.json"
+      template "package.json.erb", "package.json"
+    end
+
     def rubocop_autocorrect
       run "rubocop -a", capture: true
     end
 
-    def cleanup_other_linter_violations
+    def cleanup_other_rubocop_violations
       split_long_comments "config/initializers/backtrace_silencers.rb"
       split_long_comments "config/environments/production.rb"
       split_long_comments "db/seeds.rb"
+    end
+
+    def cleanup_eslint_violations
+      eslint_disable_file "app/assets/javascripts/cable.js"
     end
 
     # rubocop:disable Style/ClassVars
@@ -111,6 +233,7 @@ module Boxcar
           gems[:devise] = false
           gems[:devise_token_auth] =
             preference?(:devise_token_auth, "Install devise_token_auth? (y/N)")
+          gems[:active_model_serializers] = true
         else
           gems[:devise] = preference?(:devise, "Install devise? (y/N)")
           gems[:devise_token_auth] = false
@@ -131,6 +254,11 @@ module Boxcar
     end
 
     private
+
+    def eslint_disable_file(filename)
+      prepend_to_file filename, "/* eslint-disable */"
+      append_to_file filename, "/* eslint-enable */\n"
+    end
 
     def split_long_comments(filename)
       gsub_file filename, /(.){100,}/ do |match|

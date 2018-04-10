@@ -10,6 +10,9 @@ require "rails/generators/rails/app/app_generator"
 # that does the work of creating the files, setting configs, etc. The only methods we should be
 # calling here are `invoke` (to call another method in this class) and `build` (to call methods
 # in `AppBuilder`).
+#
+# Adding new functionality should be placed in the boxcar_customization function.  Please invoke
+# the new functionality like the commands in boxcar_customization function.
 module Boxcar
   module Commands
     class New < Rails::Generators::AppGenerator
@@ -31,18 +34,45 @@ module Boxcar
 
       def boxcar_customization
         # Extensions go here
+        invoke :setup_ruby_version
         invoke :setup_secrets
         invoke :setup_test_environment
         invoke :setup_tape
         invoke :setup_activeadmin
         invoke :setup_database
         invoke :setup_devise
-        invoke :setup_linter
+        invoke :setup_annotate
+        invoke :setup_action_mailer
+        invoke :migrate_database
+        invoke :setup_github_template
+        invoke :setup_routes
+        invoke :setup_erd_template
+        invoke :setup_package_json
+        invoke :setup_linters # This line should be last
+      end
+
+      def setup_routes
+        build :create_routes
       end
 
       def setup_secrets
         say "Setting up secrets"
         build :create_secrets_example
+      end
+
+      def setup_ruby_version
+        say "Setting up .ruby_version"
+        build :ruby_version
+      end
+
+      def setup_erd_template
+        say "Adding the erd config file"
+        build :create_erd_config
+      end
+
+      def setup_github_template
+        say "Adding the github template"
+        build :create_github_markdown
       end
 
       def setup_test_environment
@@ -75,6 +105,11 @@ module Boxcar
         build :setup_database
       end
 
+      def migrate_database
+        say "Migrating database"
+        build :migrate_database
+      end
+
       def setup_devise
         if builder.gem_configs[:devise]
           say "Installing devise"
@@ -82,14 +117,33 @@ module Boxcar
         elsif builder.gem_configs[:devise_token_auth]
           say "Installing devise_token_auth"
           build :install_devise_token_auth
+          build :create_devise_token_auth_helpers
         end
       end
 
-      def setup_linter
-        say "Setting up the linter"
+      def setup_action_mailer
+        say "Setting up ActionMailer"
+        build :setup_action_mailer
+      end
+
+      def setup_annotate
+        say "Setting up annotate"
+        build :setup_annotate
+      end
+
+      def setup_package_json
+        say "Setting up package.json"
+        build :setup_package_json
+      end
+
+      def setup_linters
+        say "Setting up the linter configs"
         build :create_rubocop_config
         build :rubocop_autocorrect
-        build :cleanup_other_linter_violations
+        build :cleanup_other_rubocop_violations
+        build :create_eslint_config
+        build :cleanup_eslint_violations
+        build :create_stylelint_config
       end
 
       protected
