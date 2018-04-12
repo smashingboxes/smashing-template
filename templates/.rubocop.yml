@@ -3,16 +3,16 @@ require: rubocop-rspec
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:
-    - "vendor/**/*"
-    - "db/schema.rb"
-    - "db/migrate/*"
-    - "bin/*"
-    - "lib/files/cucumber.rake"
-    - "lib/tasks/*"
-    - "config/initializers/*"
-    - "Vagrantfile"
-    - "Rakefile"
-    - "tmp/*"
+    - vendor/**/*
+    - db/schema.rb
+    - db/migrate/*
+    - bin/*
+    - lib/files/cucumber.rake
+    - lib/tasks/*
+    - config/initializers/*
+    - Vagrantfile
+    - Rakefile
+    - tmp/*
   UseCache: false
 Bundler/OrderedGems:
   Enabled: false
@@ -293,6 +293,9 @@ Rails/UnknownEnv:
     - staging
     - development
     - test
+RSpec/DescribeClass:
+  Exclude:
+    - spec/tasks/*
 RSpec/ExampleLength:
   Enabled: false
 RSpec/MultipleExpectations:

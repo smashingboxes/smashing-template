@@ -57,7 +57,7 @@ module BoxcarTestHelpers
   # Expect the user to be prompted with the given question,
   # and return the given answer
   def expect_prompt_and_answer(question, answer)
-    expect(Thor::LineEditor).to receive(:readline)
+    expect(Thor::LineEditor).to receive(:readline) # rubocop:disable RSpec/MessageSpies
       .with("#{question} ", add_to_history: false)
       .and_return(answer)
   end

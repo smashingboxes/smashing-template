@@ -1,6 +1,21 @@
 inherit_from:
   - templates/.rubocop.yml
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  Exclude:
+    - tmp/**/*
+    - templates/**/*
+
 Rails:
   Enabled: false
+
 Style/MutableConstant:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: false
+RSpec/BeforeAfterAll:
   Enabled: false

@@ -69,20 +69,22 @@ shared_examples_for "a run that includes all the basic setup steps" do
   end
 
   it "doesn't generate test directory" do
-    expect(File).not_to exist("#{project_path}/test")
+    expect(File).to_not exist("#{project_path}/test")
   end
 
   it "sets up rspec" do
     expect(File).to exist("#{project_path}/spec")
   end
 
-  it "configures rspec" do
+  it "creates rails_helper.rb" do
     rails_helper_path = "#{project_path}/spec/rails_helper.rb"
     expect(File).to exist(rails_helper_path)
     rails_helper = IO.read(rails_helper_path)
     expect(rails_helper)
       .to match(%r{^Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }$})
+  end
 
+  it "creates spec_helper.rb" do
     spec_helper_path = "#{project_path}/spec/spec_helper.rb"
     expect(File).to exist(spec_helper_path)
 
