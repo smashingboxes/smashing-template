@@ -12,10 +12,10 @@ AllCops:
 Rails:
   Enabled: false
 
-Style/MutableConstant:
-  Enabled: false
-
 RSpec/DescribeClass:
   Enabled: false
 RSpec/BeforeAfterAll:
+  Enabled: false
+
+Style/MutableConstant:
   Enabled: false
