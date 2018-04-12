@@ -1,23 +1,101 @@
+require: rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:
-    - "vendor/**/*"
-    - "db/schema.rb"
-    - "db/migrate/*"
-    - "bin/*"
-    - "lib/files/cucumber.rake"
-    - "lib/tasks/*"
-    - "config/initializers/*"
-    - "Vagrantfile"
-    - "Rakefile"
-    - "tmp/*"
+    - vendor/**/*
+    - db/schema.rb
+    - db/migrate/*
+    - bin/*
+    - lib/files/cucumber.rake
+    - lib/tasks/*
+    - config/initializers/*
+    - Vagrantfile
+    - Rakefile
+    - tmp/*
   UseCache: false
+
 Bundler/OrderedGems:
   Enabled: false
+
 Layout/TrailingBlankLines:
   Description: 'Checks trailing blank lines and final newline.'
   StyleGuide: '#newline-eof'
   Enabled: false
+Layout/DotPosition:
+  Description: Checks the position of the dot in multi-line method calls.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
+  Enabled: true
+  EnforcedStyle: leading
+  SupportedStyles:
+  - leading
+  - trailing
+
+Lint/AssignmentInCondition:
+  Description: Don't use assignment in conditions.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#safe-assignment-in-condition
+  Enabled: false
+  AllowSafeAssignment: true
+Lint/EachWithObjectArgument:
+  Description: Check for immutable argument given to each_with_object.
+  Enabled: true
+Lint/HandleExceptions:
+  Description: Don't suppress exception.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions
+  Enabled: false
+Lint/LiteralInInterpolation:
+  Description: Checks for literals used in interpolation.
+  Enabled: false
+
+Metrics/AbcSize:
+  Description: A calculated magnitude based on number of assignments, branches, and
+    conditions.
+  Enabled: false
+  Max: 15
+Metrics/BlockLength:
+  Enabled: false
+Metrics/ClassLength:
+  Description: Avoid classes longer than 100 lines of code.
+  Enabled: false
+  CountComments: false
+  Max: 100
+Metrics/ModuleLength:
+  CountComments: false
+  Max: 100
+  Description: Avoid modules longer than 100 lines of code.
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Description: A complexity metric that is strongly correlated to the number of test
+    cases needed to validate a method.
+  Enabled: false
+  Max: 6
+Metrics/MethodLength:
+  Description: Avoid methods longer than 10 lines of code.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#short-methods
+  Enabled: false
+  CountComments: false
+  Max: 10
+Metrics/ParameterLists:
+  Description: Avoid parameter lists longer than three or four parameters.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#too-many-params
+  Enabled: false
+  Max: 5
+  CountKeywordArgs: true
+Metrics/PerceivedComplexity:
+  Description: A complexity metric geared towards measuring complexity for a human
+    reader.
+  Enabled: false
+  Max: 7
+Metrics/LineLength:
+  Max: 100
+  # To make it possible to copy or click on URIs in the code, we allow lines
+  # contaning a URI to be longer than Max.
+  IgnoredPatterns: ['\A\s*#']
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+
 Naming/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
   Enabled: false
@@ -38,6 +116,53 @@ Naming/PredicateName:
   - is_
   Exclude:
   - spec/**/*
+
+Rails:
+  Enabled: true
+Rails/Output:
+  Enabled: true
+Rails/Date:
+  Enabled: true
+Rails/FilePath:
+  Enabled: false
+Rails/FindBy:
+  Enabled: true
+Rails/FindEach:
+  Enabled: true
+Rails/PluralizationGrammar:
+  Enabled: true
+Rails/ScopeArgs:
+  Enabled: true
+Rails/TimeZone:
+  Enabled: true
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - development
+    - test
+
+RSpec/DescribeClass:
+  Exclude:
+    - spec/tasks/*
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Description: Checks if examples contain too many `expect` calls.
+  Enabled: true
+  Max: 5
+  AggregateFailuresByDefault: false
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MultipleExpectations
+RSpec/NestedGroups:
+  Max: 5
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/NotToNot:
+  Description: Checks for consistent method usage for negating expectations.
+  EnforcedStyle: to_not
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/NotToNot
+
 Style/CollectionMethods:
   Description: Preferred collection methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
@@ -47,14 +172,6 @@ Style/CollectionMethods:
     collect!: map!
     find_all: select
     reduce: inject
-Layout/DotPosition:
-  Description: Checks the position of the dot in multi-line method calls.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
-  Enabled: true
-  EnforcedStyle: leading
-  SupportedStyles:
-  - leading
-  - trailing
 Style/AsciiComments:
   Enabled: false
 Style/Lambda:
@@ -138,77 +255,10 @@ Style/TrailingCommaInArguments:
   - comma
   - consistent_comma
   - no_comma
-Style/TrailingCommaInHashLiteral:
-  Description: Checks for trailing comma in hash literals.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
-  Enabled: false
-  EnforcedStyleForMultiline: no_comma
-  SupportedStylesForMultiline:
-  - comma
-  - consistent_comma
-  - no_comma
 Style/TrailingCommaInArrayLiteral:
-  Description: Checks for trailing comma in array and hash literals.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
   Enabled: false
-  EnforcedStyleForMultiline: no_comma
-  SupportedStylesForMultiline:
-  - comma
-  - consistent_comma
-  - no_comma
-Metrics/AbcSize:
-  Description: A calculated magnitude based on number of assignments, branches, and
-    conditions.
+Style/TrailingCommaInHashLiteral:
   Enabled: false
-  Max: 15
-Metrics/BlockLength:
-  Enabled: false
-Metrics/ClassLength:
-  Description: Avoid classes longer than 100 lines of code.
-  Enabled: false
-  CountComments: false
-  Max: 100
-Metrics/ModuleLength:
-  CountComments: false
-  Max: 100
-  Description: Avoid modules longer than 100 lines of code.
-  Enabled: false
-Metrics/CyclomaticComplexity:
-  Description: A complexity metric that is strongly correlated to the number of test
-    cases needed to validate a method.
-  Enabled: false
-  Max: 6
-Metrics/MethodLength:
-  Description: Avoid methods longer than 10 lines of code.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#short-methods
-  Enabled: false
-  CountComments: false
-  Max: 10
-Metrics/ParameterLists:
-  Description: Avoid parameter lists longer than three or four parameters.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#too-many-params
-  Enabled: false
-  Max: 5
-  CountKeywordArgs: true
-Metrics/PerceivedComplexity:
-  Description: A complexity metric geared towards measuring complexity for a human
-    reader.
-  Enabled: false
-  Max: 7
-Metrics/LineLength:
-  Max: 100
-  # To make it possible to copy or click on URIs in the code, we allow lines
-  # contaning a URI to be longer than Max.
-  IgnoredPatterns: ['\A\s*#']
-  AllowURI: true
-  URISchemes:
-    - http
-    - https
-Lint/AssignmentInCondition:
-  Description: Don't use assignment in conditions.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#safe-assignment-in-condition
-  Enabled: false
-  AllowSafeAssignment: true
 Style/BlockComments:
   Enabled: false
 Style/ClassAndModuleChildren:
@@ -271,37 +321,3 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/FormatStringToken:
   Enabled: false
-Lint/EachWithObjectArgument:
-  Description: Check for immutable argument given to each_with_object.
-  Enabled: true
-Lint/HandleExceptions:
-  Description: Don't suppress exception.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions
-  Enabled: false
-Lint/LiteralInInterpolation:
-  Description: Checks for literals used in interpolation.
-  Enabled: false
-Rails:
-  Enabled: true
-Rails/Output:
-  Enabled: true
-Rails/Date:
-  Enabled: true
-Rails/FilePath:
-  Enabled: false
-Rails/FindBy:
-  Enabled: true
-Rails/FindEach:
-  Enabled: true
-Rails/PluralizationGrammar:
-  Enabled: true
-Rails/ScopeArgs:
-  Enabled: true
-Rails/TimeZone:
-  Enabled: true
-Rails/UnknownEnv:
-  Environments:
-    - production
-    - staging
-    - development
-    - test

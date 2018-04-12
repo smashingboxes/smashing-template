@@ -83,7 +83,7 @@ RSpec.describe "boxcar new <app_name>" do
       expect(development).to match(/^\s*config.action_mailer.default_url_options.*$/)
     end
 
-    it "adds letter_opener to the gemfile" do
+    it "adds mailgun-ruby to the gemfile" do
       expect(gemfile).to match(/^gem "mailgun-ruby"/)
     end
 
