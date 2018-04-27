@@ -145,6 +145,7 @@ Rails/UnknownEnv:
 RSpec/DescribeClass:
   Exclude:
     - spec/tasks/*
+    - spec/seeds/*
 RSpec/ExampleLength:
   Enabled: false
 RSpec/MultipleExpectations:
