@@ -196,11 +196,12 @@ module Boxcar
     end
 
     def create_eslint_config
-      run "wget https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/.eslintrc"
+      run "curl https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/.eslintrc -O"
     end
 
     def create_stylelint_config
-      run "wget https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/stylelint.config.js"
+      url = "https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/stylelint.config.js"
+      run "curl #{url} -O"
     end
 
     def setup_package_json
