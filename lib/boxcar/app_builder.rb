@@ -196,12 +196,20 @@ module Boxcar
     end
 
     def create_eslint_config
+<<<<<<< HEAD
       run "curl https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/.eslintrc
+=======
+      run "curl https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/.eslintrc 
+>>>>>>> 5a7f08d3b6be1a4515ec47f96b4345d77f8bfcbf
         -o ../../.eslintrc"
     end
 
     def create_stylelint_config
+<<<<<<< HEAD
       run "curl https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/stylelint.config.js
+=======
+      run "curl https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/stylelint.config.js 
+>>>>>>> 5a7f08d3b6be1a4515ec47f96b4345d77f8bfcbf
         -o ../../stylelint.config.js"
     end
 
