@@ -9,6 +9,5 @@ class Api::V1::Users::RegistrationsController < DeviseTokenAuth::RegistrationsCo
       :sign_up,
       keys: %i(email password password_confirmation)
     )
-    devise_parameter_sanitizer.permit(:account_update, keys: update_keys)
   end
 end
