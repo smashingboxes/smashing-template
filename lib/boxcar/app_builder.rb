@@ -273,6 +273,7 @@ module Boxcar
       # Find any comment lines, and capture the start of the line
       matches = line.match(/(\A\s*\#)[^{]/)
       return line unless matches
+
       # This will be the "  #" part. There might be multiple spaces before the pound symbol.
       line_prefix = matches[0]
       comment_limit = limit - line_prefix.length
