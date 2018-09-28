@@ -14,3 +14,4 @@
 /tmp/*
 /yarn-error.log
 ER_Model.pdf
+spec/rspec_examples.txt
