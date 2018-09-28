@@ -86,12 +86,14 @@ class Boxcar::Commands::New < Rails::Generators::AppGenerator
 
   def setup_tape
     return unless builder.gem_configs[:tape]
+
     say "Setting up tape"
     build :install_tape
   end
 
   def setup_activeadmin
     return unless builder.gem_configs[:activeadmin]
+
     say "Installing active admin"
     build :install_activeadmin
   end

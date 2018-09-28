@@ -23,6 +23,7 @@ module BoxcarTestHelpers
 
   def setup_app_dependencies
     return unless File.exist?(project_path)
+
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
         `bundle check || bundle install`
@@ -32,6 +33,7 @@ module BoxcarTestHelpers
 
   def drop_dummy_database
     return unless File.exist?(project_path)
+
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
         `rails db:drop`
