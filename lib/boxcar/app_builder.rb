@@ -266,63 +266,6 @@ class Boxcar::AppBuilder < Rails::AppBuilder
     end
   end
 
-<<<<<<< HEAD
-    def split_long_comment_string(line)
-      limit = 100
-
-      # Find any comment lines, and capture the start of the line
-      matches = line.match(/(\A\s*\#)[^{]/)
-      return line unless matches
-
-      # This will be the "  #" part. There might be multiple spaces before the pound symbol.
-      line_prefix = matches[0]
-      comment_limit = limit - line_prefix.length
-
-      # Take all content after the pound symbol and following space(s)
-      comment = line.split(/#\s*/)[1]
-      # Split that content into an array of words
-      words = comment.split(" ")
-      # Build up an array of new lines, where each line won't be longer than the line-length limit
-      lines = words.reduce([line_prefix]) do |memo, word|
-        previous_lines = memo[0..-2] # all lines but the current one
-        current_line = memo.last
-        word_appended = "#{current_line} #{word}"
-        # if the line (with the current word appended) is too long, start a new line, prefixed
-        # with a "#" and the right number spaces before it
-        if word_appended.length > comment_limit
-          next_line = "#{line_prefix} #{word}"
-          memo.concat([next_line])
-        else
-          previous_lines.concat([word_appended])
-        end
-||||||| merged common ancestors
-  def split_long_comment_string(line)
-    limit = 100
-
-    # Find any comment lines, and capture the start of the line
-    matches = line.match(/(\A\s*\#)[^{]/)
-    return line unless matches
-    # This will be the "  #" part. There might be multiple spaces before the pound symbol.
-    line_prefix = matches[0]
-    comment_limit = limit - line_prefix.length
-
-    # Take all content after the pound symbol and following space(s)
-    comment = line.split(/#\s*/)[1]
-    # Split that content into an array of words
-    words = comment.split(" ")
-    # Build up an array of new lines, where each line won't be longer than the line-length limit
-    lines = words.reduce([line_prefix]) do |memo, word|
-      previous_lines = memo[0..-2] # all lines but the current one
-      current_line = memo.last
-      word_appended = "#{current_line} #{word}"
-      # if the line (with the current word appended) is too long, start a new line, prefixed
-      # with a "#" and the right number spaces before it
-      if word_appended.length > comment_limit
-        next_line = "#{line_prefix} #{word}"
-        memo.concat([next_line])
-      else
-        previous_lines.concat([word_appended])
-=======
   def split_long_comment_string(line)
     limit = 100
 
@@ -350,7 +293,6 @@ class Boxcar::AppBuilder < Rails::AppBuilder
         memo.concat([next_line])
       else
         previous_lines.concat([word_appended])
->>>>>>> Update boxcar to match new linting rules
       end
     end
 
