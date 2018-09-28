@@ -22,21 +22,19 @@ module BoxcarTestHelpers
   end
 
   def setup_app_dependencies
-    if File.exist?(project_path)
-      Dir.chdir(project_path) do
-        Bundler.with_clean_env do
-          `bundle check || bundle install`
-        end
+    return unless File.exist?(project_path)
+    Dir.chdir(project_path) do
+      Bundler.with_clean_env do
+        `bundle check || bundle install`
       end
     end
   end
 
   def drop_dummy_database
-    if File.exist?(project_path)
-      Dir.chdir(project_path) do
-        Bundler.with_clean_env do
-          `rails db:drop`
-        end
+    return unless File.exist?(project_path)
+    Dir.chdir(project_path) do
+      Bundler.with_clean_env do
+        `rails db:drop`
       end
     end
   end
@@ -57,7 +55,7 @@ module BoxcarTestHelpers
   # Expect the user to be prompted with the given question,
   # and return the given answer
   def expect_prompt_and_answer(question, answer)
-    expect(Thor::LineEditor).to receive(:readline) # rubocop:disable RSpec/MessageSpies
+    expect(Thor::LineEditor).to receive(:readline)
       .with("#{question} ", add_to_history: false)
       .and_return(answer)
   end

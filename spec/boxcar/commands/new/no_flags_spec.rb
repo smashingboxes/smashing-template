@@ -61,7 +61,7 @@ RSpec.describe "boxcar new <app_name>" do
       Dir.chdir(project_path) do
         Bundler.with_clean_env do
           `yarn install && yarn lint`
-          expect($?).to be_success
+          expect($CHILD_STATUS).to be_success
         end
       end
     end

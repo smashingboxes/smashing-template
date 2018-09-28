@@ -1,4 +1,4 @@
-DEFAULT_GEMS = %w(annotate
+DEFAULT_GEMS = %w[annotate
                   awesome_print
                   brakeman
                   bundler-audit
@@ -10,7 +10,7 @@ DEFAULT_GEMS = %w(annotate
                   rspec-rails
                   rubocop
                   shoulda-matchers
-                  simplecov).freeze
+                  simplecov].freeze
 
 shared_examples_for "a run that includes all the basic setup steps" do
   it "uses custom Gemfile" do
@@ -114,7 +114,7 @@ shared_examples_for "a run that includes all the basic setup steps" do
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
         `bundle exec rubocop`
-        expect($?).to be_success
+        expect($CHILD_STATUS).to be_success
       end
     end
   end
@@ -123,7 +123,7 @@ shared_examples_for "a run that includes all the basic setup steps" do
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
         `bundle exec rspec`
-        expect($?).to be_success
+        expect($CHILD_STATUS).to be_success
       end
     end
   end
