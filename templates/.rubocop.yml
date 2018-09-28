@@ -116,6 +116,10 @@ Style/FrozenStringLiteralComment:
 Style/FormatStringToken:
   EnforcedStyle: template
 
+# Reason: Adding underscores to numbers doesn't always make sense. Eg: Time integers
+Style/NumericLiterals:
+  Enabled: false
+
 # ==================== Rails ====================
 
 # Reason: We do rails
