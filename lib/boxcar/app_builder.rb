@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The purpose of this class is to provide the building blocks that are used for generating a rails
 # app. For example, the readme method is responsible for creating the readme file. Since we're
 # inheriting from Rails::AppBuilder, we have a lot of those building blocks set up for us already.

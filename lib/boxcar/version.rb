@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Boxcar
   RAILS_VERSION = "~> 5.1.4"
   RUBY_VERSION = IO

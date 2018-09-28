@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module BoxcarTestHelpers
-  APP_NAME = "dummy_app".freeze
+  APP_NAME = "dummy_app"
 
   attr_reader :output
 

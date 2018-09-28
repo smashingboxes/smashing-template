@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 DEFAULT_GEMS = %w[annotate
                   awesome_print
                   brakeman

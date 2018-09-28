@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "thor"
 
 class Boxcar::Commands::Boxcar < Thor
