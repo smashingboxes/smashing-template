@@ -21,8 +21,8 @@ shared_examples_for "a run that includes all the basic setup steps" do
   it "uses custom Readme" do
     readme_file = IO.read("#{project_path}/README.md")
     expect(readme_file).to match(/^# #{BoxcarTestHelpers::APP_NAME.humanize}$/)
-    expect(readme_file).to match(/^Ruby - #{Boxcar::RUBY_VERSION}$/)
-    expect(readme_file).to match(/^Rails - #{Boxcar::RAILS_VERSION}$/)
+    expect(readme_file).to match(/^- Ruby - #{Boxcar::RUBY_VERSION}$/)
+    expect(readme_file).to match(/^- Rails - #{Boxcar::RAILS_VERSION}$/)
   end
 
   it "configures travis" do
