@@ -54,6 +54,7 @@ module Boxcar
         invoke :setup_github_template
         invoke :setup_routes
         invoke :setup_erd_template
+        invoke :setup_procfile
         invoke :setup_package_json
         invoke :setup_linters # This line should be last
       end
@@ -154,6 +155,11 @@ module Boxcar
       def setup_annotate
         say "Setting up annotate"
         build :setup_annotate
+      end
+
+      def setup_procfile
+        say "Setting up Procfile"
+        build :setup_procfile
       end
 
       def setup_bullet

@@ -36,6 +36,13 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(File).to exist("#{project_path}/.ruby-version")
   end
 
+  it "sets up a Procfile" do
+    procfile_path = "#{project_path}/Procfile"
+    expect(File).to exist(procfile_path)
+    procfile = IO.read(procfile_path)
+    expect(procfile).to match(/^backend: bundle exec rails server -p 3000$/)
+  end
+
   it "sets up the database config" do
     database_yml = IO.read("#{project_path}/config/database.yml")
     expect(database_yml)

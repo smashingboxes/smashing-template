@@ -230,6 +230,10 @@ module Boxcar
                        before: "config.action_mailer.perform_caching = false"
     end
 
+    def setup_procfile
+      template "Procfile.erb", "Procfile", api_app: boxcar_configs[:api_app]
+    end
+
     def create_rubocop_config
       copy_file ".rubocop.yml", ".rubocop.yml"
     end
