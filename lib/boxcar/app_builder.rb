@@ -234,6 +234,13 @@ module Boxcar
       template "Procfile.erb", "Procfile", api_app: boxcar_configs[:api_app]
     end
 
+    def setup_webpacker
+      run "rails webpacker:install"
+      run "rails webpacker:install:react"
+      remove_file "app/javascript/packs/application.js"
+      remove_file "app/javascript/packs/hello_react.jsx"
+    end
+
     def create_rubocop_config
       copy_file ".rubocop.yml", ".rubocop.yml"
     end

@@ -56,6 +56,7 @@ module Boxcar
         invoke :setup_erd_template
         invoke :setup_procfile
         invoke :setup_package_json
+        invoke :setup_webpacker
         invoke :setup_linters # This line should be last
       end
 
@@ -170,6 +171,13 @@ module Boxcar
       def setup_package_json
         say "Setting up package.json"
         build :setup_package_json
+      end
+
+      def setup_webpacker
+        return if builder.boxcar_configs[:api_app]
+
+        say "Setting up webpacker"
+        build :setup_webpacker
       end
 
       def setup_linters
