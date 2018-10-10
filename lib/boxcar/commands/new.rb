@@ -43,6 +43,7 @@ module Boxcar
         invoke :setup_tape
         invoke :setup_activeadmin
         invoke :setup_database
+        invoke :setup_api_controller # Must come before setup_devise
         invoke :setup_devise
         invoke :setup_annotate
         invoke :setup_flipper
@@ -115,6 +116,11 @@ module Boxcar
       def migrate_database
         say "Migrating database"
         build :migrate_database
+      end
+
+      def setup_api_controller
+        say "Setting up API controller"
+        build :create_api_controller
       end
 
       def setup_devise

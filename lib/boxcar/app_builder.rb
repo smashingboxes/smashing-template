@@ -122,17 +122,16 @@ module Boxcar
       template "routes.rb.erb", "config/routes.rb", gem_configs
     end
 
-    def create_github_markdown
-      copy_file "pull_request_template.md", ".github/pull_request_template.md"
-    end
-
     def create_devise_token_auth_helpers
-      api_controller
       devise_controller
       render_helper
       spec_request_helper
       spec_auth_helpers
       auth_specs
+    end
+
+    def create_github_markdown
+      copy_file "pull_request_template.md", ".github/pull_request_template.md"
     end
 
     def auth_specs
@@ -155,6 +154,11 @@ module Boxcar
 
     def create_erd_config
       copy_file ".erdconfig", ".erdconfig"
+    end
+
+    def create_api_controller
+      copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
+      copy_file "application_controller.rb", "app/controllers/api/v1/application_controller.rb"
     end
 
     def devise_controller
