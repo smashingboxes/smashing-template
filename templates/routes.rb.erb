@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # root to: "/"
+  # root to: "hello#root"
   <%= "ActiveAdmin.routes(self)" if config[:activeadmin] %>
   <%- if config[:devise_token_auth] -%>
   mount_devise_token_auth_for 'User',

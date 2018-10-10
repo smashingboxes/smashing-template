@@ -15,8 +15,7 @@ gem "coffee-rails", "~> 4.2"
 <%= 'gem "devise"' if config[:devise] %>
 <%= 'gem "devise_token_auth"' if config[:devise_token_auth] %>
 gem "mailgun-ruby"
-# TODO: bump this to ~> 1.0.0, once this gets resolved: https://github.com/rails/rails/pull/31671
-gem "pg", "~> 0.21.0"
+gem "pg", "~> 1.0.0"
 gem "puma", "~> 3.7"
 gem "sass-rails", "~> 5.0"
 <%= 'gem "taperole", "~> 2.0"' if config[:tape] %>
@@ -25,9 +24,8 @@ gem "uglifier", ">= 1.3.0"
 group :development, :test do
   gem "annotate"
   gem "awesome_print"
-  gem "brakeman", "~> 3.5"
+  gem "brakeman"
   gem "bundler-audit"
-  gem "codeclimate-test-reporter", "~> 1.0.0"
   gem "database_cleaner"
   gem "factory_bot_rails"
   gem "faker"

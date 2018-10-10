@@ -4,7 +4,6 @@ DEFAULT_GEMS = %w[annotate
                   awesome_print
                   brakeman
                   bundler-audit
-                  codeclimate-test-reporter
                   database_cleaner
                   faker
                   pry-byebug
