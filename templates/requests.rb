@@ -2,7 +2,7 @@ shared_examples_for "a successful request" do
   it "responds with 200" do
     # SmashingDocs.information(:endpoint_title, doc_message)
     subject
-    expect(response).to be_success
+    expect(response).to be_successful
     # SmashingDocs.run!(request, response)
   end
 end
