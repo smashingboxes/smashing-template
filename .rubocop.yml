@@ -11,11 +11,11 @@ AllCops:
 
 Rails:
   Enabled: false
-
 RSpec/DescribeClass:
   Enabled: false
 RSpec/BeforeAfterAll:
   Enabled: false
-
+Style/ClassAndModuleChildren:
+  Enabled: false
 Style/MutableConstant:
   Enabled: false
