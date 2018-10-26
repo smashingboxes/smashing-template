@@ -44,6 +44,7 @@ module Boxcar
         invoke :setup_database
         invoke :setup_devise
         invoke :setup_annotate
+        invoke :setup_bullet
         invoke :setup_action_mailer
         invoke :migrate_database
         invoke :setup_github_template
@@ -131,6 +132,11 @@ module Boxcar
       def setup_annotate
         say "Setting up annotate"
         build :setup_annotate
+      end
+
+      def setup_bullet
+        say "Setting up bullet"
+        build :setup_bullet
       end
 
       def setup_package_json

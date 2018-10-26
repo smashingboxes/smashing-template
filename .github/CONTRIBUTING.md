@@ -60,3 +60,4 @@ a few things to be aware of with our test suite:
   See `no_flags_spec.rb` for an example.
 - If you're wondering how to test something, take a look at similar specs in other files. If you're
   still having trouble, feel free to ask for help in your PR or elsewhere.
+- IMPORTANT! You must have Postgres running; otherwise, some specs will fail.
