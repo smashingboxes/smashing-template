@@ -159,6 +159,10 @@ module Boxcar
       copy_file "auto_annotate_models.rake", "lib/tasks/auto_annotate_models.rake"
     end
 
+    def setup_bullet
+      copy_file "bullet.rb", "config/initializers/bullet.rb"
+    end
+
     def setup_action_mailer
       development_action_mailer_config = <<~CONFIG
 
