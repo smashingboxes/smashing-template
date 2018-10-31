@@ -1,4 +1,4 @@
 if defined? Bullet
   Bullet.enable = true
-  Bullt.console = true
+  Bullet.console = true
 end
