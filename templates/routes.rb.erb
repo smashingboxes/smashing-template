@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   # root to: "hello#root"
   <%= "ActiveAdmin.routes(self)" if config[:activeadmin] %>
+  
+  <%- if config[:devise] && !config[:devise_token_auth] -%>
+  devise_for :users
+  <%- end -%>
+  
   <%- if config[:devise_token_auth] -%>
   mount_devise_token_auth_for 'User',
                               at: 'api/v1/users',
@@ -8,4 +13,20 @@ Rails.application.routes.draw do
                                 sessions: "api/v1/users/sessions",
                               }
   <%- end -%>
+  
+  <%- if config[:flipper] -%>
+  if Rails.env.development? 
+    mount Flipper::UI.app(Flipper), at: '/flipper'
+  else
+  <%- if config[:devise] -%>
+  constraints FlipperRoutingConstraints do
+    mount Flipper::UI.app(Flipper) => '/flipper'
+  end
+  <%- else -%>
+  # If you uncomment this line, Flipper UI will be completely unprotected. 
+  # Boxcar recommends protecting this route with authentication.
+  # mount Flipper::UI.app(Flipper), at: '/flipper'
+  <%- end -%>
+  end
+  <%- end -%>  
 end

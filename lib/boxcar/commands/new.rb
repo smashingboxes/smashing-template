@@ -26,6 +26,7 @@ module Boxcar
       class_option :activeadmin, type: :boolean, desc: "Install active admin?"
       class_option :devise, type: :boolean, desc: "Install devise?"
       class_option :devise_token_auth, type: :boolean, desc: "Install devise_token_auth?"
+      class_option :flipper, type: :boolean, desc: "Install Flipper?"
 
       # We're overriding run_after_bundle_callbacks because it's almost the last thing that the
       # rails generator does, and it's where we want to do our custom behavior
@@ -44,6 +45,7 @@ module Boxcar
         invoke :setup_database
         invoke :setup_devise
         invoke :setup_annotate
+        invoke :setup_flipper
         invoke :setup_bullet
         invoke :setup_action_mailer
         invoke :setup_seeds
@@ -128,6 +130,13 @@ module Boxcar
       def setup_seeds
         say "Setting up seeds file"
         build :setup_seeds
+      end
+
+      def setup_flipper
+        return unless builder.gem_configs[:flipper]
+
+        say "Setting up Flipper"
+        build :install_flipper
       end
 
       def setup_action_mailer
