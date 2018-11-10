@@ -41,7 +41,7 @@ RSpec.describe "boxcar new <app_name>" do
 
   it "adds the frontend to the procfile" do
     procfile = IO.read("#{project_path}/Procfile")
-    expect(procfile).to match(/^frontend: bin\/webpack-dev-server$/)
+    expect(procfile).to match(%r{frontend: bin/webpack-dev-server$})
   end
 
   describe "frontend linting" do
