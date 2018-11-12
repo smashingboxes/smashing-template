@@ -11,6 +11,7 @@ gem "rails", "<%= Boxcar::RAILS_VERSION %>"
 
 <%= 'gem "activeadmin"' if config[:activeadmin] %>
 <%= 'gem "active_model_serializers"' if config[:active_model_serializers] %>
+gem "bootsnap", ">= 1.1.0", require: false
 gem "coffee-rails", "~> 4.2"
 <%= 'gem "devise"' if config[:devise] %>
 <%= 'gem "devise_token_auth"' if config[:devise_token_auth] %>
