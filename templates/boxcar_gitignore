@@ -5,7 +5,6 @@
 .tape
 .byebug_history
 /.bundle
-/config/secrets.yml
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /log/*
@@ -15,3 +14,4 @@
 /yarn-error.log
 ER_Model.pdf
 spec/rspec_examples.txt
+.env
