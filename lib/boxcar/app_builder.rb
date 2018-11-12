@@ -53,6 +53,13 @@ module Boxcar
       copy_file "seed_spec.rb", "spec/seeds/seed_spec.rb"
     end
 
+    def create_query_traces
+      copy_file(
+        "config/initializers/query_trace.rb",
+        "config/initializers/query_trace.rb"
+      )
+    end
+
     def configure_rspec
       remove_file "spec/rails_helper.rb"
       remove_file "spec/spec_helper.rb"

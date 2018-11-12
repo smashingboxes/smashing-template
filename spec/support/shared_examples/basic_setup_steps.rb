@@ -49,6 +49,10 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(secrets_file).to match(/^shared:/)
   end
 
+  it "creates the query traces file" do
+    expect(File).to exist("#{project_path}/config/initializers/query_trace.rb")
+  end
+
   it "sets up .env.example and copies it to .env" do
     expect(File).to exist("#{project_path}/.env.example")
     expect(File).to exist("#{project_path}/.env")
