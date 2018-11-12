@@ -33,7 +33,8 @@ module Boxcar
     def create_secrets
       remove_file "config/secrets.yml"
       copy_file "secrets.yml", "config/secrets.yml"
-      copy_file ".env", ".env"
+      copy_file ".env", ".env.example"
+      run "cp .env.example .env"
     end
 
     def generate_rspec

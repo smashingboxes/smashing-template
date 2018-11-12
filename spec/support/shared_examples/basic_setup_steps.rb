@@ -49,8 +49,14 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(secrets_file).to match(/^shared:/)
   end
 
-  it "sets up .env" do
+  it "sets up .env.example and copies it to .env" do
+    expect(File).to exist("#{project_path}/.env.example")
     expect(File).to exist("#{project_path}/.env")
+  end
+
+  it "gitignores .env" do
+    gitignore = IO.read("#{project_path}/.gitignore")
+    expect(gitignore).to match(/^.env$/)
   end
 
   it "sets up .erdconfig file" do
