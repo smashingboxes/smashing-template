@@ -79,9 +79,9 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
 
-# Reason: Depending on context, sometimes it's better to do
+# Reason: Team preference.
 Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
+  Enabled: false
 
 # Reason: https://blog.bigbinary.com/2012/01/08/alias-vs-alias-method.html
 Style/Alias:
