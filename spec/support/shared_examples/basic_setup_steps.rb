@@ -77,6 +77,18 @@ shared_examples_for "a run that includes all the basic setup steps" do
     expect(File).to exist("#{project_path}/lib/tasks/auto_annotate_models.rake")
   end
 
+  it "generates a template seeds.rb" do
+    seeds_path = "#{project_path}/db/seeds.rb"
+    expect(File).to exist(seeds_path)
+    seeds_file = IO.read(seeds_path)
+    expect(seeds_file)
+      .to include("Dir[File.dirname(__FILE__) + \"/seeds/*.rb\"].each { |file| require file }")
+  end
+
+  it "generates an example seed class" do
+    expect(File).to exist("#{project_path}/db/seeds/user_seeds.rb")
+  end
+
   it "doesn't generate test directory" do
     expect(File).to_not exist("#{project_path}/test")
   end
@@ -117,6 +129,10 @@ shared_examples_for "a run that includes all the basic setup steps" do
 
   it "creates the request helpers config" do
     expect(File).to exist("#{project_path}/spec/support/request_helpers.rb")
+  end
+
+  it "includes the seeds_spec test" do
+    expect(File).to exist("#{project_path}/spec/seeds/seed_spec.rb")
   end
 
   it "generates a project with no linter errors" do

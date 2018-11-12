@@ -165,6 +165,12 @@ module Boxcar
       copy_file "bullet.rb", "config/initializers/bullet.rb"
     end
 
+    def setup_seeds
+      remove_file "db/seeds.rb"
+      copy_file "boxcar/db/seeds.rb", "db/seeds.rb"
+      copy_file "boxcar/db/seeds/user_seeds.rb", "db/seeds/user_seeds.rb"
+    end
+
     def setup_action_mailer
       development_action_mailer_config = <<~CONFIG
 
@@ -224,7 +230,6 @@ module Boxcar
     def cleanup_other_rubocop_violations
       split_long_comments "config/initializers/backtrace_silencers.rb"
       split_long_comments "config/environments/production.rb"
-      split_long_comments "db/seeds.rb"
     end
 
     def cleanup_eslint_violations
