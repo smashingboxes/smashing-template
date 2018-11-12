@@ -7,7 +7,7 @@ before_install:
   - yarn install
 cache: yarn
 before_script:
-  - cp config/secrets.example.yml config/secrets.yml
+  - cp config/.env.example config/.env
   - psql -c 'create database <%= app_name.underscore %>_test;' -U postgres
   - bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare --trace
