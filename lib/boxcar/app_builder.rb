@@ -83,8 +83,22 @@ module Boxcar
     def install_devise
       generate "devise:install"
       generate "devise User"
+      remove_file "app/model/user.rb"
+      template "user.rb.erb", "app/model/user.rb", gem_configs
       gsub_file "config/initializers/devise.rb", /# config.secret_key.*/, "# config.secret_key = ''"
       gsub_file "config/initializers/devise.rb", /# config.pepper.*/, "# config.pepper = ''"
+    end
+
+    def install_flipper
+      if gem_configs[:devise]
+        copy_file(
+          "flipper_routing_constraints.rb",
+          "config/initializers/flipper_routing_constraints.rb"
+        )
+      end
+      copy_file "flipper_ui.rb", "config/initializers/flipper_ui.rb"
+      copy_file "flipper.rb", "config/initializers/flipper.rb"
+      generate "flipper:active_record"
     end
 
     def install_devise_token_auth
@@ -92,7 +106,7 @@ module Boxcar
       # This does two things different from the default.
       # 1. It inherits from ApplicationRecord instead of ActiveRecord::Base
       # 2. It doesn't include omniauthable by default
-      copy_file "user.rb", "app/model/user.rb"
+      template "user.rb.erb", "app/model/user.rb", gem_configs
       copy_file "users_factory.rb", "spec/factories/users_factory.rb"
     end
 
@@ -253,6 +267,7 @@ module Boxcar
           gems[:devise_token_auth] = false
         end
         gems[:activeadmin] = preference?(:activeadmin, "Install Active Admin? (y/N)")
+        gems[:flipper] = preference?(:flipper, "Install Flipper? (y/N)")
         gems[:tape] = !options[:skip_tape]
 
         {
