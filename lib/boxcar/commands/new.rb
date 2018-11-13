@@ -46,6 +46,7 @@ module Boxcar
         invoke :setup_annotate
         invoke :setup_bullet
         invoke :setup_action_mailer
+        invoke :setup_seeds
         invoke :migrate_database
         invoke :setup_github_template
         invoke :setup_routes
@@ -122,6 +123,11 @@ module Boxcar
           build :install_devise_token_auth
           build :create_devise_token_auth_helpers
         end
+      end
+
+      def setup_seeds
+        say "Setting up seeds file"
+        build :setup_seeds
       end
 
       def setup_action_mailer
