@@ -144,6 +144,8 @@ shared_examples_for "a run that includes all the basic setup steps" do
     end
   end
 
+  it_behaves_like "a run that installs capybara"
+
   it "generated a project with all passing specs" do
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
