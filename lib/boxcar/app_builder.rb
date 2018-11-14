@@ -42,6 +42,16 @@ module Boxcar
       install_specs
     end
 
+    def generate_capybara
+      copy_boxcar_template "spec/support/capybara.rb"
+      copy_boxcar_template "spec/requests/home_page_spec.rb"
+      copy_boxcar_template "spec/support/pages/home_page.rb"
+      copy_boxcar_template "spec/support/pages/00_base_page.rb"
+      copy_boxcar_template "app/views/shared/home.html.erb"
+      remove_file "app/controllers/application_controller.rb"
+      copy_boxcar_template "app/controllers/application_controller.rb"
+    end
+
     def install_specs
       copy_file "seed_spec.rb", "spec/seeds/seed_spec.rb"
     end
@@ -339,6 +349,11 @@ module Boxcar
       output = super(command, capture: true)
       say(output) unless capture
       output
+    end
+
+    def copy_boxcar_template(destination, boxcar_template_location = nil)
+      boxcar_template_location ||= "boxcar/#{destination}"
+      copy_file boxcar_template_location, destination
     end
 
     # This is necessary because the default `generate` runs the default `run` instead of our run

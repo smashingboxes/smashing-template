@@ -84,6 +84,7 @@ module Boxcar
       def setup_test_environment
         say "Setting up the test environment"
         build :generate_rspec
+        build :generate_capybara
         build :configure_rspec
         build :create_database_cleaner_config
         build :create_factory_bot_config
