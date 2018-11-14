@@ -138,6 +138,7 @@ RSpec/DescribeClass:
   Exclude:
     - spec/tasks/*
     - spec/seeds/*
+    - spec/system/*
 
 # Reason: Too hard to enforce in some cases
 RSpec/MultipleExpectations:

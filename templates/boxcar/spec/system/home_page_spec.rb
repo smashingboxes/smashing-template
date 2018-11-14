@@ -2,9 +2,9 @@
 
 require "rails_helper"
 
-describe HomePage do
-  it "welcomes the user to boxcar", type: :feature do
-    described_class.view
+describe "Home Page" do
+  it "welcomes the user to boxcar" do
+    visit("/")
 
     expect(page).to have_content("Welcome to Boxcar!")
   end

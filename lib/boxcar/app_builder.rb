@@ -44,9 +44,7 @@ module Boxcar
 
     def generate_capybara
       copy_boxcar_template "spec/support/capybara.rb"
-      copy_boxcar_template "spec/requests/home_page_spec.rb"
-      copy_boxcar_template "spec/support/pages/home_page.rb"
-      copy_boxcar_template "spec/support/pages/00_base_page.rb"
+      copy_boxcar_template "spec/system/home_page_spec.rb"
       copy_boxcar_template "app/views/shared/home.html.erb"
       replace_default_rails_file "app/controllers/application_controller.rb"
     end
