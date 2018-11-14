@@ -48,8 +48,7 @@ module Boxcar
       copy_boxcar_template "spec/support/pages/home_page.rb"
       copy_boxcar_template "spec/support/pages/00_base_page.rb"
       copy_boxcar_template "app/views/shared/home.html.erb"
-      remove_file "app/controllers/application_controller.rb"
-      copy_boxcar_template "app/controllers/application_controller.rb"
+      replace_default_rails_file "app/controllers/application_controller.rb"
     end
 
     def install_specs
@@ -354,6 +353,12 @@ module Boxcar
     def copy_boxcar_template(destination, boxcar_template_location = nil)
       boxcar_template_location ||= "boxcar/#{destination}"
       copy_file boxcar_template_location, destination
+    end
+
+    def replace_default_rails_file(path, boxcar_template_location = nil)
+      remove_file path
+      boxcar_template_location ||= "boxcar/#{path}"
+      copy_file boxcar_template_location, path
     end
 
     # This is necessary because the default `generate` runs the default `run` instead of our run
