@@ -41,7 +41,8 @@ module Boxcar
         invoke :setup_secrets
         invoke :setup_test_environment
         invoke :setup_tape
-        invoke :setup_activeadmin
+        invoke :remove_asset_pipeline
+        invoke :setup_activeadmin # Must come after remove_asset_pipeline or AA will be removed
         invoke :setup_database
         invoke :setup_api_controller # Must come before setup_devise
         invoke :setup_devise
@@ -101,6 +102,11 @@ module Boxcar
 
         say "Setting up tape"
         build :install_tape
+      end
+
+      def remove_asset_pipeline
+        say "Removing asset pipeline"
+        build :remove_asset_pipeline
       end
 
       def setup_activeadmin

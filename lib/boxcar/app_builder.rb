@@ -81,6 +81,10 @@ module Boxcar
       gsub_file "taperole/tape_vars.yml", /app_name:/, "app_name: #{app_name.underscore}"
     end
 
+    def remove_asset_pipeline
+      run "rm -rf app/assets"
+    end
+
     def install_activeadmin
       generate "active_admin:install --skip-users --skip-comments"
       split_long_comments "config/initializers/active_admin.rb"
