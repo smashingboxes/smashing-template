@@ -6,13 +6,22 @@
     "lint:css": "stylelint 'app/**/*.css'",
     "lint:js": "eslint --format 'node_modules/eslint-friendly-formatter' --ext .js,.jsx ./app"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@rails/webpacker": "3.5",
+    "babel-preset-react": "^6.24.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "normalize.css": "^8.0.0",
+    "sanitize.css": "^5.0.0"
+  },
   "devDependencies": {
     "eslint": "^3.12.2",
     "eslint-config-smashing-boxes": "^2.0.0",
     "eslint-friendly-formatter": "^2.0.6",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-react": "^6.8.0",
-    "stylelint": "^7.7.0"
+    "stylelint": "^7.7.0",
+    "webpack-dev-server": "2.11.2"
   }
 }

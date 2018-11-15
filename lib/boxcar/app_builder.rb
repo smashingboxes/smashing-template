@@ -245,6 +245,7 @@ module Boxcar
     end
 
     def setup_boilerplate_app
+      replace_generated_directory "app/views"
       replace_generated_directory "app/javascript"
     end
 
@@ -264,6 +265,7 @@ module Boxcar
     def setup_package_json
       remove_file "package.json"
       template "package.json.erb", "package.json"
+      run "yarn install"
     end
 
     def rubocop_autocorrect
@@ -276,7 +278,7 @@ module Boxcar
     end
 
     def cleanup_eslint_violations
-      eslint_disable_file "app/assets/javascripts/cable.js"
+      # noop, but keeping this method because we might have stuff in the future
     end
 
     # rubocop:disable Style/ClassVars

@@ -56,8 +56,8 @@ module Boxcar
         invoke :setup_routes
         invoke :setup_erd_template
         invoke :setup_procfile
-        invoke :setup_package_json
         invoke :setup_webpacker
+        invoke :setup_package_json
         invoke :setup_boilerplate_app
         invoke :setup_linters # This line should be last
       end
@@ -185,6 +185,13 @@ module Boxcar
 
         say "Setting up webpacker"
         build :setup_webpacker
+      end
+
+      def setup_boilerplate_app
+        return if builder.boxcar_configs[:api_app]
+
+        say "Setting up boilerplate react app"
+        build :setup_boilerplate_app
       end
 
       def setup_linters
