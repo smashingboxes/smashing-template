@@ -355,8 +355,7 @@ module Boxcar
 
     def replace_default_rails_file(path, boxcar_template_location = nil)
       remove_file path
-      boxcar_template_location ||= "boxcar/#{path}"
-      copy_file boxcar_template_location, path
+      copy_boxcar_template path, boxcar_template_location
     end
 
     # This is necessary because the default `generate` runs the default `run` instead of our run
