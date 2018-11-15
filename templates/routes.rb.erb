@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # root to: "hello#root"
+  root to: "application#home"
   <%= "ActiveAdmin.routes(self)" if config[:activeadmin] %>
   
   <%- if config[:devise] && !config[:devise_token_auth] -%>
