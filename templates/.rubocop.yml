@@ -17,6 +17,8 @@ AllCops:
     - Rakefile
     # Reason: They're tempfiles, who cares?
     - tmp/*
+    # Reason: Node modules isn't ruby code
+    - node_modules/**/*
   UseCache: false
 
 # ==================== Layout ====================
