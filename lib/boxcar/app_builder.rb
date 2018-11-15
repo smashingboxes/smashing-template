@@ -82,7 +82,7 @@ module Boxcar
     end
 
     def remove_asset_pipeline
-      run "rm -rf app/assets"
+      remove_directory "app/assets"
     end
 
     def install_activeadmin
@@ -241,11 +241,11 @@ module Boxcar
     def setup_webpacker
       run "rails webpacker:install"
       run "rails webpacker:install:react"
-      remove_file "app/javascript/packs/application.js"
-      remove_file "app/javascript/packs/hello_react.jsx"
-      copy_boxcar_template "app/javascript/packs/hello_world.jsx"
-      copy_boxcar_template "app/javascript/main/index.jsx"
       replace_generated_default_file("config/webpacker.yml")
+    end
+
+    def setup_boilerplate_app
+      replace_generated_directory "app/javascript"
     end
 
     def create_rubocop_config
@@ -378,6 +378,21 @@ module Boxcar
     def replace_generated_default_file(path, boxcar_template_location = nil)
       remove_file path
       copy_boxcar_template path, boxcar_template_location
+    end
+
+    def copy_boxcar_directory(directory, boxcar_directory_location = nil)
+      boxcar_directory_location ||= "boxcar/#{directory}"
+      directory boxcar_directory_location, directory
+    end
+
+    def replace_generated_directory(directory, boxcar_directory_location = nil)
+      remove_directory directory
+      boxcar_directory_location ||= "boxcar/#{directory}"
+      directory boxcar_directory_location, directory
+    end
+
+    def remove_directory(directory)
+      run "rm -rf #{directory}"
     end
 
     # This is necessary because the default `generate` runs the default `run` instead of our run

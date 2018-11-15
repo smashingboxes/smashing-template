@@ -1,0 +1,10 @@
+.l-footer {
+  background-color: var(--color-dark-gray);
+  color: var(--color-white);
+  height: var(--spacing-footer-height);
+  margin-top: auto;
+  margin-bottom: auto;
+  line-height: var(--spacing-footer-height);
+  padding-left: var(--spacing-xl);
+  font-size: var(--font-size-lg);
+}

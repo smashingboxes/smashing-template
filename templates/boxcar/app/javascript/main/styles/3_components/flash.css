@@ -1,0 +1,18 @@
+.c-flash {
+  background-color: var(--color-dark-gray);
+  color: var(--color-black);
+  height: var(--spacing-md);
+  margin-top: auto;
+  margin-bottom: auto;
+  line-height: var(--spacing-md);
+  padding-left: var(--spacing-sm);
+  font-size: var(--font-size-xl);
+}
+
+.c-flash--notice {
+  background-color: var(--color-green);
+}
+
+.c-flash--alert {
+  background-color: var(--color-orange);
+}

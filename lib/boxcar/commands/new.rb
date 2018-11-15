@@ -58,6 +58,7 @@ module Boxcar
         invoke :setup_procfile
         invoke :setup_package_json
         invoke :setup_webpacker
+        invoke :setup_boilerplate_app
         invoke :setup_linters # This line should be last
       end
 

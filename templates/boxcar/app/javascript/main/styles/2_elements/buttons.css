@@ -1,0 +1,10 @@
+input[type="submit"],
+button {
+  border: 1px solid var(--color-black);
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.14);
+  outline: none;
+
+  &:active {
+    box-shadow: unset;
+  }
+}
