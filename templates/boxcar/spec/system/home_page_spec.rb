@@ -9,9 +9,9 @@ describe "Home Page" do
     expect(page).to have_content("Welcome to Boxcar!")
   end
 
-    it "renders a react component" do
+    it "renders a react component", js: true do
     visit("/")
 
-    expect(page).to have_content("You can put your react components here!")
+    expect(page).to have_content("Hello World From React!")
   end
 end
