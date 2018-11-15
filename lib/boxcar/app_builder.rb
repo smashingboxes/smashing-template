@@ -87,6 +87,7 @@ module Boxcar
 
     def install_activeadmin
       generate "active_admin:install --skip-users --skip-comments"
+      copy_boxcar_template "spec/system/active_admin_spec.rb"
       split_long_comments "config/initializers/active_admin.rb"
       gsub_file "app/admin/dashboard.rb", "end # content", "end"
     end
