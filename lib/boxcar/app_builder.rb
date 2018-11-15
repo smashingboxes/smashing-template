@@ -46,7 +46,7 @@ module Boxcar
       copy_boxcar_template "spec/support/capybara.rb"
       copy_boxcar_template "spec/system/home_page_spec.rb"
       copy_boxcar_template "app/views/shared/home.html.erb"
-      replace_default_rails_file "app/controllers/application_controller.rb"
+      replace_generated_default_file "app/controllers/application_controller.rb"
     end
 
     def install_specs
@@ -239,6 +239,9 @@ module Boxcar
       run "rails webpacker:install:react"
       remove_file "app/javascript/packs/application.js"
       remove_file "app/javascript/packs/hello_react.jsx"
+      copy_boxcar_template "app/javascript/packs/hello_world.jsx"
+      copy_boxcar_template "app/javascript/main/index.jsx"
+      replace_generated_default_file("config/webpacker.yml")
     end
 
     def create_rubocop_config
@@ -368,7 +371,7 @@ module Boxcar
       copy_file boxcar_template_location, destination
     end
 
-    def replace_default_rails_file(path, boxcar_template_location = nil)
+    def replace_generated_default_file(path, boxcar_template_location = nil)
       remove_file path
       copy_boxcar_template path, boxcar_template_location
     end
