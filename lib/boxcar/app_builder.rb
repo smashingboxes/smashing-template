@@ -256,11 +256,11 @@ module Boxcar
 
     def create_eslint_config
       run "curl https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/.eslintrc -O"
+      copy_boxcar_template ".eslintrc"
     end
 
     def create_stylelint_config
-      url = "https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/stylelint.config.js"
-      run "curl #{url} -O"
+      copy_boxcar_template "stylelint.config.js"
     end
 
     def setup_package_json
