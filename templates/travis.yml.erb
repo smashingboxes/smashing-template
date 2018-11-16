@@ -1,7 +1,10 @@
 language: ruby
+addons:
+  chrome: stable
 rvm:
   - <%= Boxcar::RUBY_VERSION %>
 before_install:
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.7.0
   - export PATH="$HOME/.yarn/bin:$PATH"
   - yarn install
