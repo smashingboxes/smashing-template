@@ -12,6 +12,8 @@ before_install:
 cache: yarn
 before_script:
   - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
   - cp config/.env.example config/.env
   - psql -c 'create database <%= app_name.underscore %>_test;' -U postgres
   - bundle exec rake db:migrate --trace
