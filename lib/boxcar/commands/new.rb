@@ -40,6 +40,7 @@ module Boxcar
         invoke :setup_ruby_version
         invoke :setup_secrets
         invoke :setup_test_environment
+        invoke :setup_prod_environment
         invoke :setup_tape
         invoke :setup_activeadmin
         invoke :setup_database
@@ -97,6 +98,10 @@ module Boxcar
         build :create_shoulda_matchers_config
         build :create_request_helpers_config
         build :configure_travis
+      end
+
+      def setup_prod_environment
+        build :force_ssl
       end
 
       def setup_tape
