@@ -53,6 +53,10 @@ module Boxcar
       copy_file "seed_spec.rb", "spec/seeds/seed_spec.rb"
     end
 
+    def create_query_traces
+      copy_boxcar_template "config/initializers/query_trace.rb"
+    end
+
     def configure_rspec
       remove_file "spec/rails_helper.rb"
       remove_file "spec/spec_helper.rb"
@@ -95,8 +99,8 @@ module Boxcar
     def install_devise
       generate "devise:install"
       generate "devise User"
-      remove_file "app/model/user.rb"
-      template "user.rb.erb", "app/model/user.rb", gem_configs
+      remove_file "app/models/user.rb"
+      template "user.rb.erb", "app/models/user.rb", gem_configs
       gsub_file "config/initializers/devise.rb", /# config.secret_key.*/, "# config.secret_key = ''"
       gsub_file "config/initializers/devise.rb", /# config.pepper.*/, "# config.pepper = ''"
     end
@@ -118,13 +122,25 @@ module Boxcar
       # This does two things different from the default.
       # 1. It inherits from ApplicationRecord instead of ActiveRecord::Base
       # 2. It doesn't include omniauthable by default
-      template "user.rb.erb", "app/model/user.rb", gem_configs
+      template "user.rb.erb", "app/models/user.rb", gem_configs
       copy_file "users_factory.rb", "spec/factories/users_factory.rb"
     end
 
     def create_routes
       remove_file "config/routes.rb"
       template "routes.rb.erb", "config/routes.rb", gem_configs
+    end
+
+    def force_ssl
+      gsub_file(
+        "config/environments/production.rb",
+        "# config.force_ssl = true",
+        "config.force_ssl = true"
+      )
+    end
+
+    def create_github_markdown
+      copy_file "pull_request_template.md", ".github/pull_request_template.md"
     end
 
     def create_devise_token_auth_helpers

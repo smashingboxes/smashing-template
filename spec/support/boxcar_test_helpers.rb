@@ -79,10 +79,18 @@ module BoxcarTestHelpers
     @gemfile ||= IO.read(gemfile_path)
   end
 
+  def production_config
+    @production_config ||= IO.read(production_config_path)
+  end
+
   private
 
   def gemfile_path
     "#{project_path}/Gemfile"
+  end
+
+  def production_config_path
+    "#{project_path}/config/environments/production.rb"
   end
 
   def tmp_path

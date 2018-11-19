@@ -40,6 +40,7 @@ module Boxcar
         invoke :setup_ruby_version
         invoke :setup_secrets
         invoke :setup_test_environment
+        invoke :setup_prod_environment
         invoke :setup_tape
         invoke :remove_asset_pipeline
         invoke :setup_activeadmin # Must come after remove_asset_pipeline or AA will be removed
@@ -49,6 +50,7 @@ module Boxcar
         invoke :setup_annotate
         invoke :setup_flipper
         invoke :setup_bullet
+        invoke :setup_query_traces
         invoke :setup_action_mailer
         invoke :setup_seeds
         invoke :migrate_database
@@ -64,6 +66,11 @@ module Boxcar
 
       def setup_routes
         build :create_routes
+      end
+
+      def setup_query_traces
+        say "Setting up query traces"
+        build :create_query_traces
       end
 
       def setup_secrets
@@ -96,6 +103,10 @@ module Boxcar
         build :create_shoulda_matchers_config
         build :create_request_helpers_config
         build :configure_travis
+      end
+
+      def setup_prod_environment
+        build :force_ssl
       end
 
       def setup_tape
