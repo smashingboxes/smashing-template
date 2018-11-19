@@ -6,6 +6,8 @@ before_install:
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   - gem update --system
 install: bundle install
+before_script:
+  - export DISPLAY=:99.0
 script:
   - bundle exec rubocop
   - bundle exec rspec
