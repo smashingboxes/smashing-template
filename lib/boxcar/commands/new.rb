@@ -47,6 +47,7 @@ module Boxcar
         invoke :setup_annotate
         invoke :setup_flipper
         invoke :setup_bullet
+        invoke :setup_query_traces
         invoke :setup_action_mailer
         invoke :setup_seeds
         invoke :migrate_database
@@ -59,6 +60,11 @@ module Boxcar
 
       def setup_routes
         build :create_routes
+      end
+
+      def setup_query_traces
+        say "Setting up query traces"
+        build :create_query_traces
       end
 
       def setup_secrets
