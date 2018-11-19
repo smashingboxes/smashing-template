@@ -145,7 +145,8 @@ shared_examples_for "a run that includes all the basic setup steps" do
   it "generates a project with no linter errors" do
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
-        `bundle exec rubocop`
+        output = `bundle exec rubocop`
+        puts output unless $CHILD_STATUS.success?
         expect($CHILD_STATUS).to be_success
       end
     end
@@ -156,7 +157,8 @@ shared_examples_for "a run that includes all the basic setup steps" do
   it "generated a project with all passing specs" do
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
-        `bundle exec rspec`
+        output = `bundle exec rspec`
+        puts output unless $CHILD_STATUS.success?
         expect($CHILD_STATUS).to be_success
       end
     end
