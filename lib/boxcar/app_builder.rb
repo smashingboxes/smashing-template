@@ -126,6 +126,14 @@ module Boxcar
       template "routes.rb.erb", "config/routes.rb", gem_configs
     end
 
+    def force_ssl
+      gsub_file(
+        "config/environments/production.rb",
+        "# config.force_ssl = true",
+        "config.force_ssl = true"
+      )
+    end
+
     def create_github_markdown
       copy_file "pull_request_template.md", ".github/pull_request_template.md"
     end
