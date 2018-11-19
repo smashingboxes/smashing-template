@@ -90,8 +90,8 @@ module Boxcar
     def install_devise
       generate "devise:install"
       generate "devise User"
-      remove_file "app/model/user.rb"
-      template "user.rb.erb", "app/model/user.rb", gem_configs
+      remove_file "app/models/user.rb"
+      template "user.rb.erb", "app/models/user.rb", gem_configs
       gsub_file "config/initializers/devise.rb", /# config.secret_key.*/, "# config.secret_key = ''"
       gsub_file "config/initializers/devise.rb", /# config.pepper.*/, "# config.pepper = ''"
     end
@@ -113,7 +113,7 @@ module Boxcar
       # This does two things different from the default.
       # 1. It inherits from ApplicationRecord instead of ActiveRecord::Base
       # 2. It doesn't include omniauthable by default
-      template "user.rb.erb", "app/model/user.rb", gem_configs
+      template "user.rb.erb", "app/models/user.rb", gem_configs
       copy_file "users_factory.rb", "spec/factories/users_factory.rb"
     end
 
