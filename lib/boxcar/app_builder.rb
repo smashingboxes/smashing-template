@@ -54,10 +54,7 @@ module Boxcar
     end
 
     def create_query_traces
-      copy_file(
-        "config/initializers/query_trace.rb",
-        "config/initializers/query_trace.rb"
-      )
+      copy_boxcar_template "config/initializers/query_trace.rb"
     end
 
     def configure_rspec
