@@ -19,6 +19,7 @@ AllCops:
     - tmp/*
     # Reason: Node modules isn't ruby code
     - node_modules/**/*
+    - vendor/bundle/**/*
   UseCache: false
 
 # ==================== Layout ====================
