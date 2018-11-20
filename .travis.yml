@@ -1,16 +1,16 @@
 sudo: required
+dist: trusty
 language: ruby
-addons:
-  chrome: stable
 cache: bundler
 before_install:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  - sudo apt-get update
+  - sudo apt-get install chromium-chromedriver
   - gem update --system
 install: bundle install
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - sleep 3
+  - sleep 3 # give xvfb some time to start
 script:
   - bundle exec rubocop
   - bundle exec rspec
