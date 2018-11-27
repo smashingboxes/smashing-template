@@ -139,10 +139,6 @@ module Boxcar
       )
     end
 
-    def create_github_markdown
-      copy_file "pull_request_template.md", ".github/pull_request_template.md"
-    end
-
     def create_devise_token_auth_helpers
       devise_controller
       render_helper
