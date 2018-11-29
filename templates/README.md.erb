@@ -18,10 +18,18 @@
 
 ## Getting Started
 
-### Installation
+### Prerequisites
 
-If you haven't installed ruby, bundler, and postgresql, do that first. Then, do the following to
-set up this app:
+If you haven't installed ruby, bundler, postgresql, selenium-webdriver, and chromedriver do that first. 
+
+```sh
+brew cask install chromedriver
+brew cask install selenium-webdriver
+brew cask install postgresql
+```
+
+### Installation
+Then, do the following to set up this app:
 
 ```sh
 git clone <REPO_URL>
@@ -34,10 +42,11 @@ bundle exec rails db:setup
 ### Usage
 
 To run the app locally:
-
 ```sh
-bundle exec rails s
+bundle exec foreman start
 ```
+Or run two sepearate processes for `bundle exec rails s` and `bin/webpack-dev-server`
+
 Then navigate to http://localhost:3000
 
 ### Seeded logins

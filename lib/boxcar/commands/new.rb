@@ -42,8 +42,10 @@ module Boxcar
         invoke :setup_test_environment
         invoke :setup_prod_environment
         invoke :setup_tape
-        invoke :setup_activeadmin
+        invoke :remove_asset_pipeline
+        invoke :setup_activeadmin # Must come after remove_asset_pipeline or AA will be removed
         invoke :setup_database
+        invoke :setup_api_controller # Must come before setup_devise
         invoke :setup_devise
         invoke :setup_annotate
         invoke :setup_flipper
@@ -55,7 +57,10 @@ module Boxcar
         invoke :setup_github_template
         invoke :setup_routes
         invoke :setup_erd_template
+        invoke :setup_procfile
+        invoke :setup_webpacker
         invoke :setup_package_json
+        invoke :setup_boilerplate_app
         invoke :setup_linters # This line should be last
       end
 
@@ -111,6 +116,11 @@ module Boxcar
         build :install_tape
       end
 
+      def remove_asset_pipeline
+        say "Removing asset pipeline"
+        build :remove_asset_pipeline
+      end
+
       def setup_activeadmin
         return unless builder.gem_configs[:activeadmin]
 
@@ -126,6 +136,11 @@ module Boxcar
       def migrate_database
         say "Migrating database"
         build :migrate_database
+      end
+
+      def setup_api_controller
+        say "Setting up API controller"
+        build :create_api_controller
       end
 
       def setup_devise
@@ -161,6 +176,11 @@ module Boxcar
         build :setup_annotate
       end
 
+      def setup_procfile
+        say "Setting up Procfile"
+        build :setup_procfile
+      end
+
       def setup_bullet
         say "Setting up bullet"
         build :setup_bullet
@@ -169,6 +189,20 @@ module Boxcar
       def setup_package_json
         say "Setting up package.json"
         build :setup_package_json
+      end
+
+      def setup_webpacker
+        return if builder.boxcar_configs[:api_app]
+
+        say "Setting up webpacker"
+        build :setup_webpacker
+      end
+
+      def setup_boilerplate_app
+        return if builder.boxcar_configs[:api_app]
+
+        say "Setting up boilerplate react app"
+        build :setup_boilerplate_app
       end
 
       def setup_linters

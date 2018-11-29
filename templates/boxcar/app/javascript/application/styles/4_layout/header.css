@@ -1,0 +1,14 @@
+.l-header {
+  background-color: var(--color-dark-gray);
+  color: var(--color-white);
+  height: var(--spacing-header-height);
+  margin-top: auto;
+  margin-bottom: auto;
+  line-height: var(--spacing-header-height);
+  padding-left: var(--spacing-sm);
+  font-size: var(--font-size-xl);
+
+  & .l-header__link {
+    color: var(--color-white);
+  }
+}

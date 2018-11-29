@@ -39,6 +39,11 @@ RSpec.describe "boxcar new <app_name>" do
     expect(gemfile).to_not match(/^gem "devise"/)
   end
 
+  it "adds the frontend to the procfile" do
+    procfile = IO.read("#{project_path}/Procfile")
+    expect(procfile).to match(%r{frontend: bin/webpack-dev-server$})
+  end
+
   describe "frontend linting" do
     it "adds our eslint config" do
       expect(File).to exist("#{project_path}/.eslintrc")

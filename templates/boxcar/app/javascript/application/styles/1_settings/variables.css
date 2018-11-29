@@ -1,0 +1,62 @@
+:root {
+  /* Base colors */
+  --color-white: #fff;
+  --color-off-white: #eee;
+  --color-light-gray: #bbb;
+  --color-medium-gray: #555;
+  --color-dark-gray: #333;
+  --color-black: #000;
+  --color-teal: #86c1b9;
+  --color-light-blue: #7cafc2;
+  --color-dark-blue: #04395c;
+  --color-red: #ab4642;
+  --color-green: #a1b56c;
+  --color-yellow: #f7ca88;
+  --color-orange: #dc9656;
+  --color-purple: #ba8baf;
+  --color-brown: #a16946;
+
+  /* App colors */
+  /* Any custom colors can go here (eg --color-sign-up-button) */
+  --color-link: var(--color-dark-blue);
+
+  /* Font */
+  --font-family-default: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+  /* Font size */
+  --font-size-default: var(--font-size-md);
+  --font-size-xxs: 0.625rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.375rem;
+  --font-size-xl: 1.875rem;
+  --font-size-xxl: 2rem;
+
+  /* Font weight */
+  --font-weight-default: var(--font-weight-medium);
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing */
+  --spacing-default: var(--spacing-md);
+  --spacing-xxs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 3rem;
+  --spacing-xl: 4rem;
+  --spacing-xxl: 6rem;
+
+  /* App Spacing */
+  /* Any custom spacing can go here (eg --spacing-header-height) */
+  --spacing-header-height: var(--spacing-lg);
+  --spacing-footer-height: var(--spacing-xxl);
+
+  /* Transitions */
+  --transition-default: all var(--transition-duration-default) var(--transition-timing-default);
+  --transition-duration-default: 0.2s;
+  --transition-timing-default: ease-in-out;
+}

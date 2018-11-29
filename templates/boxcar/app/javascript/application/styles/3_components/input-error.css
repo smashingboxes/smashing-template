@@ -1,0 +1,8 @@
+.c-input--error .c-input__input {
+  border-color: var(--color-red);
+}
+
+.c-input__error-text {
+  color: var(--color-red);
+  display: block;
+}

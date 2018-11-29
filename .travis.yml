@@ -1,8 +1,20 @@
+sudo: required
+dist: trusty
 language: ruby
 cache: bundler
 before_install:
-  - gem update --system
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.7.0
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - yarn install
+  - sudo apt-get update
+  - sudo apt-get install chromium-chromedriver
 install: bundle install
+before_script:
+  - export PATH=$PATH:/usr/lib/chromium-browser/
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
 script:
   - bundle exec rubocop
   - bundle exec rspec
+

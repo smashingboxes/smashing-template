@@ -46,7 +46,7 @@ module Boxcar
       copy_boxcar_template "spec/support/capybara.rb"
       copy_boxcar_template "spec/system/home_page_spec.rb"
       copy_boxcar_template "app/views/shared/home.html.erb"
-      replace_default_rails_file "app/controllers/application_controller.rb"
+      replace_generated_default_file "app/controllers/application_controller.rb"
     end
 
     def install_specs
@@ -85,8 +85,13 @@ module Boxcar
       gsub_file "taperole/tape_vars.yml", /app_name:/, "app_name: #{app_name.underscore}"
     end
 
+    def remove_asset_pipeline
+      remove_directory "app/assets"
+    end
+
     def install_activeadmin
       generate "active_admin:install --skip-users --skip-comments"
+      copy_boxcar_template "spec/system/active_admin_spec.rb"
       split_long_comments "config/initializers/active_admin.rb"
       gsub_file "app/admin/dashboard.rb", "end # content", "end"
     end
@@ -134,17 +139,16 @@ module Boxcar
       )
     end
 
-    def create_github_markdown
-      copy_file "pull_request_template.md", ".github/pull_request_template.md"
-    end
-
     def create_devise_token_auth_helpers
-      api_controller
       devise_controller
       render_helper
       spec_request_helper
       spec_auth_helpers
       auth_specs
+    end
+
+    def create_github_markdown
+      copy_file "pull_request_template.md", ".github/pull_request_template.md"
     end
 
     def auth_specs
@@ -169,17 +173,16 @@ module Boxcar
       copy_file ".erdconfig", ".erdconfig"
     end
 
+    def create_api_controller
+      copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
+    end
+
     def devise_controller
       copy_file "devise_token_auth_response_serializer.rb",
                 "app/controllers/concerns/devise_token_auth_response_serializer.rb"
       copy_file "registrations_controller.rb",
                 "app/controllers/api/v1/users/registration_controller.rb"
       copy_file "sessions_controller.rb", "app/controllers/api/v1/users/sessions_controller.rb"
-    end
-
-    def api_controller
-      copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
-      copy_file "application_controller.rb", "app/controllers/api/v1/application_controller.rb"
     end
 
     def setup_database
@@ -238,22 +241,38 @@ module Boxcar
                        before: "config.action_mailer.perform_caching = false"
     end
 
+    def setup_procfile
+      template "Procfile.erb", "Procfile", api_app: boxcar_configs[:api_app]
+    end
+
+    def setup_webpacker
+      run "rails webpacker:install"
+      run "rails webpacker:install:react"
+      replace_generated_default_file("config/webpacker.yml")
+    end
+
+    def setup_boilerplate_app
+      replace_generated_directory "app/views"
+      replace_generated_directory "app/javascript"
+    end
+
     def create_rubocop_config
       copy_file ".rubocop.yml", ".rubocop.yml"
     end
 
     def create_eslint_config
       run "curl https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/.eslintrc -O"
+      copy_boxcar_template ".eslintrc"
     end
 
     def create_stylelint_config
-      url = "https://raw.githubusercontent.com/smashingboxes/web-boilerplate/master/stylelint.config.js"
-      run "curl #{url} -O"
+      copy_boxcar_template "stylelint.config.js"
     end
 
     def setup_package_json
       remove_file "package.json"
       template "package.json.erb", "package.json"
+      run "yarn install"
     end
 
     def rubocop_autocorrect
@@ -266,7 +285,7 @@ module Boxcar
     end
 
     def cleanup_eslint_violations
-      eslint_disable_file "app/assets/javascripts/cable.js"
+      # noop, but keeping this method because we might have stuff in the future
     end
 
     # rubocop:disable Style/ClassVars
@@ -365,9 +384,24 @@ module Boxcar
       copy_file boxcar_template_location, destination
     end
 
-    def replace_default_rails_file(path, boxcar_template_location = nil)
+    def replace_generated_default_file(path, boxcar_template_location = nil)
       remove_file path
       copy_boxcar_template path, boxcar_template_location
+    end
+
+    def copy_boxcar_directory(directory, boxcar_directory_location = nil)
+      boxcar_directory_location ||= "boxcar/#{directory}"
+      directory boxcar_directory_location, directory
+    end
+
+    def replace_generated_directory(directory, boxcar_directory_location = nil)
+      remove_directory directory
+      boxcar_directory_location ||= "boxcar/#{directory}"
+      directory boxcar_directory_location, directory
+    end
+
+    def remove_directory(directory)
+      run "rm -rf #{directory}"
     end
 
     # This is necessary because the default `generate` runs the default `run` instead of our run

@@ -1,0 +1,73 @@
+html {
+  font-size: var(--font-size-default);
+}
+
+body {
+  color: var(--color-black);
+  font-family: var(--font-family-default);
+  font-size: var(--font-size-default);
+  font-weight: var(--font-weight-default);
+  line-height: var(--font-size-default);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xxs);
+  margin-top: 0;
+}
+
+h1 {
+  font-size: var(--font-size-xxl);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+}
+
+h4 {
+  font-size: var(--font-size-md);
+}
+
+h5 {
+  font-size: var(--font-size-sm);
+}
+
+h6 {
+  font-size: var(--font-size-xs);
+}
+
+p {
+  margin: 0;
+
+  &:not(:last-child) {
+    margin-bottom: var(--spacing-default);
+  }
+}
+
+[href] {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: var(--transition-default);
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+small {
+  font-size: var(--font-size-xs);
+}
+
+strong {
+  font-weight: var(--font-weight-semibold);
+}
+
+::selection {
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+}
