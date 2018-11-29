@@ -10,4 +10,4 @@ function HellowWorld() {
 
 HellowWorld.propTypes = propTypes;
 
-export default HellowWorld;
+export default HelloWorld;
