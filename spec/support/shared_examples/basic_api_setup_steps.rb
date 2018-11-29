@@ -9,6 +9,5 @@ shared_examples_for "a run that includes all the basic API setup steps" do
 
   it "sets up the api controllers" do
     expect(File).to exist("#{project_path}/app/controllers/api/v1/api_controller.rb")
-    expect(File).to exist("#{project_path}/app/controllers/api/v1/application_controller.rb")
   end
 end

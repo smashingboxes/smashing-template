@@ -175,7 +175,6 @@ module Boxcar
 
     def create_api_controller
       copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
-      copy_file "application_controller.rb", "app/controllers/api/v1/application_controller.rb"
     end
 
     def devise_controller
@@ -184,11 +183,6 @@ module Boxcar
       copy_file "registrations_controller.rb",
                 "app/controllers/api/v1/users/registration_controller.rb"
       copy_file "sessions_controller.rb", "app/controllers/api/v1/users/sessions_controller.rb"
-    end
-
-    def api_controller
-      copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
-      copy_file "application_controller.rb", "app/controllers/api/v1/application_controller.rb"
     end
 
     def setup_database
