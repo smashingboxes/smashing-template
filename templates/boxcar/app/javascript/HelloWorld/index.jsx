@@ -2,12 +2,12 @@ import React from 'react';
 
 const propTypes = {};
 
-function HellowWorld() {
+function HelloWorld() {
   return (
     <div>Hello World From React!</div>
   );
 }
 
-HellowWorld.propTypes = propTypes;
+HelloWorld.propTypes = propTypes;
 
 export default HelloWorld;
