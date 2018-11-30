@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Authorizable
+  
   protect_from_forgery with: :exception
 
   def home

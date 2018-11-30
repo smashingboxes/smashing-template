@@ -105,6 +105,13 @@ module Boxcar
       gsub_file "config/initializers/devise.rb", /# config.pepper.*/, "# config.pepper = ''"
     end
 
+    def install_pundit
+      copy_boxcar_template "app/controllers/concerns/authorizable.rb"
+      copy_boxcar_template "app/policies/application_policy.rb"
+      copy_boxcar_template "app/policies/user_policy.rb"
+      copy_boxcar_template "spec/policies/user_policy_spec.rb"
+    end
+
     def install_flipper
       if gem_configs[:devise]
         copy_file(

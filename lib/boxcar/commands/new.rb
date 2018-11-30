@@ -43,6 +43,7 @@ module Boxcar
         invoke :setup_prod_environment
         invoke :setup_tape
         invoke :remove_asset_pipeline
+        invoke :setup_pundit
         invoke :setup_activeadmin # Must come after remove_asset_pipeline or AA will be removed
         invoke :setup_database
         invoke :setup_api_controller # Must come before setup_devise
@@ -152,6 +153,11 @@ module Boxcar
           build :install_devise_token_auth
           build :create_devise_token_auth_helpers
         end
+      end
+
+      def setup_pundit
+        say "Installing pundit"
+        build :install_pundit
       end
 
       def setup_seeds
