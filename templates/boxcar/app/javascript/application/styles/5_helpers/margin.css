@@ -1,47 +1,47 @@
-.mb-xxs {
+.h-mb--xxs {
   margin-bottom: var(--spacing-xxs);
 }
 
-.mb-xs {
+.h-mb--xs {
   margin-bottom: var(--spacing-xs);
 }
 
-.mb-md {
+.h-mb--md {
   margin-bottom: var(--spacing-md);
 }
 
-.mb-lg {
+.h-mb--lg {
   margin-bottom: var(--spacing-lg);
 }
 
-.mb-xl {
+.h-mb--xl {
   margin-bottom: var(--spacing-xl);
 }
 
-.mb-xxl {
+.h-mb--xxl {
   margin-bottom: var(--spacing-xxl);
 }
 
-.mt-xxs {
+.h-mt--xxs {
   margin-top: var(--spacing-xxs);
 }
 
-.mt-xs {
+.h-mt--xs {
   margin-top: var(--spacing-xs);
 }
 
-.mt-md {
+.h-mt--md {
   margin-top: var(--spacing-md);
 }
 
-.mt-lg {
+.h-mt--lg {
   margin-top: var(--spacing-lg);
 }
 
-.mt-xl {
+.h-mt--xl {
   margin-top: var(--spacing-xl);
 }
 
-.mt-xxl {
+.h-mt--xxl {
   margin-top: var(--spacing-xxl);
 }
