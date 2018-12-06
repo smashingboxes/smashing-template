@@ -1,4 +1,5 @@
 .l-container {
+  flex: 1;
   padding: var(--spacing-xxs);
 
   @media screen and (min-width: 450px) {
@@ -11,6 +12,5 @@
 }
 
 .l-container--centered {
-  display: flex;
-  justify-content: space-around;
+  margin: 0 auto;
 }

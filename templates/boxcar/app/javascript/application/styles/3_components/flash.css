@@ -6,7 +6,12 @@
   margin-bottom: auto;
   line-height: var(--spacing-md);
   padding-left: var(--spacing-sm);
-  font-size: var(--font-size-xl);
+  padding-top: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  font-size: var(--font-size-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .c-flash--notice {

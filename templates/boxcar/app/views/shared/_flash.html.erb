@@ -1,6 +1,10 @@
 <% if flash[:notice] %>
-  <p class="c-flash c-flash--notice"><%= flash[:notice] %></p>
+  <div class="c-flash c-flash--notice">
+    <p><%= flash[:notice] %></p>
+  </div>
 <% end %>
 <% if flash[:alert] %>
-  <p class="c-flash c-flash--alert"><%= flash[:alert] %></p>
+  <div class="c-flash c-flash--alert">
+    <p><%= flash[:alert] %></p>
+  </div>
 <% end %>

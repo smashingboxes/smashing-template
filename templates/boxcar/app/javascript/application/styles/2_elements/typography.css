@@ -71,3 +71,7 @@ strong {
   background-color: var(--color-dark-blue);
   color: var(--color-white);
 }
+
+.text-center {
+  text-align: center;
+}
