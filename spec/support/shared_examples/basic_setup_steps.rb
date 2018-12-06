@@ -156,6 +156,8 @@ shared_examples_for "a run that includes all the basic setup steps" do
     end
   end
 
+  it_behaves_like "a run that installs pundit"
+
   it_behaves_like "a run that installs capybara"
 
   it_behaves_like "a run that configures the prod environment"
