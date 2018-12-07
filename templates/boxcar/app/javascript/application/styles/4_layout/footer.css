@@ -5,6 +5,6 @@
   margin-top: auto;
   margin-bottom: auto;
   line-height: var(--spacing-footer-height);
-  padding-left: var(--spacing-xl);
+  padding-left: var(--spacing-sm);
   font-size: var(--font-size-lg);
 }
