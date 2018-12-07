@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserPolicy < ApplicationPolicy
   # NOTE: In this context, `user` is the currently signed in user, whereas `record` is the user
   # we're trying to determine permissions for
@@ -11,14 +13,14 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    user.is_admin?
+    user.admin?
   end
 
   def update?
-    user == record || user.is_admin?
+    user == record || user.admin?
   end
 
   def destroy?
-    user.is_admin?
+    user.admin?
   end
 end

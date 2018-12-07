@@ -62,11 +62,16 @@ module Boxcar
         invoke :setup_webpacker
         invoke :setup_package_json
         invoke :setup_boilerplate_app
+        invoke :setup_application_controller
         invoke :setup_linters # This line should be last
       end
 
       def setup_routes
         build :create_routes
+      end
+
+      def setup_application_controller
+        build :create_application_controller
       end
 
       def setup_query_traces

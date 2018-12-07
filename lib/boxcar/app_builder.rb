@@ -46,7 +46,6 @@ module Boxcar
       copy_boxcar_template "spec/support/capybara.rb"
       copy_boxcar_template "spec/system/home_page_spec.rb"
       copy_boxcar_template "app/views/shared/home.html.erb"
-      replace_generated_default_file "app/controllers/application_controller.rb"
     end
 
     def install_specs
@@ -101,12 +100,12 @@ module Boxcar
       generate "devise User"
       remove_file "app/models/user.rb"
       template "user.rb.erb", "app/models/user.rb", gem_configs
+      replace_generated_default_file "spec/factories/users.rb"
       gsub_file "config/initializers/devise.rb", /# config.secret_key.*/, "# config.secret_key = ''"
       gsub_file "config/initializers/devise.rb", /# config.pepper.*/, "# config.pepper = ''"
     end
 
     def install_pundit
-      copy_boxcar_template "app/controllers/concerns/authorizable.rb"
       copy_boxcar_template "app/policies/application_policy.rb"
       copy_boxcar_template "app/policies/user_policy.rb"
       copy_boxcar_template "spec/policies/user_policy_spec.rb"
@@ -182,6 +181,13 @@ module Boxcar
 
     def create_api_controller
       copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
+    end
+
+    def create_application_controller
+      replace_default_file_with_template(
+        "app/controllers/application_controller.rb",
+        "boxcar/app/controllers/application_controller.rb.erb"
+      )
     end
 
     def devise_controller
@@ -394,6 +400,12 @@ module Boxcar
     def replace_generated_default_file(path, boxcar_template_location = nil)
       remove_file path
       copy_boxcar_template path, boxcar_template_location
+    end
+
+    def replace_default_file_with_template(destination, boxcar_template_location = nil)
+      remove_file destination
+      boxcar_template_location ||= "boxcar/#{destination}"
+      template boxcar_template_location, destination
     end
 
     def copy_boxcar_directory(directory, boxcar_directory_location = nil)
