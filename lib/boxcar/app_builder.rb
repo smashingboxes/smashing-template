@@ -73,11 +73,11 @@ module Boxcar
     end
 
     def create_shoulda_matchers_config
-      copy_file "shoulda_matchers.rb", "spec/support/shoulda_matchers.rb"
+      copy_boxcar_template "spec/support/shoulda_matchers.rb"
     end
 
     def create_request_helpers_config
-      copy_file "request_helpers.rb", "spec/support/request_helpers.rb"
+      copy_boxcar_template "spec/support/request_helpers.rb"
     end
 
     def install_tape
