@@ -107,13 +107,11 @@ module Boxcar
 
     def install_flipper
       if gem_configs[:devise]
-        copy_file(
-          "flipper_routing_constraints.rb",
-          "config/initializers/flipper_routing_constraints.rb"
-        )
+        copy_boxcar_template "config/initializers/flipper_routing_constraints.rb"
       end
-      copy_file "flipper_ui.rb", "config/initializers/flipper_ui.rb"
-      copy_file "flipper.rb", "config/initializers/flipper.rb"
+
+      copy_boxcar_template "config/initializers/flipper_ui.rb"
+      copy_boxcar_template "config/initializers/flipper.rb"
       generate "flipper:active_record"
     end
 
@@ -123,7 +121,7 @@ module Boxcar
       # 1. It inherits from ApplicationRecord instead of ActiveRecord::Base
       # 2. It doesn't include omniauthable by default
       template "user.rb.erb", "app/models/user.rb", gem_configs
-      copy_file "users_factory.rb", "spec/factories/users_factory.rb"
+      copy_boxcar_template "spec/factories/users_factory.rb"
     end
 
     def create_routes
