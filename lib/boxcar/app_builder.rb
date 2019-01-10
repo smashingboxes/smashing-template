@@ -32,8 +32,8 @@ module Boxcar
 
     def create_secrets
       remove_file "config/secrets.yml"
-      copy_file "secrets.yml", "config/secrets.yml"
-      copy_file ".env", ".env.example"
+      copy_boxcar_template "config/secrets.yml"
+      copy_boxcar_template ".env.example"
       run "cp .env.example .env"
     end
 
@@ -50,7 +50,7 @@ module Boxcar
     end
 
     def install_specs
-      copy_file "seed_spec.rb", "spec/seeds/seed_spec.rb"
+      copy_boxcar_template "spec/seeds/seed_spec.rb"
     end
 
     def create_query_traces
@@ -194,11 +194,11 @@ module Boxcar
     end
 
     def setup_annotate
-      copy_file "auto_annotate_models.rake", "lib/tasks/auto_annotate_models.rake"
+      copy_boxcar_template "lib/tasks/auto_annotate_models.rake"
     end
 
     def setup_bullet
-      copy_file "bullet.rb", "config/initializers/bullet.rb"
+      copy_boxcar_template "config/initializers/bullet.rb"
     end
 
     def setup_seeds
