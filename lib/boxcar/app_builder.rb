@@ -160,7 +160,7 @@ module Boxcar
     end
 
     def spec_request_helper
-      copy_file "requests.rb", "spec/support/requests.rb"
+      copy_boxcar_template "spec/support/requests.rb"
     end
 
     def render_helper
