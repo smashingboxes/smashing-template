@@ -168,7 +168,7 @@ module Boxcar
     end
 
     def create_erd_config
-      copy_file ".erdconfig", ".erdconfig"
+      copy_boxcar_template ".erdconfig"
     end
 
     def create_api_controller
@@ -176,11 +176,9 @@ module Boxcar
     end
 
     def devise_controller
-      copy_file "devise_token_auth_response_serializer.rb",
-                "app/controllers/concerns/devise_token_auth_response_serializer.rb"
-      copy_file "registrations_controller.rb",
-                "app/controllers/api/v1/users/registration_controller.rb"
-      copy_file "sessions_controller.rb", "app/controllers/api/v1/users/sessions_controller.rb"
+      copy_boxcar_template "app/controllers/concerns/devise_token_auth_response_serializer.rb"
+      copy_boxcar_template "app/controllers/api/v1/users/registrations_controller.rb"
+      copy_boxcar_template "app/controllers/api/v1/users/sessions_controller.rb"
     end
 
     def setup_database
@@ -201,8 +199,8 @@ module Boxcar
 
     def setup_seeds
       remove_file "db/seeds.rb"
-      copy_file "boxcar/db/seeds.rb", "db/seeds.rb"
-      copy_file "boxcar/db/seeds/user_seeds.rb", "db/seeds/user_seeds.rb"
+      copy_boxcar_template "db/seeds.rb"
+      copy_boxcar_template  "db/seeds/user_seeds.rb"
     end
 
     def setup_action_mailer
@@ -255,7 +253,7 @@ module Boxcar
     end
 
     def create_rubocop_config
-      copy_file ".rubocop.yml", ".rubocop.yml"
+      copy_boxcar_template ".rubocop.yml"
     end
 
     def create_eslint_config
