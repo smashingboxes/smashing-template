@@ -7,7 +7,7 @@
 module Boxcar
   class AppBuilder < Rails::AppBuilder
     def gitignore
-      copy_file "boxcar_gitignore", ".gitignore"
+      copy_boxcar_template ".gitignore", "boxcar/boxcar_gitignore"
     end
 
     def readme
@@ -146,11 +146,11 @@ module Boxcar
     end
 
     def create_github_markdown
-      copy_file "pull_request_template.md", ".github/pull_request_template.md"
+      copy_boxcar_template ".github/pull_request_template.md", "boxcar/pull_request_template.md"
     end
 
     def auth_specs
-      copy_file "sign_in_spec.rb", "spec/requests/api/v1/users/sign_in_spec.rb"
+      copy_boxcar_template "spec/requests/api/v1/users/sign_in_spec.rb"
     end
 
     def spec_auth_helpers
@@ -164,7 +164,7 @@ module Boxcar
     end
 
     def render_helper
-      copy_file "render_helper.rb", "app/controllers/concerns/render_helper.rb"
+      copy_boxcar_template "app/controllers/concerns/render_helper.rb"
     end
 
     def create_erd_config
