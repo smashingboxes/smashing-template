@@ -154,9 +154,9 @@ module Boxcar
     end
 
     def spec_auth_helpers
-      copy_file "auth_helper.rb", "spec/support/auth_helper.rb"
-      copy_file "valid_sign_in_credentials.rb", "spec/support/valid_sign_in_credentials.rb"
-      copy_file "valid_sign_in.rb", "spec/support/valid_sign_in.rb"
+      copy_boxcar_template "spec/support/auth_helper.rb"
+      copy_boxcar_template "spec/support/valid_sign_in_credentials.rb"
+      copy_boxcar_template "spec/support/valid_sign_in.rb"
     end
 
     def spec_request_helper
@@ -172,7 +172,7 @@ module Boxcar
     end
 
     def create_api_controller
-      copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
+      copy_boxcar_template "app/controllers/api/v1/api_controller.rb"
     end
 
     def devise_controller
