@@ -200,7 +200,7 @@ module Boxcar
     def setup_seeds
       remove_file "db/seeds.rb"
       copy_boxcar_template "db/seeds.rb"
-      copy_boxcar_template  "db/seeds/user_seeds.rb"
+      copy_boxcar_template "db/seeds/user_seeds.rb"
     end
 
     def setup_action_mailer
