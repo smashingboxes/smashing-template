@@ -25,10 +25,15 @@ RSpec.describe "boxcar new <app_name> --api-only --devise-token-auth" do
   end
 
   it "sets up the devise controllers" do
-    expect(File)
-      .to exist("#{project_path}/app/controllers/concerns/devise_token_auth_response_serializer.rb")
-    expect(File).to exist("#{project_path}/app/controllers/api/v1/users/registration_controller.rb")
-    expect(File).to exist("#{project_path}/app/controllers/api/v1/users/sessions_controller.rb")
+    expect(File).to exist(
+      "#{project_path}/app/controllers/concerns/devise_token_auth_response_serializer.rb"
+    )
+    expect(File).to exist(
+      "#{project_path}/app/controllers/api/v1/users/registrations_controller.rb"
+    )
+    expect(File).to exist(
+      "#{project_path}/app/controllers/api/v1/users/sessions_controller.rb"
+    )
   end
 
   it_behaves_like "a run that installs a devise user model"

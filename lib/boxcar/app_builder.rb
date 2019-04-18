@@ -7,7 +7,7 @@
 module Boxcar
   class AppBuilder < Rails::AppBuilder
     def gitignore
-      copy_file "boxcar_gitignore", ".gitignore"
+      copy_boxcar_template ".gitignore", "boxcar/boxcar_gitignore"
     end
 
     def readme
@@ -32,8 +32,8 @@ module Boxcar
 
     def create_secrets
       remove_file "config/secrets.yml"
-      copy_file "secrets.yml", "config/secrets.yml"
-      copy_file ".env", ".env.example"
+      copy_boxcar_template "config/secrets.yml"
+      copy_boxcar_template ".env.example"
       run "cp .env.example .env"
     end
 
@@ -50,7 +50,7 @@ module Boxcar
     end
 
     def install_specs
-      copy_file "seed_spec.rb", "spec/seeds/seed_spec.rb"
+      copy_boxcar_template "spec/seeds/seed_spec.rb"
     end
 
     def create_query_traces
@@ -60,24 +60,24 @@ module Boxcar
     def configure_rspec
       remove_file "spec/rails_helper.rb"
       remove_file "spec/spec_helper.rb"
-      copy_file "rails_helper.rb", "spec/rails_helper.rb"
-      copy_file "spec_helper.rb", "spec/spec_helper.rb"
+      copy_boxcar_template "spec/rails_helper.rb"
+      copy_boxcar_template "spec/spec_helper.rb"
     end
 
     def create_database_cleaner_config
-      copy_file "database_cleaner.rb", "spec/support/database_cleaner.rb"
+      copy_boxcar_template "spec/support/database_cleaner.rb"
     end
 
     def create_factory_bot_config
-      copy_file "factory_bot.rb", "spec/support/factory_bot.rb"
+      copy_boxcar_template "spec/support/factory_bot.rb"
     end
 
     def create_shoulda_matchers_config
-      copy_file "shoulda_matchers.rb", "spec/support/shoulda_matchers.rb"
+      copy_boxcar_template "spec/support/shoulda_matchers.rb"
     end
 
     def create_request_helpers_config
-      copy_file "request_helpers.rb", "spec/support/request_helpers.rb"
+      copy_boxcar_template "spec/support/request_helpers.rb"
     end
 
     def install_tape
@@ -107,13 +107,11 @@ module Boxcar
 
     def install_flipper
       if gem_configs[:devise]
-        copy_file(
-          "flipper_routing_constraints.rb",
-          "config/initializers/flipper_routing_constraints.rb"
-        )
+        copy_boxcar_template "config/initializers/flipper_routing_constraints.rb"
       end
-      copy_file "flipper_ui.rb", "config/initializers/flipper_ui.rb"
-      copy_file "flipper.rb", "config/initializers/flipper.rb"
+
+      copy_boxcar_template "config/initializers/flipper_ui.rb"
+      copy_boxcar_template "config/initializers/flipper.rb"
       generate "flipper:active_record"
     end
 
@@ -123,7 +121,7 @@ module Boxcar
       # 1. It inherits from ApplicationRecord instead of ActiveRecord::Base
       # 2. It doesn't include omniauthable by default
       template "user.rb.erb", "app/models/user.rb", gem_configs
-      copy_file "users_factory.rb", "spec/factories/users_factory.rb"
+      copy_boxcar_template "spec/factories/users_factory.rb"
     end
 
     def create_routes
@@ -148,41 +146,39 @@ module Boxcar
     end
 
     def create_github_markdown
-      copy_file "pull_request_template.md", ".github/pull_request_template.md"
+      copy_boxcar_template ".github/pull_request_template.md", "boxcar/pull_request_template.md"
     end
 
     def auth_specs
-      copy_file "sign_in_spec.rb", "spec/requests/api/v1/users/sign_in_spec.rb"
+      copy_boxcar_template "spec/requests/api/v1/users/sign_in_spec.rb"
     end
 
     def spec_auth_helpers
-      copy_file "auth_helper.rb", "spec/support/auth_helper.rb"
-      copy_file "valid_sign_in_credentials.rb", "spec/support/valid_sign_in_credentials.rb"
-      copy_file "valid_sign_in.rb", "spec/support/valid_sign_in.rb"
+      copy_boxcar_template "spec/support/auth_helper.rb"
+      copy_boxcar_template "spec/support/valid_sign_in_credentials.rb"
+      copy_boxcar_template "spec/support/valid_sign_in.rb"
     end
 
     def spec_request_helper
-      copy_file "requests.rb", "spec/support/requests.rb"
+      copy_boxcar_template "spec/support/requests.rb"
     end
 
     def render_helper
-      copy_file "render_helper.rb", "app/controllers/concerns/render_helper.rb"
+      copy_boxcar_template "app/controllers/concerns/render_helper.rb"
     end
 
     def create_erd_config
-      copy_file ".erdconfig", ".erdconfig"
+      copy_boxcar_template ".erdconfig"
     end
 
     def create_api_controller
-      copy_file "api_controller.rb", "app/controllers/api/v1/api_controller.rb"
+      copy_boxcar_template "app/controllers/api/v1/api_controller.rb"
     end
 
     def devise_controller
-      copy_file "devise_token_auth_response_serializer.rb",
-                "app/controllers/concerns/devise_token_auth_response_serializer.rb"
-      copy_file "registrations_controller.rb",
-                "app/controllers/api/v1/users/registration_controller.rb"
-      copy_file "sessions_controller.rb", "app/controllers/api/v1/users/sessions_controller.rb"
+      copy_boxcar_template "app/controllers/concerns/devise_token_auth_response_serializer.rb"
+      copy_boxcar_template "app/controllers/api/v1/users/registrations_controller.rb"
+      copy_boxcar_template "app/controllers/api/v1/users/sessions_controller.rb"
     end
 
     def setup_database
@@ -194,17 +190,17 @@ module Boxcar
     end
 
     def setup_annotate
-      copy_file "auto_annotate_models.rake", "lib/tasks/auto_annotate_models.rake"
+      copy_boxcar_template "lib/tasks/auto_annotate_models.rake"
     end
 
     def setup_bullet
-      copy_file "bullet.rb", "config/initializers/bullet.rb"
+      copy_boxcar_template "config/initializers/bullet.rb"
     end
 
     def setup_seeds
       remove_file "db/seeds.rb"
-      copy_file "boxcar/db/seeds.rb", "db/seeds.rb"
-      copy_file "boxcar/db/seeds/user_seeds.rb", "db/seeds/user_seeds.rb"
+      copy_boxcar_template "db/seeds.rb"
+      copy_boxcar_template "db/seeds/user_seeds.rb"
     end
 
     def setup_action_mailer
@@ -257,7 +253,7 @@ module Boxcar
     end
 
     def create_rubocop_config
-      copy_file ".rubocop.yml", ".rubocop.yml"
+      copy_boxcar_template ".rubocop.yml"
     end
 
     def create_eslint_config
