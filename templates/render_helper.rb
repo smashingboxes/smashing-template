@@ -10,7 +10,7 @@ module RenderHelper
 
   # Note: If you receive this error:
   #   NoMethodError (undefined method `**' for #<ClassName>)
-  # It means that you need to pass a custom serializer as an argument.
+  # It means that you need to create a #<ClassName> serializer.
   def render_success_json(data: {}, message: "Success!", serializer: nil)
     render_params = {
       json: data,
